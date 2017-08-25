@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="newsItem"
+            type="by.argyment.gymapp.profile.NewsItemViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/inner_height_base_button">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/news_pic_diameter">
+
+            <View
+                android:id="@+id/extra"
+                android:layout_width="@dimen/base_button_width"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/header_height"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/extra"
+                android:background="@color/colorPrimary"
+                android:id="@+id/view" />
+
+            <ImageView
+                android:id="@+id/news_pic"
+                android:layout_width="@dimen/news_pic_diameter"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                tools:src="@drawable/circle_tools" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@id/news_pic"
+                android:gravity="center"
+                android:padding="@dimen/base_button_margin"
+                android:textSize="@dimen/header_text"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                tools:text="Мини-группы Илоны Якубович “GIRLS’ POWER”" />
+
+        </RelativeLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:textColor="@color/colorPrimary"
+            android:layout_margin="@dimen/corners_radius"
+            android:paddingStart="@dimen/base_button_margin"
+            tools:text="Хотите научиться женской самообороне? Посещаете тайский бокс, но вам необходимо больше внимания? Быть может, вы слегка теряетесь в большой группе? У нас для вас отличные новости! Мы объявляем набор в женские мини-группы Илоны Якубович GIRLS' POWER! Занятия будут проходить по вторникам и четвергам в 15.30. Занятия в мини-группе GIRLS' POWER (от 3 до 5 человек) — прекрасная возможность освоить технику тайского бокса в более узком кругу и под пристальным профессиональным контролем. Записывайтесь по номеру 8 (044) 5-11111-9 как можно скорее: количество мест в мини-группах строго ограничено."
+        />
+
+    </LinearLayout>
+</layout>

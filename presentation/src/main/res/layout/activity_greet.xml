@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="greet"
+            type="by.argyment.gymapp.greeting.GreetModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility='@{greet.done ? View.GONE: View.VISIBLE }'>
+
+            <TextView
+                android:id="@+id/notify_message"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/greeting_text"
+                android:textColor="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/username"
+                style="@style/base_edit_field"
+                android:hint="@string/username"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/email"
+                style="@style/base_edit_field"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/password"
+                style="@style/base_edit_field"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/login_button"
+                    style="@style/base_button"
+                    android:onClick="login"
+                    android:text="@string/login"
+                    android:visibility="invisible"/>
+
+                <Button
+                    android:id="@+id/signin_button"
+                    style="@style/base_button"
+                    android:layout_toEndOf="@id/login_button"
+                    android:onClick="signIn"
+                    android:text="@string/signin" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{greet.done ? View.VISIBLE : View.GONE}">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                style="@style/cloud_text"
+                android:layout_width="170dp"
+                android:layout_alignParentEnd="true"
+                android:text="@string/areuthere" />
+
+            <Button
+                android:id="@+id/checkin"
+                style="@style/base_button"
+                android:layout_above="@+id/enter"
+                android:layout_alignParentEnd="true"
+                android:onClick="loadProfile"
+                android:text="@string/yes" />
+
+            <TextView
+                android:id="@+id/enter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/base_button_margin"
+                android:text="@string/enter"
+                android:textColor="@color/enter_text"
+                android:onClick="loadProfile"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

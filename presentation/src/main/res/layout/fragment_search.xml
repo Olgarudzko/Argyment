@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+    <EditText
+        android:id="@+id/find_member"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/corners_radius"
+        android:background="@drawable/base_edit"
+        android:drawableStart="@drawable/search"
+        android:hint="@string/find_member"
+        android:inputType="text"
+        android:paddingStart="@dimen/greeting_text"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/find_member"
+        android:layout_gravity="center">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/news_feed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<data>
+    <variable
+        name="profile"
+        type="by.argyment.gymapp.profile.ProfileModel"/>
+</data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:paddingEnd="@dimen/greeting_text"
+            android:paddingStart="@dimen/greeting_text">
+
+            <Button
+                android:id="@+id/home"
+                style="@style/menu_button"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/home"
+                android:onClick="goHome"/>
+
+            <Button
+                android:id="@+id/search"
+                style="@style/menu_button"
+                android:layout_marginEnd="@dimen/inner_height_base_button"
+                android:layout_toStartOf="@+id/news"
+                android:background="@drawable/search"
+                android:onClick="goSearch"/>
+
+            <Button
+                android:id="@+id/news"
+                style="@style/menu_button"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="@dimen/inner_height_base_button"
+                android:background="@drawable/news"
+                android:onClick="goNews"/>
+
+            <Button
+                android:id="@+id/vlog"
+                style="@style/menu_button"
+                android:layout_toEndOf="@+id/news"
+                android:background="@drawable/vlog"
+                android:onClick="goVlog"/>
+
+            <Button
+                android:id="@+id/info"
+                style="@style/menu_button"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/info"
+                android:onClick="goInfo"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+</layout>

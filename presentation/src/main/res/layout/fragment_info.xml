@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/photo_height">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:layout_width="@dimen/base_edit_width"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/intagram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/vkontakte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/info_line"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/time"
+                android:text="@string/time"
+                android:textAlignment="textEnd"
+                android:textSize="@dimen/greeting_text" />
+
+            <TextView
+                style="@style/info_line"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/address"
+                android:text="@string/address"
+                android:textAlignment="textEnd"
+                android:textSize="@dimen/greeting_text" />
+
+            <TextView
+                android:id="@+id/call_to_gym"
+                style="@style/info_line"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/phone"
+                android:text="@string/phone"
+                android:textAlignment="textEnd"
+                android:textSize="@dimen/greeting_text" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

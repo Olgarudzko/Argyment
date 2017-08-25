@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="mypage"
+            type="by.argyment.gymapp.profile.MyPage" />
+        <variable
+            name="handler"
+            type="by.argyment.gymapp.profile.MyPageFragment" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/headpage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/photo_height">
+
+            <ImageView
+                android:id="@+id/main_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/start_background" />
+
+            <ImageView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="@dimen/base_button_margin"
+                android:src="@{mypage.status>100 ? @drawable/yellow_button : mypage.status>50 ? @drawable/yellow_button : mypage.status>30 ? @drawable/yellow_button : mypage.status>15 ? @drawable/yellow_button : mypage.status>5 ? @drawable/yellow_button : @drawable/yellow_button}"
+                tools:src="@drawable/yellow_button" />
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/base_button_margin"
+                android:paddingStart="@dimen/greeting_text"
+                android:text="@{mypage.username}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/inner_height_base_button"
+                android:textStyle="italic"
+                tools:text="Профиль Ло" />
+
+            <ImageView
+                android:id="@+id/got_slon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/base_button_margin"
+                android:layout_toEndOf="@+id/profile_name"
+                tools:src="@drawable/star_border" />
+
+            <TextView
+                android:id="@+id/ranking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/base_button_margin"
+                android:drawableTop="@drawable/star_border"
+                android:text="@{String.valueOf(mypage.stars)}"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/greeting_text"
+                tools:text="50" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/right_menu"
+                android:layout_width="@dimen/inner_width_base_button"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@color/colorPrimary"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/delete_button"
+                    style="@style/menu_button"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="@dimen/base_button_margin"
+                    android:background="@drawable/delete"
+                    android:onClick="@{handler::removePhoto}"/>
+
+                <Button
+                    android:id="@+id/add_button"
+                    style="@style/menu_button"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/add"
+                    android:onClick="@{handler::addPhoto}"/>
+
+                <Button
+                    android:id="@+id/choose_button"
+                    style="@style/menu_button"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="@dimen/base_button_margin"
+                    android:background="@drawable/choose"
+                    android:onClick="@{handler::mainPhoto}"/>
+            </RelativeLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@id/right_menu">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/my_gallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>
