@@ -33,7 +33,32 @@ public class Profile implements DataModel {
     private String slon;
 
     @SerializedName("userpic")
-    private int userpic;
+    private String userpic;
+
+    @SerializedName("objectId")
+    private String objectId;
+
+    @SerializedName("timeCheckin")
+    private long timeCheckin;
+
+    @SerializedName("timeStar")
+    private long timeStar;
+
+    public long getTimeCheckin() {
+        return timeCheckin;
+    }
+
+    public void setTimeCheckin(long timeCheckin) {
+        this.timeCheckin = timeCheckin;
+    }
+
+    public long getTimeStar() {
+        return timeStar;
+    }
+
+    public void setTimeStar(long timeStar) {
+        this.timeStar = timeStar;
+    }
 
     public String getUsername() {
         return username;
@@ -99,11 +124,19 @@ public class Profile implements DataModel {
         this.slon = slon;
     }
 
-    public int getUserpic() {
+    public String getUserpic() {
         return userpic;
     }
 
-    public void setUserpic(int userpic) {
+    public void setUserpic(String userpic) {
         this.userpic = userpic;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 }

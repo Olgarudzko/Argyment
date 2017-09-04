@@ -39,15 +39,6 @@ public class GreetActivity extends BaseActivity {
         message = binding.notifyMessage;
     }
 
-    public void loadProfile(View view) {
-        boolean isCheckedIn=false;
-        if (view.getId()==R.id.checkin) isCheckedIn=true;
-        Intent intent = new Intent(GreetActivity.this, ProfileActivity.class);
-        intent.putExtra(ProfileActivity.USERMAIL, model.email.get());
-        intent.putExtra(ProfileActivity.CHECKIN, isCheckedIn);
-        goTo(intent);
-    }
-
     public void login(View view) {
         Editable b;
         Editable c;
@@ -86,5 +77,14 @@ public class GreetActivity extends BaseActivity {
         } else {
             message.setText(R.string.fill_fields);
         }
+    }
+
+    public void loadProfile(View view) {
+        boolean isCheckedIn=false;
+        if (view.getId()==R.id.checkin) isCheckedIn=true;
+        Intent intent = new Intent(GreetActivity.this, ProfileActivity.class);
+        intent.putExtra(ProfileActivity.USERMAIL, model.email.get());
+        intent.putExtra(ProfileActivity.CHECKIN, isCheckedIn);
+        goTo(intent);
     }
 }

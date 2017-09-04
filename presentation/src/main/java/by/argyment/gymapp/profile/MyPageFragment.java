@@ -4,12 +4,24 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import by.argyment.gymapp.base.BaseFragment;
 import by.argyment.gymapp.databinding.FragmentMypageBinding;
+import by.argyment.gymapp.domain.entity.UserImage;
+import by.argyment.gymapp.domain.entity.UserProfile;
+import by.argyment.gymapp.domain.interactions.AddImageUseCase;
+import by.argyment.gymapp.domain.interactions.DeleteImageUseCase;
+import by.argyment.gymapp.domain.interactions.UpdateProfileUseCase;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.observers.DisposableObserver;
 
 /**
  * @author Olga Rudzko
@@ -18,11 +30,31 @@ import by.argyment.gymapp.databinding.FragmentMypageBinding;
 public class MyPageFragment extends BaseFragment {
 
     private FragmentMypageBinding binding;
+    public static final String CHECKIN = "CHECKIN";
+    private boolean increaseStatus;
+    private AddImageUseCase addImg;
+    private UpdateProfileUseCase updateUser;
+    private String mainImg;
+    private DeleteImageUseCase removeImg;
+    private MyPageImgAdapter adapter;
 
-    public static MyPageFragment newInstance(FragmentManager manager) {
+    public static MyPageFragment newInstance(FragmentManager manager, boolean isCheckedIn) {
         Fragment fragment = manager.findFragmentByTag(MyPageFragment.class.getName());
-        return (fragment != null && fragment instanceof MyPageFragment) ?
+        MyPageFragment result = (fragment != null && fragment instanceof MyPageFragment) ?
                 (MyPageFragment) fragment : new MyPageFragment();
+        Bundle b = new Bundle();
+        b.putBoolean(CHECKIN, isCheckedIn);
+        result.setArguments(b);
+        return result;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            increaseStatus = bundle.getBoolean(CHECKIN);
+        }
     }
 
     @Nullable
@@ -30,7 +62,6 @@ public class MyPageFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentMypageBinding.inflate(inflater);
         return binding.getRoot();
-//        return inflater.inflate(R.layout.fragment_mypage, container, false);
     }
 
     @Override
@@ -38,17 +69,126 @@ public class MyPageFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         binding.setMypage(MyPage.getInstance());
         binding.setHandler(this);
+        if (increaseStatus)
+        {
+            MyPage.getInstance().status.set(MyPage.getInstance().status.get()+1);
+            MyPage.getInstance().setTimeCheckin(System.currentTimeMillis());
+        }
+//        adapter=new MyPageImgAdapter();
+//        adapter.setItems(MyPage.getInstance().myPics);
+//        mainImg=MyPage.getInstance().userpic.get();
     }
 
-    public void mainPhoto(View view){
-
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+//        binding.myGallery.setLayoutManager(new GridLayoutManager(getContext(), 3));
+//        binding.myGallery.setAdapter(adapter);
     }
 
-    public void addPhoto(View view){
-
+    public void mainPhoto(View view) {
+        mainImg=MyPage.getInstance().userpic.get();
     }
 
-    public void removePhoto(View view){
+    public void addPhoto(View view) {
+        addImg=new AddImageUseCase();
+        UserImage image=new UserImage();
+        image.setEmail(MyPage.getInstance().getEmail());
+        image.setLink("https://goo.gl/hgt7d4");
+        addImg.makeRequest(image, new DisposableObserver<Void>() {
+            @Override
+            public void onNext(@NonNull Void aVoid) {
 
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    public void removePhoto(View view) {
+        removeImg=new DeleteImageUseCase();
+        String link=MyPage.getInstance().userpic.get();
+        String id="";
+        List<UserImage> list=MyPage.getInstance().myPics;
+        for (int i=0; i<list.size(); i++){
+            if (list.get(i).getLink().equals(link)) {
+                id = list.get(i).getObjectId();
+                list.remove(i);
+            }
+        }
+        if (!(id.equals(""))) {
+            removeImg.makeRequest(id, new DisposableObserver<Void>() {
+                @Override
+                public void onNext(@NonNull Void aVoid) {
+
+                }
+
+                @Override
+                public void onError(@NonNull Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            });
+            MyPage.getInstance().userpic.set(mainImg);
+        }
+    }
+
+    public boolean isIncreaseStatus() {
+        return increaseStatus;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        updateUser=new UpdateProfileUseCase();
+        UserProfile updated=new UserProfile();
+        updated.setEmail(MyPage.getInstance().getEmail());
+        updated.setUsername(MyPage.getInstance().username.get());
+        updated.setPassword(MyPage.getInstance().getPassword());
+        updated.setTrainer(MyPage.getInstance().isTrainer.get());
+        updated.setAdmin(MyPage.getInstance().isAdmin.get());
+        updated.setUserpic(mainImg);
+        updated.setSlon(MyPage.getInstance().slon.get());
+        updated.setStars(MyPage.getInstance().stars.get());
+        updated.setStatus(MyPage.getInstance().status.get());
+        updated.setObjectId(MyPage.getInstance().getObjectId());
+        updated.setTimeCheckin(MyPage.getInstance().getTimeCheckin());
+        updated.setTimeStar(MyPage.getInstance().getTimeStar());
+        updateUser.makeRequest(updated, new DisposableObserver<Void>() {
+            @Override
+            public void onNext(@NonNull Void aVoid) {
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        addImg.dispose();
+        updateUser.dispose();
+        removeImg.dispose();
     }
 }

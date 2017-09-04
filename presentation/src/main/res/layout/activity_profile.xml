@@ -5,6 +5,9 @@
     <variable
         name="profile"
         type="by.argyment.gymapp.profile.ProfileModel"/>
+    <variable
+        name="handler"
+        type="by.argyment.gymapp.profile.ProfileHandler"/>
 </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +27,7 @@
                 style="@style/menu_button"
                 android:layout_alignParentStart="true"
                 android:background="@drawable/home"
-                android:onClick="goHome"/>
+                android:onClick="@{handler::goHome}"/>
 
             <Button
                 android:id="@+id/search"
@@ -32,7 +35,7 @@
                 android:layout_marginEnd="@dimen/inner_height_base_button"
                 android:layout_toStartOf="@+id/news"
                 android:background="@drawable/search"
-                android:onClick="goSearch"/>
+                android:onClick="@{handler::goSearch}"/>
 
             <Button
                 android:id="@+id/news"
@@ -40,21 +43,21 @@
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="@dimen/inner_height_base_button"
                 android:background="@drawable/news"
-                android:onClick="goNews"/>
+                android:onClick="@{handler::goNews}"/>
 
             <Button
                 android:id="@+id/vlog"
                 style="@style/menu_button"
                 android:layout_toEndOf="@+id/news"
                 android:background="@drawable/vlog"
-                android:onClick="goVlog"/>
+                android:onClick="@{handler::goVlog}"/>
 
             <Button
                 android:id="@+id/info"
                 style="@style/menu_button"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/info"
-                android:onClick="goInfo"/>
+                android:onClick="@{handler::goInfo}"/>
         </RelativeLayout>
 
         <LinearLayout

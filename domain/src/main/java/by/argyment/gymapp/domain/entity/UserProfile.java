@@ -11,10 +11,29 @@ public class UserProfile implements EntityModel {
     private boolean isTrainer;
     private int status;
     private int stars;
-    private int userpic;
+    private String userpic;
     private String slon;
     private String email;
     private String password;
+    private String objectId;
+    private long timeCheckin;
+    private long timeStar;
+
+    public long getTimeCheckin() {
+        return timeCheckin;
+    }
+
+    public void setTimeCheckin(long timeCheckin) {
+        this.timeCheckin = timeCheckin;
+    }
+
+    public long getTimeStar() {
+        return timeStar;
+    }
+
+    public void setTimeStar(long timeStar) {
+        this.timeStar = timeStar;
+    }
 
     public String getUsername() {
         return username;
@@ -80,11 +99,19 @@ public class UserProfile implements EntityModel {
         this.slon = slon;
     }
 
-    public int getUserpic() {
+    public String getUserpic() {
         return userpic;
     }
 
-    public void setUserpic(int userpic) {
+    public void setUserpic(String userpic) {
         this.userpic = userpic;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 }

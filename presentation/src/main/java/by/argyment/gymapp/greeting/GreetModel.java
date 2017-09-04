@@ -60,7 +60,7 @@ public class GreetModel implements BaseViewModel {
         newUser.setPassword(password.get());
         newUser.setTrainer(false);
         newUser.setAdmin(false);
-        newUser.setUserpic(-1);
+        newUser.setUserpic("https://goo.gl/hTFuC4");
         newUser.setStatus(0);
         newUser.setStars(0);
         newUser.setSlon(null);

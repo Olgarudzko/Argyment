@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:myapp="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="searchItem"
             type="by.argyment.gymapp.profile.SearchItemViewModel" />
     </data>
 
     <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="90dp"
+        android:layout_width="@dimen/preview_width"
+        android:layout_height="@dimen/preview_width"
         android:orientation="vertical"
         android:layout_margin="@dimen/corners_radius">
 
-        <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="70dp"-->
-            <!--android:src="@{searchItem.picture}"/>-->
+        <ImageView
+            android:id="@+id/search_pic"
+            myapp:item_image="@{searchItem.picture}"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_button_width"/>
 
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:textSize="@dimen/greeting_text"-->
-            <!--android:textStyle="bold"-->
-            <!--android:textAlignment="center"-->
-            <!--android:textColor="@color/colorPrimary"-->
-            <!--android:text="@{searchItem.username}"-->
-            <!--tools:text="Лола"/>-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/greeting_text"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:text="@{searchItem.name}"
+            tools:text="Лола"/>
 
     </LinearLayout>
 </layout>

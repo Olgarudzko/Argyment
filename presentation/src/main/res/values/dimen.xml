@@ -9,6 +9,7 @@
     <dimen name="menu_button_width">50dp</dimen>
     <dimen name="inner_width_base_button">60dp</dimen>
     <dimen name="base_button_width">75dp</dimen>
+    <dimen name="preview_width">100dp</dimen>
     <dimen name="header_height">120dp</dimen>
     <dimen name="base_edit_width">250dp</dimen>
     <dimen name="photo_height">300dp</dimen>

@@ -16,11 +16,11 @@ public abstract class BaseItemViewHolder
     private ViewModel viewModel;
 
 
-    public BaseItemViewHolder(DataBinding db, ViewModel vm) {
-        super(db.getRoot());
-        this.viewModel=vm;
-        this.dataBinding=db;
-        vm.init();
+    public BaseItemViewHolder(DataBinding dataBinding, ViewModel viewModel) {
+        super(dataBinding.getRoot());
+        this.viewModel=viewModel;
+        this.dataBinding=dataBinding;
+        viewModel.init();
     }
 
     public void bindTo(Model item, int position){

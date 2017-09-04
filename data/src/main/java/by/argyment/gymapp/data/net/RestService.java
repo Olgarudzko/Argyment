@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import by.argyment.gymapp.data.entity.Image;
 import by.argyment.gymapp.data.entity.Profile;
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
@@ -49,11 +50,32 @@ public class RestService {
       return api.getProfiles();
     }
 
+    public Observable<List<Image>> getImages(){
+        return api.getImages();
+    }
+
+    public Observable<Void> addImage (Image image) {
+        return api.addImage(image);
+    }
+
     public Observable<Void> addProfile (Profile profile){
         return api.addProfile(profile);
     }
 
-//    public Observable<Void> updateProfile(Profile profile){
-//        return api.updateProfile(profile);
+    public Observable<List<Profile>> getProfile(String email) {
+        return api.getProfile(email);
+    }
+
+//
+//    public Observable<Profile> getProfile(String email) {
+//        return api.getProfile(email);
 //    }
+
+    public Observable<Void> updateProfile(Profile profile, String id){
+        return api.updateProfile(profile, id);
+    }
+
+    public Observable <Void> deleteImage (String id){
+        return api.deleteImage(id);
+    }
 }

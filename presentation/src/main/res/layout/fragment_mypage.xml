@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:myapp="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -26,8 +27,9 @@
                 android:id="@+id/main_photo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                tools:src="@drawable/start_background" />
+                android:scaleType="centerCrop"/>
+                <!--myapp:main_image="@{mypage.userpic}"/>-->
+
 
             <ImageView
                 android:id="@+id/status"
@@ -67,7 +69,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_margin="@dimen/base_button_margin"
                 android:drawableTop="@drawable/star_border"
                 android:text="@{String.valueOf(mypage.stars)}"
                 android:textAlignment="center"
@@ -83,7 +84,7 @@
 
             <RelativeLayout
                 android:id="@+id/right_menu"
-                android:layout_width="@dimen/inner_width_base_button"
+                android:layout_width="@dimen/menu_button_width"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:background="@color/colorPrimary"
