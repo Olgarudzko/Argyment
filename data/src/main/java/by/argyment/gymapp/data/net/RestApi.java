@@ -4,6 +4,7 @@ import java.util.List;
 
 import by.argyment.gymapp.data.entity.Image;
 import by.argyment.gymapp.data.entity.Profile;
+import by.argyment.gymapp.data.extra.Strings;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -11,6 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * @author Olga Rudzko
@@ -18,28 +20,25 @@ import retrofit2.http.Path;
 
 public interface RestApi {
 
-    @GET("data/profiles?pageSize=100")
+    @GET(Strings.PROFILE_100_PAGES)
     Observable<List<Profile>> getProfiles();
 
-    @GET("data/images?pageSize=100")
+    @GET(Strings.IMAGES_100_PAGE)
     Observable<List<Image>> getImages();
 
-//   @GET("data/images?email={email}")
-//    Observable<Image> getImages(@Path("email") String email);
+    @GET(Strings.IMAGES)
+    Observable<Image> getImages(@Query(Strings.WHERE) String email);
 
-    @POST("data/profiles")
+    @POST(Strings.PROFILES)
     Observable<Void> addProfile(@Body Profile profile);
 
-    @POST("data/images")
+    @POST(Strings.IMAGES)
     Observable<Void> addImage(@Body Image image);
 
-    @GET("data/profile?email={email}")
-    Observable<List<Profile>> getProfile(@Path("email") String email);
+    @GET(Strings.PROFILES)
+    Observable<List<Profile>> getProfile(@Query(Strings.WHERE) String email);
 
-//    @GET("data/profile?email={email}")
-//    Observable<Profile> getProfile(@Path("email") String email);
-
-    @PUT("data/profile/{id}")
+    @PUT("data/profiles/{id}")
     Observable<Void> updateProfile(@Body Profile profile, @Path("id") String id);
 
     @DELETE("data/images/{id}")

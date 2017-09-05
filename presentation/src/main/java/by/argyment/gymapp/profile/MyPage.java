@@ -3,24 +3,30 @@ package by.argyment.gymapp.profile;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import by.argyment.gymapp.base.BasePojo;
 import by.argyment.gymapp.domain.entity.UserImage;
+import by.argyment.gymapp.domain.entity.UserProfile;
+import by.argyment.gymapp.domain.interactions.AddImageUseCase;
+import by.argyment.gymapp.domain.interactions.UpdateProfileUseCase;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.observers.DisposableObserver;
 
 /**
  * @author Olga Rudzko
  */
 
-public class MyPage implements BasePojo {
+public class MyPage {
 
     public ObservableField<String> username=new ObservableField<>();
     public ObservableBoolean isAdmin=new ObservableBoolean();
     public ObservableBoolean isTrainer=new ObservableBoolean();
     public ObservableInt status=new ObservableInt();
     public ObservableInt stars=new ObservableInt();
-    public List<UserImage> myPics;
+    public List<UserImage> myPics=new ArrayList<>();
     public ObservableField<String> userpic=new ObservableField<>();
     public ObservableField<String> slon=new ObservableField<>();
     private String password;
@@ -28,7 +34,6 @@ public class MyPage implements BasePojo {
     private String objectId;
     private long timeCheckin;
     private long timeStar;
-
 
     private static final MyPage instance = new MyPage();
 
@@ -77,5 +82,6 @@ public class MyPage implements BasePojo {
     public void setTimeStar(long timeStar) {
         this.timeStar = timeStar;
     }
+
 
 }

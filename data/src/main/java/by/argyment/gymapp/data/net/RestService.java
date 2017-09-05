@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import by.argyment.gymapp.data.entity.Image;
 import by.argyment.gymapp.data.entity.Profile;
+import by.argyment.gymapp.data.extra.Strings;
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -40,7 +41,7 @@ public class RestService {
             Gson gson = new GsonBuilder().create();
 
             Retrofit retrofit=new Retrofit.Builder()
-                    .baseUrl("https://api.backendless.com/FCBFF78E-1D57-5C7C-FF9A-7A8C1078C400/175DDE14-033B-C914-FFF8-D66210C89700/")
+                    .baseUrl(Strings.BASE_URL)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gson)).client(client).build();
             api=retrofit.create(RestApi.class);
@@ -62,14 +63,9 @@ public class RestService {
         return api.addProfile(profile);
     }
 
-    public Observable<List<Profile>> getProfile(String email) {
+    public Observable <List<Profile>> getProfile(String email) {
         return api.getProfile(email);
     }
-
-//
-//    public Observable<Profile> getProfile(String email) {
-//        return api.getProfile(email);
-//    }
 
     public Observable<Void> updateProfile(Profile profile, String id){
         return api.updateProfile(profile, id);

@@ -18,14 +18,14 @@ public abstract class BaseFragment extends Fragment {
 
     @BindingAdapter({"bind:main_image"})
     public static void setMainPhoto(ImageView view, ObservableField<String> url) {
-        if (!(url.get()==null && url.get().equals(""))) {
+        if (url.get()!=null) {
             Glide.with(view.getContext()).load(url.get()).into(view);
         }
     }
 
     @BindingAdapter({"bind:item_image"})
     public static void loadImg(ImageView view, String url) {
-        if (!url.equals("")) {
+        if (url!=null) {
             Glide.with(view.getContext()).load(url)
                     .bitmapTransform(new CenterCrop(view.getContext()),
                             new RoundedCornersTransformation(view.getContext(), 30, 0)).into(view);

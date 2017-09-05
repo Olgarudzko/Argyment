@@ -76,8 +76,8 @@
                     android:id="@+id/main_photo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"/>
-                    <!--myapp:main_image="@{member.userpic}"/>-->
+                    android:scaleType="centerCrop"
+                    myapp:main_image="@{member.userpic}"/>
 
 
                 <ImageView

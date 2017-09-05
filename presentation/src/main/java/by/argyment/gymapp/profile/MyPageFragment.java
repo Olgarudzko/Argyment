@@ -5,15 +5,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import by.argyment.gymapp.base.BaseFragment;
+import by.argyment.gymapp.extra.Strings;
 import by.argyment.gymapp.databinding.FragmentMypageBinding;
 import by.argyment.gymapp.domain.entity.UserImage;
 import by.argyment.gymapp.domain.entity.UserProfile;
@@ -30,12 +30,12 @@ import io.reactivex.observers.DisposableObserver;
 public class MyPageFragment extends BaseFragment {
 
     private FragmentMypageBinding binding;
-    public static final String CHECKIN = "CHECKIN";
+    public static final String CHECKIN = Strings.CHECKIN;
     private boolean increaseStatus;
-    private AddImageUseCase addImg;
-    private UpdateProfileUseCase updateUser;
+    private AddImageUseCase addImg=new AddImageUseCase();
+    private UpdateProfileUseCase updateUser=new UpdateProfileUseCase();
     private String mainImg;
-    private DeleteImageUseCase removeImg;
+    private DeleteImageUseCase removeImg=new DeleteImageUseCase();
     private MyPageImgAdapter adapter;
 
     public static MyPageFragment newInstance(FragmentManager manager, boolean isCheckedIn) {
@@ -54,7 +54,9 @@ public class MyPageFragment extends BaseFragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             increaseStatus = bundle.getBoolean(CHECKIN);
+            bundle.putBoolean(CHECKIN, false);
         }
+        mainImg=MyPage.getInstance().userpic.get();
     }
 
     @Nullable
@@ -69,21 +71,22 @@ public class MyPageFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         binding.setMypage(MyPage.getInstance());
         binding.setHandler(this);
-        if (increaseStatus)
-        {
-            MyPage.getInstance().status.set(MyPage.getInstance().status.get()+1);
-            MyPage.getInstance().setTimeCheckin(System.currentTimeMillis());
+
+        adapter=new MyPageImgAdapter();
+        adapter.setItems(MyPage.getInstance().myPics);
+        for (UserImage img:
+             MyPage.getInstance().myPics) {
+            Log.d("FOUND",img.getLink());
         }
-//        adapter=new MyPageImgAdapter();
-//        adapter.setItems(MyPage.getInstance().myPics);
-//        mainImg=MyPage.getInstance().userpic.get();
+        mainImg=MyPage.getInstance().userpic.get();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        binding.myGallery.setLayoutManager(new GridLayoutManager(getContext(), 3));
-//        binding.myGallery.setAdapter(adapter);
+        binding.myGallery.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        binding.myGallery.setAdapter(adapter);
+
     }
 
     public void mainPhoto(View view) {
@@ -91,7 +94,6 @@ public class MyPageFragment extends BaseFragment {
     }
 
     public void addPhoto(View view) {
-        addImg=new AddImageUseCase();
         UserImage image=new UserImage();
         image.setEmail(MyPage.getInstance().getEmail());
         image.setLink("https://goo.gl/hgt7d4");
@@ -111,12 +113,12 @@ public class MyPageFragment extends BaseFragment {
 
             }
         });
+        MyPage.getInstance().myPics.add(image);
     }
 
     public void removePhoto(View view) {
-        removeImg=new DeleteImageUseCase();
         String link=MyPage.getInstance().userpic.get();
-        String id="";
+        String id= Strings.EMPTY;
         List<UserImage> list=MyPage.getInstance().myPics;
         for (int i=0; i<list.size(); i++){
             if (list.get(i).getLink().equals(link)) {
@@ -124,7 +126,7 @@ public class MyPageFragment extends BaseFragment {
                 list.remove(i);
             }
         }
-        if (!(id.equals(""))) {
+        if (!(id.equals(Strings.EMPTY))) {
             removeImg.makeRequest(id, new DisposableObserver<Void>() {
                 @Override
                 public void onNext(@NonNull Void aVoid) {
@@ -141,8 +143,8 @@ public class MyPageFragment extends BaseFragment {
 
                 }
             });
-            MyPage.getInstance().userpic.set(mainImg);
         }
+        MyPage.getInstance().userpic.set(mainImg);
     }
 
     public boolean isIncreaseStatus() {
@@ -152,7 +154,11 @@ public class MyPageFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        updateUser=new UpdateProfileUseCase();
+        if (increaseStatus)        {
+            MyPage.getInstance().status.set(MyPage.getInstance().status.get()+1);
+            MyPage.getInstance().setTimeCheckin(System.currentTimeMillis());
+            increaseStatus=false;
+        }
         UserProfile updated=new UserProfile();
         updated.setEmail(MyPage.getInstance().getEmail());
         updated.setUsername(MyPage.getInstance().username.get());

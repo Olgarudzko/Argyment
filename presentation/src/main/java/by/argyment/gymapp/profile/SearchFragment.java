@@ -29,8 +29,8 @@ public class SearchFragment extends BaseFragment {
 
     public SearchAdapter adapter;
     private FragmentSearchBinding binding;
-    private GetProfileListUseCase getProfiles;
-    private GetImageListUseCase getImages;
+    private GetProfileListUseCase getProfiles=new GetProfileListUseCase();
+    private GetImageListUseCase getImages= new GetImageListUseCase();
 
     public static SearchFragment newInstance(FragmentManager manager) {
         Fragment fragment = manager.findFragmentByTag(SearchFragment.class.getName());
@@ -42,7 +42,6 @@ public class SearchFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new SearchAdapter(this);
-        getProfiles = new GetProfileListUseCase();
         getProfiles.makeRequest(null, new DisposableObserver<List<UserProfile>>() {
             @Override
             public void onNext(@NonNull List<UserProfile> userProfiles) {
@@ -94,7 +93,6 @@ public class SearchFragment extends BaseFragment {
         MemberPage.getInstance().userpic.set(member.getUserpic());
         MemberPage.getInstance().status.set(member.getStatus());
         MemberPage.getInstance().stars.set(member.getStars());
-        getImages=new GetImageListUseCase();
         getImages.makeRequest(member.getEmail(), new DisposableObserver<List<UserImage>>() {
             @Override
             public void onNext(@NonNull List<UserImage> userImages) {

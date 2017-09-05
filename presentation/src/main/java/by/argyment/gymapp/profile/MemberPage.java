@@ -8,6 +8,7 @@ import android.view.View;
 import java.util.List;
 
 import by.argyment.gymapp.domain.entity.UserImage;
+import by.argyment.gymapp.extra.Strings;
 
 /**
  * @author Olga Rudzko
@@ -15,13 +16,13 @@ import by.argyment.gymapp.domain.entity.UserImage;
 
 public class MemberPage{
 
-    public ObservableField<String> username = new ObservableField<>("");
+    public ObservableField<String> username = new ObservableField<>(Strings.EMPTY);
     public ObservableBoolean isTrainer = new ObservableBoolean(false);
     public ObservableInt status = new ObservableInt(0);
     public ObservableInt stars = new ObservableInt(0);
     public ObservableBoolean visibility = new ObservableBoolean(false);
     public List<UserImage> memberPics;
-    public ObservableField<String> userpic = new ObservableField<>("");
+    public ObservableField<String> userpic = new ObservableField<>(Strings.EMPTY);
     private String objectId;
 
     private static final MemberPage instance = new MemberPage();

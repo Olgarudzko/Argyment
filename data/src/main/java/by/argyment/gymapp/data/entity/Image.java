@@ -2,19 +2,21 @@ package by.argyment.gymapp.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import by.argyment.gymapp.data.extra.Strings;
+
 /**
  * @author Olga Rudzko
  */
 
 public class Image implements DataModel {
 
-    @SerializedName("link")
+    @SerializedName(Strings.LINK)
     private String link;
 
-    @SerializedName("email")
+    @SerializedName(Strings.EMAIL)
     private String email;
 
-    @SerializedName("objectId")
+    @SerializedName(Strings.OBJECT_ID)
     private String objectId;
 
     public String getLink() {

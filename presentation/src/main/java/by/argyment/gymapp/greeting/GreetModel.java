@@ -3,11 +3,17 @@ package by.argyment.gymapp.greeting;
 import by.argyment.gymapp.base.BaseViewModel;
 import by.argyment.gymapp.domain.entity.UserProfile;
 import by.argyment.gymapp.domain.interactions.AddUserUseCase;
+import by.argyment.gymapp.domain.interactions.GetProfileListUseCase;
+import by.argyment.gymapp.extra.Strings;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Olga Rudzko
@@ -16,10 +22,14 @@ import android.databinding.ObservableField;
 public class GreetModel implements BaseViewModel {
 
     public ObservableField<String> name = new ObservableField<>();
+    public ObservableBoolean done = new ObservableBoolean(false);
+    public ObservableInt checkin=new ObservableInt();
     ObservableField<String> email = new ObservableField<>();
     private ObservableField<String> password = new ObservableField<>();
-    public ObservableBoolean done = new ObservableBoolean(false);
-    private AddUserUseCase addUser = new AddUserUseCase();
+    private AddUserUseCase addUser=new AddUserUseCase();
+    private GetProfileListUseCase getProfileList=new GetProfileListUseCase();
+    HashMap<String, String> users=new HashMap<>();
+    HashMap<String, Long> checkins=new HashMap<>();
 
     public void setName(String name) {
         this.name.set(name);
@@ -35,23 +45,43 @@ public class GreetModel implements BaseViewModel {
 
     @Override
     public void init() {
-        if (name.get()==null) done.set(false);
+
     }
 
     @Override
     public void resume() {
+        if (name.get()==null) done.set(false);
+        getProfileList.makeRequest(null, new DisposableObserver<List<UserProfile>>() {
+            @Override
+            public void onNext(@NonNull List<UserProfile> userProfiles) {
+                for (UserProfile user: userProfiles) {
+                    users.put(user.getEmail(), user.getPassword());
+                    checkins.put(user.getEmail(), user.getTimeCheckin());
+                }
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+ @Override
+    public void pause() {
 
     }
 
     @Override
     public void release() {
-
+        addUser.dispose();
+        getProfileList.dispose();
     }
 
-    @Override
-    public void pause() {
-
-    }
 
     public void addUser() {
         UserProfile newUser = new UserProfile();
@@ -60,7 +90,7 @@ public class GreetModel implements BaseViewModel {
         newUser.setPassword(password.get());
         newUser.setTrainer(false);
         newUser.setAdmin(false);
-        newUser.setUserpic("https://goo.gl/hTFuC4");
+        newUser.setUserpic(Strings.DEFAULT_IMG);
         newUser.setStatus(0);
         newUser.setStars(0);
         newUser.setSlon(null);
@@ -75,12 +105,7 @@ public class GreetModel implements BaseViewModel {
 
             @Override
             public void onComplete() {
-
             }
         });
-    }
-
-    public void findUser() {
-//TODO makeRequest, onComplete -> done=true
     }
 }

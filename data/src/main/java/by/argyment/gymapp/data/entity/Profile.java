@@ -2,46 +2,48 @@ package by.argyment.gymapp.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import by.argyment.gymapp.data.extra.Strings;
+
 /**
  * @author Olga Rudzko
  */
 
 public class Profile implements DataModel {
 
-    @SerializedName("username")
+    @SerializedName(Strings.USERNAME)
     private String username;
 
-    @SerializedName("email")
+    @SerializedName(Strings.EMAIL)
     private String email;
 
-    @SerializedName("password")
+    @SerializedName(Strings.PASSWORD)
     private String password;
 
-    @SerializedName("admin")
+    @SerializedName(Strings.ADMIN)
     private boolean isAdmin;
 
-    @SerializedName("trainer")
+    @SerializedName(Strings.TRAINER)
     private boolean isTrainer;
 
-    @SerializedName("status")
+    @SerializedName(Strings.STATUS)
     private int status;
 
-    @SerializedName("stars")
+    @SerializedName(Strings.STARS)
     private int stars;
 
-    @SerializedName("slon")
+    @SerializedName(Strings.SLON)
     private String slon;
 
-    @SerializedName("userpic")
+    @SerializedName(Strings.USERPIC)
     private String userpic;
 
-    @SerializedName("objectId")
+    @SerializedName(Strings.OBJECT_ID)
     private String objectId;
 
-    @SerializedName("timeCheckin")
+    @SerializedName(Strings.TIME_CHECKIN)
     private long timeCheckin;
 
-    @SerializedName("timeStar")
+    @SerializedName(Strings.TIME_STAR)
     private long timeStar;
 
     public long getTimeCheckin() {

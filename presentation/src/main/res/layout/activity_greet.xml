@@ -6,6 +6,9 @@
         <variable
             name="greet"
             type="by.argyment.gymapp.greeting.GreetModel" />
+        <variable
+            name="handler"
+            type="by.argyment.gymapp.greeting.GreetHandler"/>
     </data>
 
     <LinearLayout
@@ -52,15 +55,14 @@
                 <Button
                     android:id="@+id/login_button"
                     style="@style/base_button"
-                    android:onClick="login"
-                    android:text="@string/login"
-                    android:visibility="invisible"/>
+                    android:onClick="@{handler::login}"
+                    android:text="@string/login"/>
 
                 <Button
                     android:id="@+id/signin_button"
                     style="@style/base_button"
                     android:layout_toEndOf="@id/login_button"
-                    android:onClick="signIn"
+                    android:onClick="@{handler::signIn}"
                     android:text="@string/signin" />
             </RelativeLayout>
         </LinearLayout>
@@ -81,15 +83,16 @@
                 style="@style/cloud_text"
                 android:layout_width="170dp"
                 android:layout_alignParentEnd="true"
-                android:text="@string/areuthere" />
+                android:text="@{greet.checkin>80000000 ? @string/areuthere : @string/loveandtrain}" />
 
             <Button
                 android:id="@+id/checkin"
                 style="@style/base_button"
                 android:layout_above="@+id/enter"
                 android:layout_alignParentEnd="true"
-                android:onClick="loadProfile"
-                android:text="@string/yes" />
+                android:onClick="@{handler::loadProfile}"
+                android:text="@string/yes"
+                android:visibility="@{greet.checkin>80000000 ? View.VISIBLE : View.GONE}"/>
 
             <TextView
                 android:id="@+id/enter"
@@ -100,7 +103,7 @@
                 android:layout_margin="@dimen/base_button_margin"
                 android:text="@string/enter"
                 android:textColor="@color/enter_text"
-                android:onClick="loadProfile"
+                android:onClick="@{handler::loadProfile}"
                 android:textStyle="bold" />
         </RelativeLayout>
 
