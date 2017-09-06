@@ -10,6 +10,7 @@ import by.argyment.gymapp.domain.entity.UserImage;
 
 public class MyPageImgItemViewHolder extends
         BaseItemViewHolder<UserImage, MyPageImgItemViewModel, ItemImageBinding> {
+
     public MyPageImgItemViewHolder(ItemImageBinding dataBinding, MyPageImgItemViewModel viewModel) {
         super(dataBinding, viewModel);
         dataBinding.setImageItem(viewModel);

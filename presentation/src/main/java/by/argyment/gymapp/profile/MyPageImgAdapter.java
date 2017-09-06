@@ -1,6 +1,7 @@
 package by.argyment.gymapp.profile;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import by.argyment.gymapp.base.BaseAdapter;
@@ -16,10 +17,12 @@ public class MyPageImgAdapter extends BaseAdapter<UserImage, MyPageImgItemViewMo
 
     private UserImage img;
 
+
     @Override
     public BaseItemViewHolder<UserImage, MyPageImgItemViewModel, ?> onCreateViewHolder(ViewGroup parent, int viewType) {
         MyPageImgItemViewModel imgModel = new MyPageImgItemViewModel();
-        ItemImageBinding binding = ItemImageBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        ItemImageBinding binding = ItemImageBinding.inflate
+                (LayoutInflater.from(parent.getContext()), parent, false);
         return new MyPageImgItemViewHolder(binding, imgModel);
     }
 
@@ -27,9 +30,11 @@ public class MyPageImgAdapter extends BaseAdapter<UserImage, MyPageImgItemViewMo
     public void onBindViewHolder(BaseItemViewHolder<UserImage, MyPageImgItemViewModel, ?> holder, int position) {
         super.onBindViewHolder(holder, position);
         img=items.get(position);
-    }
-
-    public void showPhoto(){
-        MyPage.getInstance().userpic.set(img.getLink());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyPage.getInstance().userpic.set(img.getLink());
+            }
+        });
     }
 }

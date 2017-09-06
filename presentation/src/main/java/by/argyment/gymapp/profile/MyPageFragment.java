@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import by.argyment.gymapp.base.BaseFragment;
+import by.argyment.gymapp.domain.interactions.GetImageListUseCase;
 import by.argyment.gymapp.extra.Strings;
 import by.argyment.gymapp.databinding.FragmentMypageBinding;
 import by.argyment.gymapp.domain.entity.UserImage;
@@ -32,11 +33,12 @@ public class MyPageFragment extends BaseFragment {
     private FragmentMypageBinding binding;
     public static final String CHECKIN = Strings.CHECKIN;
     private boolean increaseStatus;
-    private AddImageUseCase addImg=new AddImageUseCase();
-    private UpdateProfileUseCase updateUser=new UpdateProfileUseCase();
     private String mainImg;
+    public MyPageImgAdapter adapter;
+    private GetImageListUseCase getImages=new GetImageListUseCase();
+    private UpdateProfileUseCase updateUser=new UpdateProfileUseCase();
     private DeleteImageUseCase removeImg=new DeleteImageUseCase();
-    private MyPageImgAdapter adapter;
+    private AddImageUseCase addImg=new AddImageUseCase();
 
     public static MyPageFragment newInstance(FragmentManager manager, boolean isCheckedIn) {
         Fragment fragment = manager.findFragmentByTag(MyPageFragment.class.getName());
@@ -51,12 +53,14 @@ public class MyPageFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        adapter=new MyPageImgAdapter();
         Bundle bundle = getArguments();
         if (bundle != null) {
             increaseStatus = bundle.getBoolean(CHECKIN);
             bundle.putBoolean(CHECKIN, false);
         }
         mainImg=MyPage.getInstance().userpic.get();
+        fillAdapter();
     }
 
     @Nullable
@@ -71,13 +75,6 @@ public class MyPageFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         binding.setMypage(MyPage.getInstance());
         binding.setHandler(this);
-
-        adapter=new MyPageImgAdapter();
-        adapter.setItems(MyPage.getInstance().myPics);
-        for (UserImage img:
-             MyPage.getInstance().myPics) {
-            Log.d("FOUND",img.getLink());
-        }
         mainImg=MyPage.getInstance().userpic.get();
     }
 
@@ -86,7 +83,6 @@ public class MyPageFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         binding.myGallery.setLayoutManager(new GridLayoutManager(getContext(), 3));
         binding.myGallery.setAdapter(adapter);
-
     }
 
     public void mainPhoto(View view) {
@@ -113,19 +109,12 @@ public class MyPageFragment extends BaseFragment {
 
             }
         });
-        MyPage.getInstance().myPics.add(image);
+        fillAdapter();
     }
 
     public void removePhoto(View view) {
         String link=MyPage.getInstance().userpic.get();
         String id= Strings.EMPTY;
-        List<UserImage> list=MyPage.getInstance().myPics;
-        for (int i=0; i<list.size(); i++){
-            if (list.get(i).getLink().equals(link)) {
-                id = list.get(i).getObjectId();
-                list.remove(i);
-            }
-        }
         if (!(id.equals(Strings.EMPTY))) {
             removeImg.makeRequest(id, new DisposableObserver<Void>() {
                 @Override
@@ -143,6 +132,7 @@ public class MyPageFragment extends BaseFragment {
 
                 }
             });
+            fillAdapter();
         }
         MyPage.getInstance().userpic.set(mainImg);
     }
@@ -190,9 +180,30 @@ public class MyPageFragment extends BaseFragment {
         });
     }
 
+    private void fillAdapter(){
+        getImages.makeRequest(MyPage.getInstance().getEmail(), new DisposableObserver<List<UserImage>>() {
+            @Override
+            public void onNext(@NonNull List<UserImage> userImages) {
+                adapter.setItems(userImages);
+                Log.d("ADAPTER FILLED", String.valueOf(adapter.getItemCount()));
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
+        getImages.dispose();
         addImg.dispose();
         updateUser.dispose();
         removeImg.dispose();

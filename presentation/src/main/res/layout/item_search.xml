@@ -17,7 +17,7 @@
 
         <ImageView
             android:id="@+id/search_pic"
-            myapp:item_image="@{searchItem.picture}"
+            myapp:set_image="@{searchItem.picture}"
             android:layout_width="match_parent"
             android:layout_height="@dimen/base_button_width"/>
 

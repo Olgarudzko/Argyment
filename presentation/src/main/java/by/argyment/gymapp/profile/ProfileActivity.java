@@ -28,7 +28,9 @@ public class ProfileActivity extends BaseActivity {
         MyPage.getInstance().setEmail(getIntent().getStringExtra(USERMAIL));
         boolean checkIn=getIntent().getBooleanExtra(CHECKIN, false);
         if (savedInstanceState==null){
-            ProfileHandler.showFragment(getSupportFragmentManager(), MyPageFragment.newInstance(getSupportFragmentManager(), checkIn), false);
+            MyPageFragment newMyPage=MyPageFragment.newInstance(getSupportFragmentManager(), checkIn);
+            ProfileHandler.showFragment(getSupportFragmentManager(), newMyPage, false);
+            model.setMypage(newMyPage);
         }
     }
 }

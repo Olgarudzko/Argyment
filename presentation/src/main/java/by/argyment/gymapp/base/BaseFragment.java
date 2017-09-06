@@ -23,8 +23,8 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    @BindingAdapter({"bind:item_image"})
-    public static void loadImg(ImageView view, String url) {
+    @BindingAdapter({"bind:set_image"})
+    public static void setImg(ImageView view, String url) {
         if (url!=null) {
             Glide.with(view.getContext()).load(url)
                     .bitmapTransform(new CenterCrop(view.getContext()),

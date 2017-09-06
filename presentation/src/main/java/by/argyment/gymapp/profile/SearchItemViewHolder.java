@@ -9,7 +9,8 @@ import by.argyment.gymapp.domain.entity.UserProfile;
  * @author Olga Rudzko
  */
 
-public class SearchItemViewHolder extends BaseItemViewHolder<UserProfile, SearchItemViewModel, ItemSearchBinding> {
+public class SearchItemViewHolder extends
+        BaseItemViewHolder<UserProfile, SearchItemViewModel, ItemSearchBinding> {
 
     public SearchItemViewHolder(ItemSearchBinding dataBinding, SearchItemViewModel viewModel) {
         super(dataBinding, viewModel);

@@ -28,10 +28,4 @@ public class SearchItemViewModel extends BaseItemViewModel<UserProfile> {
         name.set(item.getUsername());
         picture=item.getUserpic();
     }
-
-    @Override
-    public void init() {
-        super.init();
-    }
-
 }

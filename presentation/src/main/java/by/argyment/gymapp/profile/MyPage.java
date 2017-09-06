@@ -26,7 +26,6 @@ public class MyPage {
     public ObservableBoolean isTrainer=new ObservableBoolean();
     public ObservableInt status=new ObservableInt();
     public ObservableInt stars=new ObservableInt();
-    public List<UserImage> myPics=new ArrayList<>();
     public ObservableField<String> userpic=new ObservableField<>();
     public ObservableField<String> slon=new ObservableField<>();
     private String password;
