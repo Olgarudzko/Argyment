@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import by.argyment.gymapp.base.BaseFragment;
@@ -39,6 +40,7 @@ public class MyPageFragment extends BaseFragment {
     private UpdateProfileUseCase updateUser=new UpdateProfileUseCase();
     private DeleteImageUseCase removeImg=new DeleteImageUseCase();
     private AddImageUseCase addImg=new AddImageUseCase();
+    List<UserImage> list=new ArrayList<>();
 
     public static MyPageFragment newInstance(FragmentManager manager, boolean isCheckedIn) {
         Fragment fragment = manager.findFragmentByTag(MyPageFragment.class.getName());
@@ -115,6 +117,11 @@ public class MyPageFragment extends BaseFragment {
     public void removePhoto(View view) {
         String link=MyPage.getInstance().userpic.get();
         String id= Strings.EMPTY;
+        for (UserImage img: list) {
+            if (img.getLink().equals(link)){
+                id=img.getObjectId();
+            }
+        }
         if (!(id.equals(Strings.EMPTY))) {
             removeImg.makeRequest(id, new DisposableObserver<Void>() {
                 @Override
@@ -184,7 +191,8 @@ public class MyPageFragment extends BaseFragment {
         getImages.makeRequest(MyPage.getInstance().getEmail(), new DisposableObserver<List<UserImage>>() {
             @Override
             public void onNext(@NonNull List<UserImage> userImages) {
-                adapter.setItems(userImages);
+                list=userImages;
+                adapter.setItems(list);
                 Log.d("ADAPTER FILLED", String.valueOf(adapter.getItemCount()));
             }
 

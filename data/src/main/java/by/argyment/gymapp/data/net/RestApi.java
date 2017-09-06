@@ -36,9 +36,9 @@ public interface RestApi {
     Observable<Void> addImage(@Body Image image);
 
     @GET(Strings.PROFILES)
-    Observable<List<Profile>> getProfile(@Query(Strings.WHERE) String email);
+    Observable<List<Profile>> getProfile(@Query(Strings.WHERE) String data);
 
-    @PUT("data/profiles/{id}")
+    @PUT(Strings.UPDATE_PROFILES)
     Observable<Void> updateProfile(@Body Profile profile, @Path("id") String id);
 
     @DELETE("data/images/{id}")

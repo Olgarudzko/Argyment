@@ -16,19 +16,5 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public abstract class BaseFragment extends Fragment {
 
-    @BindingAdapter({"bind:main_image"})
-    public static void setMainPhoto(ImageView view, ObservableField<String> url) {
-        if (url.get()!=null) {
-            Glide.with(view.getContext()).load(url.get()).into(view);
-        }
-    }
 
-    @BindingAdapter({"bind:set_image"})
-    public static void setImg(ImageView view, String url) {
-        if (url!=null) {
-            Glide.with(view.getContext()).load(url)
-                    .bitmapTransform(new CenterCrop(view.getContext()),
-                            new RoundedCornersTransformation(view.getContext(), 30, 0)).into(view);
-        }
-    }
 }

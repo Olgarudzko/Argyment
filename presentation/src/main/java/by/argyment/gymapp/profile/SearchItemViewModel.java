@@ -21,11 +21,11 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 public class SearchItemViewModel extends BaseItemViewModel<UserProfile> {
 
     public ObservableField<String> name=new ObservableField<>("");
-    public String picture;
+    public ObservableField<String> picture=new ObservableField<>("");
 
     @Override
     public void setItem(UserProfile item, int position) {
         name.set(item.getUsername());
-        picture=item.getUserpic();
+        picture.set(item.getUserpic());
     }
 }

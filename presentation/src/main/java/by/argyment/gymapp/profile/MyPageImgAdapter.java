@@ -17,7 +17,6 @@ public class MyPageImgAdapter extends BaseAdapter<UserImage, MyPageImgItemViewMo
 
     private UserImage img;
 
-
     @Override
     public BaseItemViewHolder<UserImage, MyPageImgItemViewModel, ?> onCreateViewHolder(ViewGroup parent, int viewType) {
         MyPageImgItemViewModel imgModel = new MyPageImgItemViewModel();
@@ -29,11 +28,15 @@ public class MyPageImgAdapter extends BaseAdapter<UserImage, MyPageImgItemViewMo
     @Override
     public void onBindViewHolder(BaseItemViewHolder<UserImage, MyPageImgItemViewModel, ?> holder, int position) {
         super.onBindViewHolder(holder, position);
-        img=items.get(position);
+        img = items.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyPage.getInstance().userpic.set(img.getLink());
+                if (MemberPage.getInstance().visibility.get()) {
+                    MemberPage.getInstance().userpic.set(img.getLink());
+                } else {
+                    MyPage.getInstance().userpic.set(img.getLink());
+                }
             }
         });
     }

@@ -24,4 +24,5 @@ public interface Strings {
     String TIME_CHECKIN = "timeCheckin";
     String TIME_STAR = "timeStar";
     String BASE_URL = "https://api.backendless.com/FCBFF78E-1D57-5C7C-FF9A-7A8C1078C400/175DDE14-033B-C914-FFF8-D66210C89700/";
+    String UPDATE_PROFILES = "data/profiles/{id}";
 }

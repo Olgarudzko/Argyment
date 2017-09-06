@@ -18,11 +18,9 @@ import io.reactivex.functions.Function;
 public class GetProfileUseCase extends UseCase<String, UserProfile> {
 
     @Override
-    protected Observable<UserProfile> buildUseCase(String param) {
-        String ready = null;
-        if(param.contains(Strings.MAILTO)) {
-            ready= Strings.EMAILIS.concat(Strings.CH).concat(param).concat(Strings.CH);
-        }
+    protected Observable<UserProfile> buildUseCase(String email) {
+        String ready = Strings.EMAILIS.concat(Strings.CH).concat(email).concat(Strings.CH);
+
         return RestService.getInstance().getProfile(ready)
                 .map(new Function<List<Profile>, UserProfile>() {
                     @Override

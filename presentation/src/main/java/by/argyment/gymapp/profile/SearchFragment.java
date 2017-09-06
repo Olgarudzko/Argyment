@@ -18,6 +18,7 @@ import by.argyment.gymapp.domain.entity.UserImage;
 import by.argyment.gymapp.domain.entity.UserProfile;
 import by.argyment.gymapp.domain.interactions.GetImageListUseCase;
 import by.argyment.gymapp.domain.interactions.GetProfileListUseCase;
+import by.argyment.gymapp.extra.Strings;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
 
@@ -29,8 +30,10 @@ public class SearchFragment extends BaseFragment {
 
     public SearchAdapter adapter;
     private FragmentSearchBinding binding;
-    private GetProfileListUseCase getProfiles=new GetProfileListUseCase();
-    private GetImageListUseCase getImages= new GetImageListUseCase();
+    private GetProfileListUseCase getProfiles = new GetProfileListUseCase();
+    private GetImageListUseCase getImages = new GetImageListUseCase();
+    public MyPageImgAdapter picsAdapter;
+    List<UserProfile> list = new ArrayList<>();
 
     public static SearchFragment newInstance(FragmentManager manager) {
         Fragment fragment = manager.findFragmentByTag(SearchFragment.class.getName());
@@ -45,12 +48,13 @@ public class SearchFragment extends BaseFragment {
         getProfiles.makeRequest(null, new DisposableObserver<List<UserProfile>>() {
             @Override
             public void onNext(@NonNull List<UserProfile> userProfiles) {
-                for (int i=0; i<userProfiles.size(); i++) {
-                    if (userProfiles.get(i).getEmail().equals(MyPage.getInstance().getEmail())){
+                for (int i = 0; i < userProfiles.size(); i++) {
+                    if (userProfiles.get(i).getEmail().equals(MyPage.getInstance().getEmail())) {
                         userProfiles.remove(i);
                     }
                 }
-                adapter.setItems(userProfiles);
+                list = userProfiles;
+                adapter.setItems(list);
             }
 
             @Override
@@ -86,7 +90,8 @@ public class SearchFragment extends BaseFragment {
         binding.usersList.setAdapter(adapter);
     }
 
-    public void loadMemberPage(UserProfile member){
+    public void loadMemberPage(UserProfile member) {
+        picsAdapter = new MyPageImgAdapter();
         MemberPage.getInstance().setObjectId(member.getObjectId());
         MemberPage.getInstance().username.set(member.getUsername());
         MemberPage.getInstance().isTrainer.set(member.isTrainer());
@@ -96,14 +101,7 @@ public class SearchFragment extends BaseFragment {
         getImages.makeRequest(member.getEmail(), new DisposableObserver<List<UserImage>>() {
             @Override
             public void onNext(@NonNull List<UserImage> userImages) {
-                List<UserImage> newList=new ArrayList<UserImage>();
-                for (UserImage img: userImages){
-                    UserImage newImg=new UserImage();
-                    newImg.setObjectId(img.getObjectId());
-                    newImg.setLink(img.getLink());
-                    newList.add(newImg);
-                }
-                MemberPage.getInstance().memberPics=newList;
+                picsAdapter.setItems(userImages);
                 MemberPage.getInstance().visibility.set(true);
             }
 
@@ -117,6 +115,23 @@ public class SearchFragment extends BaseFragment {
 
             }
         });
+        binding.memberGallery.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        binding.memberGallery.setAdapter(picsAdapter);
+    }
+
+    public void findName(View view) {
+        String name = binding.findMember.getText().toString();
+        if (!name.equals(Strings.EMPTY)) {
+            List<UserProfile> nameSakes = new ArrayList<>();
+            for (UserProfile user : list) {
+                if (user.getUsername().equalsIgnoreCase(name)) {
+                    nameSakes.add(user);
+                }
+            }
+            adapter.setItems(nameSakes);
+        } else {
+            adapter.setItems(list);
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package by.argyment.gymapp.profile;
 
+import android.databinding.ObservableField;
+
 import by.argyment.gymapp.base.BaseItemViewModel;
 import by.argyment.gymapp.domain.entity.UserImage;
 
@@ -9,10 +11,10 @@ import by.argyment.gymapp.domain.entity.UserImage;
 
 public class MyPageImgItemViewModel extends BaseItemViewModel<UserImage>{
 
-    public String picture;
+    public ObservableField<String> picture=new ObservableField<>("");
 
     @Override
     public void setItem(UserImage item, int position) {
-        picture=item.getLink();
+        picture.set(item.getLink());
     }
 }

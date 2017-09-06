@@ -39,6 +39,14 @@
                 android:paddingStart="@dimen/greeting_text"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark" />
+            <Button
+                android:layout_width="@dimen/base_button_height"
+                android:layout_height="@dimen/base_button_height"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/find"
+                android:layout_marginEnd="@dimen/greeting_text"
+                android:onClick="@{search::findName}"/>
 
             <ScrollView
                 android:layout_width="match_parent"
