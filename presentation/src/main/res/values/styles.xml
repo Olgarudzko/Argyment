@@ -22,8 +22,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:background">@drawable/yellow_button</item>
-        <item name="android:layout_margin">@dimen/base_button_margin</item>
         <item name="android:textColor">@color/button_text</item>
+        <item name="android:layout_marginTop">@dimen/base_button_margin</item>
     </style>
 
     <style name="cloud_text">

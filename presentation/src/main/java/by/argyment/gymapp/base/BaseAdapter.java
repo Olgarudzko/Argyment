@@ -11,6 +11,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import java.util.ArrayList;
 import java.util.List;
 
+import by.argyment.gymapp.extra.Strings;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
@@ -20,7 +21,6 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 public abstract class BaseAdapter<Model,
         ViewModel extends BaseItemViewModel<Model>>
         extends RecyclerView.Adapter<BaseItemViewHolder<Model, ViewModel, ?>> {
-
 
 
     protected List<Model> items = new ArrayList<>();
@@ -44,19 +44,19 @@ public abstract class BaseAdapter<Model,
         return items.size();
     }
 
-    @BindingAdapter({"bind:main_image"})
+    @BindingAdapter({Strings.BIND_MAIN_IMAGE})
     public static void setMainPhoto(ImageView view, ObservableField<String> url) {
         if (url.get()!=null) {
             Glide.with(view.getContext()).load(url.get()).into(view);
         }
     }
 
-    @BindingAdapter({"bind:set_image"})
+    @BindingAdapter({Strings.BIND_SET_IMAGE})
     public static void setImg(ImageView view, ObservableField<String> url) {
         if (url.get()!=null) {
             Glide.with(view.getContext()).load(url.get())
                     .bitmapTransform(new CenterCrop(view.getContext()),
-                            new RoundedCornersTransformation(view.getContext(), 30, 0)).into(view);
+                            new RoundedCornersTransformation(view.getContext(), 10, 0)).into(view);
         }
     }
 }

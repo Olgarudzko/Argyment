@@ -77,7 +77,8 @@
                 android:drawableStart="@drawable/phone"
                 android:text="@string/phone"
                 android:textAlignment="textEnd"
-                android:textSize="@dimen/greeting_text" />
+                android:textSize="@dimen/greeting_text"
+                android:onClick=""/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -3,7 +3,6 @@ package by.argyment.gymapp.profile;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 
 import by.argyment.gymapp.R;
@@ -26,8 +25,6 @@ public class ProfileHandler {
     }
 
     public void goSearch(View view) {
-        Log.d("Before switching "+String.valueOf(MyPage.getInstance().status.get()), String.valueOf(MyPage.getInstance().getTimeCheckin()));
-
         showFragment(activity.getSupportFragmentManager(),
                 SearchFragment.newInstance(activity.getSupportFragmentManager()), true);
     }

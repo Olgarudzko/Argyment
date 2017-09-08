@@ -2,6 +2,7 @@ package by.argyment.gymapp.greeting;
 
 import android.content.Intent;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 
 import by.argyment.gymapp.R;
@@ -34,7 +35,11 @@ public class GreetHandler {
                     model.setEmail(b.toString());
                     model.setPassword(c.toString());
                     model.done.set(true);
-                    model.checkin.set((int)(System.currentTimeMillis()-model.checkins.get(b.toString())));
+                    if(model.checkins.get(b.toString())!=0) {
+                        model.checkin.set((int) (System.currentTimeMillis() - model.checkins.get(b.toString())));
+                    } else {
+                        model.checkin.set(81000000);
+                    }
                 } else{
                     activity.message.setText(R.string.wrong_password);
                 }
@@ -61,6 +66,7 @@ public class GreetHandler {
                         model.setEmail(b.toString());
                         model.setPassword(c.toString());
                         model.addUser();
+                        model.checkin.set(81000000);
                         model.done.set(true);
                     }else{
                         activity.message.setText(R.string.email_exists);

@@ -1,5 +1,6 @@
 package by.argyment.gymapp.data.net;
 
+import java.io.File;
 import java.util.List;
 
 import by.argyment.gymapp.data.entity.Image;
@@ -43,4 +44,8 @@ public interface RestApi {
 
     @DELETE("data/images/{id}")
     Observable<Void> deleteImage(@Path("id") String id);
+
+    @PUT("files/UsersImages/{name}")
+    Observable<Void> addBitmap(@Body File file, @Path("name") String name );
+
 }

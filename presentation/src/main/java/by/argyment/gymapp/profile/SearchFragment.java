@@ -124,7 +124,7 @@ public class SearchFragment extends BaseFragment {
         if (!name.equals(Strings.EMPTY)) {
             List<UserProfile> nameSakes = new ArrayList<>();
             for (UserProfile user : list) {
-                if (user.getUsername().equalsIgnoreCase(name)) {
+                if (user.getUsername().equalsIgnoreCase(name) || user.getUsername().toLowerCase().contains(name.toLowerCase())) {
                     nameSakes.add(user);
                 }
             }
@@ -132,6 +132,12 @@ public class SearchFragment extends BaseFragment {
         } else {
             adapter.setItems(list);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MemberPage.getInstance().visibility.set(false);
     }
 
     @Override

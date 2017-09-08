@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import by.argyment.gymapp.data.entity.DataBitmap;
 import by.argyment.gymapp.data.entity.Image;
 import by.argyment.gymapp.data.entity.Profile;
 import by.argyment.gymapp.data.extra.Strings;
@@ -73,5 +74,9 @@ public class RestService {
 
     public Observable <Void> deleteImage (String id){
         return api.deleteImage(id);
+    }
+
+    public Observable<Void> addBitmap (DataBitmap bitmap){
+        return api.addBitmap(bitmap.getFile(), bitmap.getName());
     }
 }
