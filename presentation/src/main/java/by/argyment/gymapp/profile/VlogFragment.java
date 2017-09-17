@@ -15,7 +15,7 @@ import by.argyment.gymapp.base.BaseFragment;
  * @author Olga Rudzko
  */
 
-public class VlogFragment extends BaseFragment {
+public class VlogFragment extends Fragment {
 
     public VlogAdapter adapter;
 

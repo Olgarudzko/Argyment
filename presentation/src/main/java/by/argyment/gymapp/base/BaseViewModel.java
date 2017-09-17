@@ -8,7 +8,7 @@ public interface BaseViewModel {
 
     void init();
     void resume();
-    void release();
     void pause();
+    void release();
 
 }

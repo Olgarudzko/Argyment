@@ -15,7 +15,7 @@ import by.argyment.gymapp.base.BaseFragment;
  * @author Olga Rudzko
  */
 
-public class NewsFragment extends BaseFragment {
+public class NewsFragment extends Fragment {
 
     public NewsAdapter adapter;
 

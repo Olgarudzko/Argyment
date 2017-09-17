@@ -1,5 +1,8 @@
 package by.argyment.gymapp.profile;
 
+import javax.inject.Inject;
+
+import by.argyment.gymapp.GymApplication;
 import by.argyment.gymapp.base.BaseViewModel;
 import by.argyment.gymapp.domain.entity.UserProfile;
 import by.argyment.gymapp.domain.interactions.GetProfileUseCase;
@@ -12,7 +15,9 @@ import io.reactivex.observers.DisposableObserver;
 
 public class ProfileModel implements BaseViewModel {
 
-    private GetProfileUseCase getProfile;
+    @Inject
+    GetProfileUseCase getProfile;
+
     private MyPageFragment mypage;
 
     public MyPageFragment getMypage() {
@@ -23,6 +28,10 @@ public class ProfileModel implements BaseViewModel {
         this.mypage = mypage;
     }
 
+    public ProfileModel() {
+        GymApplication.appComponent.injectProfileModel(this);
+    }
+
     @Override
     public void init() {
 
@@ -30,7 +39,6 @@ public class ProfileModel implements BaseViewModel {
 
     @Override
     public void resume() {
-        getProfile = new GetProfileUseCase();
         getProfile.makeRequest(MyPage.getInstance().getEmail(), new DisposableObserver<UserProfile>() {
             @Override
             public void onNext(@NonNull UserProfile userProfile) {

@@ -10,13 +10,13 @@
     <string name="areuthere">Tы сегодня в AрGYMенте?</string>
     <string name="fill_fields">Пожалуйста, заполните все поля</string>
     <string name="check_email">Проверьте e-mail</string>
-    <string name="name_password">Имя и пароль должны содержать 5–10 букв и/или цифр</string>
+    <string name="name_password">Имя и пароль должны содержать 5–10 букв/цифр</string>
     <string name="email_password">Укажите e-mail и пароль</string>
     <string name="address">пр-т Дзержинского, 104 (ТРЦ Титан)</string>
     <string name="phone">8(044) 5–11111–9\n8(017) 303–39–33</string>
     <string name="time">пн–пт. 07:00–23:00\nсб–вс. 09:00–22:00</string>
     <string name="find_member">искать по никнейму</string>
-    <string name="email_exists">e-mail зарегистрирован</string>
+    <string name="email_exists">e-mail уже зарегистрирован</string>
     <string name="email_not_exists">e-mail не зарегистрирован</string>
     <string name="wrong_password">неверный пароль</string>
     <string name="loveandtrain">Люби и занимайся!</string>

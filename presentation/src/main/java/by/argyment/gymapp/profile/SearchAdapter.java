@@ -36,7 +36,7 @@ public class SearchAdapter extends BaseAdapter<UserProfile, SearchItemViewModel>
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                fragment.loadMemberPage(user);
+                fragment.currentHandler.loadMemberPage(user);
             }
         });
     }

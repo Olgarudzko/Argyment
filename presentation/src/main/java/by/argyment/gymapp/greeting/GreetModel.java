@@ -1,5 +1,6 @@
 package by.argyment.gymapp.greeting;
 
+import by.argyment.gymapp.GymApplication;
 import by.argyment.gymapp.base.BaseViewModel;
 import by.argyment.gymapp.domain.entity.UserProfile;
 import by.argyment.gymapp.domain.interactions.AddUserUseCase;
@@ -15,21 +16,30 @@ import android.databinding.ObservableInt;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * @author Olga Rudzko
  */
 
 public class GreetModel implements BaseViewModel {
 
+    @Inject
+    GetProfileListUseCase getProfileList;
+    @Inject
+    AddUserUseCase addUser;
+
     public ObservableField<String> name = new ObservableField<>();
     public ObservableBoolean done = new ObservableBoolean(false);
     public ObservableInt checkin=new ObservableInt();
     ObservableField<String> email = new ObservableField<>();
     private ObservableField<String> password = new ObservableField<>();
-    private AddUserUseCase addUser=new AddUserUseCase();
-    private GetProfileListUseCase getProfileList=new GetProfileListUseCase();
     HashMap<String, String> users=new HashMap<>();
     HashMap<String, Long> checkins=new HashMap<>();
+
+    public GreetModel() {
+        GymApplication.appComponent.injectGreetModel(this);
+    }
 
     public void setName(String name) {
         this.name.set(name);

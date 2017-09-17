@@ -9,7 +9,7 @@
             type="by.argyment.gymapp.profile.MyPage" />
         <variable
             name="handler"
-            type="by.argyment.gymapp.profile.MyPageFragment" />
+            type="by.argyment.gymapp.profile.MyPageHandler" />
     </data>
 
     <LinearLayout

@@ -2,7 +2,6 @@ package by.argyment.gymapp.greeting;
 
 import android.content.Intent;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 
 import by.argyment.gymapp.R;

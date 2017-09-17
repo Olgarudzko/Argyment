@@ -15,7 +15,7 @@ import by.argyment.gymapp.base.BaseFragment;
  * @author Olga Rudzko
  */
 
-public class InfoFragment extends BaseFragment {
+public class InfoFragment extends Fragment {
 
     public static InfoFragment newInstance(FragmentManager manager) {
         Fragment fragment = manager.findFragmentByTag(InfoFragment.class.getName());

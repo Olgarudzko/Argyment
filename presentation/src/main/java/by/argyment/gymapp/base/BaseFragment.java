@@ -1,14 +1,10 @@
 package by.argyment.gymapp.base;
 
-import android.databinding.BindingAdapter;
-import android.databinding.ObservableField;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+import android.view.View;
 
 /**
  * @author Olga Rudzko
@@ -16,5 +12,36 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public abstract class BaseFragment extends Fragment {
 
+    protected BaseFragmentHandler handler;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        handler.init();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        handler.viewCreated();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        handler.activityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.pause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.release();
+    }
 
 }

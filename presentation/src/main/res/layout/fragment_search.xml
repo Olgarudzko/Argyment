@@ -6,8 +6,8 @@
     <data>
         <import type="android.view.View" />
         <variable
-            name="search"
-            type="by.argyment.gymapp.profile.SearchFragment" />
+            name="handler"
+            type="by.argyment.gymapp.profile.SearchHandler"/>
         <variable
             name="member"
             type="by.argyment.gymapp.profile.MemberPage" />
@@ -46,7 +46,7 @@
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/find"
                 android:layout_marginEnd="@dimen/greeting_text"
-                android:onClick="@{search::findName}"/>
+                android:onClick="@{handler::findName}"/>
 
             <ScrollView
                 android:layout_width="match_parent"
