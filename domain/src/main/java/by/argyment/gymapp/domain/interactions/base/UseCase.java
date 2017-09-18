@@ -23,7 +23,7 @@ public abstract class UseCase<OnReceive, OnReturn> {
     }
 
     public void dispose() {
-        if (!disposable.isDisposed()) {
+        if (disposable!=null && !disposable.isDisposed()) {
             disposable.dispose();
         }
     }

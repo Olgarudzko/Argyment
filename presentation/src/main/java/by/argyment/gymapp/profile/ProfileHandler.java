@@ -21,7 +21,7 @@ public class ProfileHandler {
 
     public void goHome(View view) {
         showFragment(activity.getSupportFragmentManager(),
-                MyPageFragment.newInstance(activity.getSupportFragmentManager(), false), false);
+                MyPageFragment.newInstance(activity.getSupportFragmentManager(), true), false);
     }
 
     public void goSearch(View view) {

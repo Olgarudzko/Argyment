@@ -1,6 +1,8 @@
 package by.argyment.gymapp.greeting;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import by.argyment.gymapp.R;
 import by.argyment.gymapp.base.BaseActivity;
 import by.argyment.gymapp.databinding.ActivityGreetBinding;
+import by.argyment.gymapp.extra.Strings;
 
 /**
  * @author Olga Rudzko
@@ -17,11 +20,14 @@ import by.argyment.gymapp.databinding.ActivityGreetBinding;
 
 public class GreetActivity extends BaseActivity {
 
+    SharedPreferences preferences;
+    public static final String SHARED= Strings.SHARED;
+
+    GreetModel model;
     EditText username;
     EditText email;
     EditText password;
     TextView message;
-    GreetModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +44,18 @@ public class GreetActivity extends BaseActivity {
         message = binding.notifyMessage;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        preferences=getSharedPreferences(SHARED, Context.MODE_PRIVATE);
+        model.savedMail=preferences.getString(GreetModel.NAME, null);
+        model.savedPass=preferences.getString(GreetModel.PASS, null);
+    }
 
     @Override
     public void onBackPressed() {
         Intent bye = new Intent(Intent.ACTION_MAIN);
-        bye.addCategory( Intent.CATEGORY_HOME );
+        bye.addCategory(Intent.CATEGORY_HOME );
         bye.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(bye);
     }

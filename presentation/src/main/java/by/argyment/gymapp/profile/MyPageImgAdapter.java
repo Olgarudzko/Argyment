@@ -15,8 +15,6 @@ import by.argyment.gymapp.domain.entity.UserImage;
 
 public class MyPageImgAdapter extends BaseAdapter<UserImage, MyPageImgItemViewModel> {
 
-    private UserImage img;
-
     @Override
     public BaseItemViewHolder<UserImage, MyPageImgItemViewModel, ?> onCreateViewHolder(ViewGroup parent, int viewType) {
         MyPageImgItemViewModel imgModel = new MyPageImgItemViewModel();
@@ -28,7 +26,7 @@ public class MyPageImgAdapter extends BaseAdapter<UserImage, MyPageImgItemViewMo
     @Override
     public void onBindViewHolder(BaseItemViewHolder<UserImage, MyPageImgItemViewModel, ?> holder, int position) {
         super.onBindViewHolder(holder, position);
-        img = items.get(position);
+        final UserImage img = items.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

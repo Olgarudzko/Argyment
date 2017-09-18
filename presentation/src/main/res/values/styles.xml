@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
     <style name="base_edit_field">
@@ -43,11 +43,13 @@
 
     <style name="info_line">
         <item name="android:layout_width">@dimen/base_edit_width</item>
-        <item name="android:layout_height">@dimen/inner_height_base_button</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/base_button_margin</item>
         <item name="android:layout_marginBottom">@dimen/base_button_margin</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">@dimen/greeting_text</item>
+        <item name="android:textAlignment">textEnd</item>
+        <item name="android:gravity">center</item>
     </style>
 
 </resources>

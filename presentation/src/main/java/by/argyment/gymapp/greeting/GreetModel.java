@@ -29,13 +29,18 @@ public class GreetModel implements BaseViewModel {
     @Inject
     AddUserUseCase addUser;
 
+    public static final String NAME = Strings.KEY_NAME;
+    public static final String PASS = Strings.PASSWORD;
+    String savedMail;
+    String savedPass;
+
     public ObservableField<String> name = new ObservableField<>();
     public ObservableBoolean done = new ObservableBoolean(false);
-    public ObservableInt checkin=new ObservableInt();
+    public ObservableInt checkin = new ObservableInt();
     ObservableField<String> email = new ObservableField<>();
     private ObservableField<String> password = new ObservableField<>();
-    HashMap<String, String> users=new HashMap<>();
-    HashMap<String, Long> checkins=new HashMap<>();
+    HashMap<String, String> users = new HashMap<>();
+    HashMap<String, Long> checkins = new HashMap<>();
 
     public GreetModel() {
         GymApplication.appComponent.injectGreetModel(this);
@@ -60,13 +65,20 @@ public class GreetModel implements BaseViewModel {
 
     @Override
     public void resume() {
-        if (name.get()==null) done.set(false);
+        if (name.get() == null) done.set(false);
         getProfileList.makeRequest(null, new DisposableObserver<List<UserProfile>>() {
             @Override
             public void onNext(@NonNull List<UserProfile> userProfiles) {
-                for (UserProfile user: userProfiles) {
+                for (UserProfile user : userProfiles) {
                     users.put(user.getEmail(), user.getPassword());
                     checkins.put(user.getEmail(), user.getTimeCheckin());
+                    if (savedMail != null && savedPass != null
+                            && users.containsKey(savedMail) && users.get(savedMail).equals(savedPass)) {
+                        email.set(savedMail);
+                        password.set(savedPass);
+                        checkin.set((int) (System.currentTimeMillis() - checkins.get(savedMail)));
+                        done.set(true);
+                    }
                 }
             }
 
@@ -81,7 +93,8 @@ public class GreetModel implements BaseViewModel {
             }
         });
     }
- @Override
+
+    @Override
     public void pause() {
 
     }
@@ -104,6 +117,8 @@ public class GreetModel implements BaseViewModel {
         newUser.setStatus(0);
         newUser.setStars(0);
         newUser.setSlon(null);
+        newUser.setTimeStar(System.currentTimeMillis() - 81000000);
+        newUser.setTimeCheckin(System.currentTimeMillis() - 81000000);
         addUser.makeRequest(newUser, new DisposableObserver<Void>() {
             @Override
             public void onNext(@NonNull Void aVoid) {

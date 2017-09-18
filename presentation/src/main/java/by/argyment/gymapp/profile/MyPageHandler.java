@@ -45,6 +45,7 @@ public class MyPageHandler implements BaseFragmentHandler {
     private MyPageFragment fragment;
 
     boolean increaseStatus;
+    boolean starGiven;
 
     MyPageImgAdapter adapter;
     private List<UserImage> list = new ArrayList<>();
@@ -130,9 +131,10 @@ public class MyPageHandler implements BaseFragmentHandler {
     public void removePhoto(View view) {
         String link = MyPage.getInstance().userpic.get();
         String id = Strings.EMPTY;
-        for (UserImage img : list) {
-            if (img.getLink().equals(link)) {
-                id = img.getObjectId();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getLink().equals(link)) {
+                id = list.get(i).getObjectId();
+                list.remove(i);
             }
         }
         if (!(id.equals(Strings.EMPTY))) {
@@ -152,9 +154,9 @@ public class MyPageHandler implements BaseFragmentHandler {
 
                 }
             });
-            fillAdapter();
+            adapter.setItems(list);
+            MyPage.getInstance().userpic.set(mainImg);
         }
-        MyPage.getInstance().userpic.set(mainImg);
     }
 
     private void fillAdapter() {
@@ -183,6 +185,9 @@ public class MyPageHandler implements BaseFragmentHandler {
             MyPage.getInstance().status.set(MyPage.getInstance().status.get() + 1);
             MyPage.getInstance().setTimeCheckin(System.currentTimeMillis());
             increaseStatus = false;
+        }
+        if (starGiven){
+            MyPage.getInstance().setTimeStar(System.currentTimeMillis());
         }
         UserProfile updated = new UserProfile();
         updated.setEmail(MyPage.getInstance().getEmail());

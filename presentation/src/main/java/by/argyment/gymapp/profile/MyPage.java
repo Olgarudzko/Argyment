@@ -3,17 +3,6 @@ package by.argyment.gymapp.profile;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
-import android.view.View;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import by.argyment.gymapp.domain.entity.UserImage;
-import by.argyment.gymapp.domain.entity.UserProfile;
-import by.argyment.gymapp.domain.interactions.AddImageUseCase;
-import by.argyment.gymapp.domain.interactions.UpdateProfileUseCase;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.observers.DisposableObserver;
 
 /**
  * @author Olga Rudzko
@@ -81,6 +70,4 @@ public class MyPage {
     public void setTimeStar(long timeStar) {
         this.timeStar = timeStar;
     }
-
-
 }

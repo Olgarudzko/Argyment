@@ -8,40 +8,50 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/photo_height">
+        android:layout_height="@dimen/infopic">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/logo_height"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/logo"/>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/gymarea"
+            android:layout_above="@id/logo"/>
 
-        <ImageView
-            android:layout_width="@dimen/base_edit_width"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"/>
-
-    </RelativeLayout>
+      </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/intagram"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/base_button_margin">
 
         <Button
             android:id="@+id/vkontakte"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="@dimen/base_button_height"
+            android:layout_height="@dimen/base_button_height"
+            android:background="@drawable/vk"/>
+
+        <Button
+            android:id="@+id/intagram"
+            android:layout_width="@dimen/base_button_height"
+            android:layout_height="@dimen/base_button_height"
+            android:background="@drawable/insta"
+            android:layout_marginStart="@dimen/header_text"
+            android:layout_marginEnd="@dimen/header_text"/>
 
         <Button
             android:id="@+id/facebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="@dimen/base_button_height"
+            android:layout_height="@dimen/base_button_height"
+            android:background="@drawable/fb"/>
     </LinearLayout>
 
     <ScrollView
@@ -56,29 +66,28 @@
 
             <TextView
                 style="@style/info_line"
-                android:layout_height="wrap_content"
                 android:drawableStart="@drawable/time"
-                android:text="@string/time"
-                android:textAlignment="textEnd"
-                android:textSize="@dimen/greeting_text" />
+                android:text="@string/time"/>
 
             <TextView
+                android:id="@+id/call_to_gym1"
                 style="@style/info_line"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/address"
-                android:text="@string/address"
-                android:textAlignment="textEnd"
-                android:textSize="@dimen/greeting_text" />
-
-            <TextView
-                android:id="@+id/call_to_gym"
-                style="@style/info_line"
-                android:layout_height="wrap_content"
                 android:drawableStart="@drawable/phone"
-                android:text="@string/phone"
-                android:textAlignment="textEnd"
-                android:textSize="@dimen/greeting_text"
-                android:onClick=""/>
+                android:text="@string/phone1"
+                android:autoLink="phone" />
+
+            <TextView
+                android:id="@+id/call_to_gym2"
+                style="@style/info_line"
+                android:drawableStart="@drawable/phone"
+                android:text="@string/phone2"
+                android:autoLink="phone"/>
+
+            <TextView
+                style="@style/info_line"
+                android:drawableStart="@drawable/address"
+                android:text="@string/address"/>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

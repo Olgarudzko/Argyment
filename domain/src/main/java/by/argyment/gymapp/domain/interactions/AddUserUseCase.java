@@ -24,6 +24,8 @@ public class AddUserUseCase extends UseCase<UserProfile, Void> {
         newUser.setTrainer(param.isTrainer());
         newUser.setUsername(param.getUsername());
         newUser.setUserpic(param.getUserpic());
+        newUser.setTimeStar(param.getTimeStar());
+        newUser.setTimeCheckin(param.getTimeCheckin());
         return RestService.getInstance().addProfile(newUser);
     }
 }

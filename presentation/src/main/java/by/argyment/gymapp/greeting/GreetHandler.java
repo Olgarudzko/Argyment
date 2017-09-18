@@ -17,9 +17,9 @@ public class GreetHandler {
     private GreetActivity activity;
     private GreetModel model;
 
-    public GreetHandler(GreetActivity activity, GreetModel model){
-        this.activity=activity;
-        this.model=model;
+    public GreetHandler(GreetActivity activity, GreetModel model) {
+        this.activity = activity;
+        this.model = model;
     }
 
 
@@ -29,20 +29,18 @@ public class GreetHandler {
         if ((b = activity.email.getText()) != null
                 && (c = activity.password.getText()) != null) {
 
-            if (model.users.containsKey(b.toString())){
-                if (model.users.get(b.toString()).equals(c.toString())){
+            if (model.users.containsKey(b.toString())) {
+                if (model.users.get(b.toString()).equals(c.toString())) {
                     model.setEmail(b.toString());
                     model.setPassword(c.toString());
                     model.done.set(true);
-                    if(model.checkins.get(b.toString())!=0) {
-                        model.checkin.set((int) (System.currentTimeMillis() - model.checkins.get(b.toString())));
-                    } else {
-                        model.checkin.set(81000000);
-                    }
-                } else{
+                    activity.preferences.edit().putString(GreetModel.NAME, b.toString())
+                            .putString(GreetModel.PASS, c.toString()).apply();
+                    model.checkin.set((int) (System.currentTimeMillis() - model.checkins.get(b.toString())));
+                } else {
                     activity.message.setText(R.string.wrong_password);
                 }
-            }else{
+            } else {
                 activity.message.setText(R.string.email_not_exists);
             }
         } else {
@@ -50,7 +48,7 @@ public class GreetHandler {
         }
     }
 
-    public void signIn(View view){
+    public void signIn(View view) {
         Editable a;
         Editable b;
         Editable c;
@@ -67,7 +65,9 @@ public class GreetHandler {
                         model.addUser();
                         model.checkin.set(81000000);
                         model.done.set(true);
-                    }else{
+                        activity.preferences.edit().putString(GreetModel.NAME, b.toString())
+                                .putString(GreetModel.PASS, c.toString()).apply();
+                    } else {
                         activity.message.setText(R.string.email_exists);
                     }
                 } else {
@@ -83,8 +83,8 @@ public class GreetHandler {
     }
 
     public void loadProfile(View view) {
-        boolean isCheckedIn=false;
-        if (view.getId()==R.id.checkin) isCheckedIn=true;
+        boolean isCheckedIn = false;
+        if (view.getId() == R.id.checkin) isCheckedIn = true;
         Intent intent = new Intent(activity, ProfileActivity.class);
         intent.putExtra(ProfileActivity.USERMAIL, model.email.get());
         intent.putExtra(ProfileActivity.CHECKIN, isCheckedIn);

@@ -113,6 +113,8 @@ public class SearchHandler implements BaseFragmentHandler {
             searchFragment.adapter.setItems(list);
         }
     }
+
+    public void plusStar(View view) {}
     @Override
     public void pause() {
         MemberPage.getInstance().visibility.set(false);

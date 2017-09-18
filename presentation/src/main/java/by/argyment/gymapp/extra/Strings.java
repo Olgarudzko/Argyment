@@ -13,4 +13,9 @@ public interface Strings {
     String EMAIL_REGEX = "[-\\w\\.]+@[a-zA-Z]+\\.[a-zA-Z]{2,3}";
     String BIND_MAIN_IMAGE = "bind:main_image";
     String BIND_SET_IMAGE = "bind:set_image";
+    String SHARED = "SHARED";
+    String KEY_NAME = "KEY_NAME";
+    String PASSWORD = "PASSWORD";
+    String SHARED_PROF = "SHARED_PROF";
+    String SAVED_MAIL = "SAVED_MAIL";
 }

@@ -33,7 +33,6 @@
                 android:layout_marginEnd="@dimen/corners_radius"
                 android:layout_marginStart="@dimen/corners_radius"
                 android:background="@drawable/base_edit"
-                android:drawableStart="@drawable/search"
                 android:hint="@string/find_member"
                 android:inputType="text"
                 android:paddingStart="@dimen/greeting_text"
@@ -44,7 +43,7 @@
                 android:layout_height="@dimen/base_button_height"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:background="@drawable/find"
+                android:background="@drawable/search"
                 android:layout_marginEnd="@dimen/greeting_text"
                 android:onClick="@{handler::findName}"/>
 
@@ -95,7 +94,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
                     android:layout_margin="@dimen/base_button_margin"
-                    android:src="@{member.status>100 ? @drawable/yellow_button : member.status>50 ? @drawable/yellow_button : member.status>30 ? @drawable/yellow_button : member.status>15 ? @drawable/yellow_button : member.status>5 ? @drawable/yellow_button : @drawable/yellow_button}" />
+                    android:src="@{member.status>100 ? @drawable/cup : member.status>50 ? @drawable/gold : member.status>30 ? @drawable/silver : member.status>15 ? @drawable/bronze : member.status>5 ? @drawable/blin : @drawable/snow}"/>
 
                 <TextView
                     android:id="@+id/profile_name"
@@ -110,31 +109,33 @@
                     android:textStyle="italic"
                     tools:text="Lola" />
 
-                <Button
-                    android:layout_width="@dimen/menu_button_width"
-                    android:layout_height="@dimen/menu_button_width"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginBottom="@dimen/base_button_margin"
-                    android:background="@drawable/star" />
 
                 <TextView
                     android:id="@+id/member_stars"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/menu_button_width"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginBottom="@dimen/greeting_text"
-                    android:layout_marginEnd="@dimen/base_button_margin"
+                    android:layout_marginBottom="@dimen/base_button_margin"
                     android:text="@{String.valueOf(member.stars)}"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/greeting_text" />
-            </RelativeLayout>
+
+                <Button
+                    android:layout_width="@dimen/menu_button_width"
+                    android:layout_height="@dimen/menu_button_width"
+                    android:layout_above="@id/member_stars"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="@dimen/base_button_margin"
+                    android:background="@drawable/star"
+                    android:onClick="@{handler::plusStar}"/>
+ </RelativeLayout>
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/member_gallery"

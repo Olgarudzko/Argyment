@@ -38,8 +38,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_margin="@dimen/base_button_margin"
-                android:src="@{mypage.status>100 ? @drawable/yellow_button : mypage.status>50 ? @drawable/yellow_button : mypage.status>30 ? @drawable/yellow_button : mypage.status>15 ? @drawable/yellow_button : mypage.status>5 ? @drawable/yellow_button : @drawable/yellow_button}"
-                tools:src="@drawable/yellow_button" />
+                android:src="@{mypage.status>100 ? @drawable/cup : mypage.status>50 ? @drawable/gold : mypage.status>30 ? @drawable/silver : mypage.status>15 ? @drawable/bronze : mypage.status>5 ? @drawable/blin : @drawable/snow}"
+                tools:src="@drawable/cup" />
 
             <TextView
                 android:id="@+id/profile_name"
@@ -120,12 +120,13 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_toStartOf="@id/right_menu">
+                android:layout_toStartOf="@id/right_menu"
+                android:layout_gravity="center">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/my_gallery"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
             </ScrollView>
         </RelativeLayout>
 
