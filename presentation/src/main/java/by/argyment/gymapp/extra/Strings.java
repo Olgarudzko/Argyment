@@ -19,4 +19,5 @@ public interface Strings {
     String SHARED_PROF = "SHARED_PROF";
     String SAVED_MAIL = "SAVED_MAIL";
     String DESCRIPTION = "Описание должно содержать 10-50 символов";
+    String BIND_ROUND="bind:set_round_img";
 }

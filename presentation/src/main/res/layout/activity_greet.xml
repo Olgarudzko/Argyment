@@ -77,13 +77,15 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/startimg"/>
 
-            <TextView
-                style="@style/cloud_text"
-                android:layout_width="170dp"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="@{greet.checkin>80000000 ? @string/areuthere : @string/loveandtrain}" />
+                android:layout_margin="@dimen/greeting_text"
+                android:src="@{greet.checkin>80000000 ? @drawable/areuthere : @drawable/oncemore}" />
 
             <Button
                 android:id="@+id/checkin"
@@ -100,7 +102,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_margin="@dimen/base_button_margin"
+                android:layout_marginEnd="@dimen/base_button_margin"
+                android:layout_marginBottom="@dimen/greeting_text"
                 android:text="@string/enter"
                 android:textColor="@color/enter_text"
                 android:onClick="@{handler::loadProfile}"

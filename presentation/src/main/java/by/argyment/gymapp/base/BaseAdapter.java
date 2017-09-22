@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.argyment.gymapp.extra.Strings;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
@@ -57,6 +58,14 @@ public abstract class BaseAdapter<Model,
             Glide.with(view.getContext()).load(url.get())
                     .bitmapTransform(new CenterCrop(view.getContext()),
                             new RoundedCornersTransformation(view.getContext(), 10, 0)).into(view);
+        }
+    }
+
+    @BindingAdapter({Strings.BIND_ROUND})
+    public static void setRoundImg(ImageView view, ObservableField<String> url){
+        if (url.get()!=null) {
+            Glide.with(view.getContext()).load(url.get())
+                    .bitmapTransform(new CropCircleTransformation(view.getContext())).into(view);
         }
     }
 }

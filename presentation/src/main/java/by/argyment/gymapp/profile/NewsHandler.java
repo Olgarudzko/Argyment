@@ -145,10 +145,10 @@ public class NewsHandler implements BaseFragmentHandler {
 
     public void addSlonContent(View view) {
         Slon slon = new Slon();
-        EditText edit;
-        if ((edit = this.fragment.binding.slonContent).getText() != null) {
+        EditText edit=this.fragment.binding.slonContent;
+        if (!(edit.getText().toString().equals(Strings.EMPTY))) {
             String slonText;
-            if ((slonText = edit.getText().toString()).matches("\\w{10,50}")) {
+            if ((slonText = edit.getText().toString()).matches("[а-яА-Я0-9 !,\\.-]{10,50}")) {
                 slon.setSlon(slonText);
                 slon.setTrainer(MyPage.getInstance().getEmail());
                 addSloneUseCase.makeRequest(slon, new DisposableObserver<Void>() {
