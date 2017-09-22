@@ -2,6 +2,8 @@ package by.argyment.gymapp.domain.interactions;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import by.argyment.gymapp.data.entity.Profile;
 import by.argyment.gymapp.data.net.RestService;
 import by.argyment.gymapp.domain.entity.UserProfile;
@@ -16,12 +18,18 @@ import io.reactivex.functions.Function;
  */
 
 public class GetProfileUseCase extends UseCase<String, UserProfile> {
+    RestService rest;
+
+    @Inject
+    public GetProfileUseCase(RestService rest) {
+        this.rest = rest;
+    }
 
     @Override
     protected Observable<UserProfile> buildUseCase(String email) {
         String ready = Strings.EMAILIS.concat(Strings.CH).concat(email).concat(Strings.CH);
 
-        return RestService.getInstance().getProfile(ready)
+        return rest.getProfile(ready)
                 .map(new Function<List<Profile>, UserProfile>() {
                     @Override
                     public UserProfile apply(@NonNull List<Profile> profiles) throws Exception {

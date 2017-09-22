@@ -3,6 +3,8 @@ package by.argyment.gymapp.domain.interactions;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import by.argyment.gymapp.data.entity.Profile;
 import by.argyment.gymapp.data.net.RestService;
 import by.argyment.gymapp.domain.entity.UserProfile;
@@ -12,10 +14,16 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 
 public class GetProfileListUseCase extends UseCase<Void, List<UserProfile>> {
+    RestService rest;
+
+    @Inject
+    public GetProfileListUseCase(RestService rest) {
+        this.rest = rest;
+    }
 
     @Override
     protected Observable<List<UserProfile>> buildUseCase(Void param) {
-        return RestService.getInstance().getProfiles()
+        return rest.getProfiles()
                 .map(new Function<List<Profile>, List<UserProfile>>() {
                     @Override
                     public List<UserProfile> apply(@NonNull List<Profile> profiles) throws Exception {

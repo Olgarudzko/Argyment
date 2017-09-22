@@ -27,6 +27,8 @@ public class SearchHandler implements BaseFragmentHandler {
 
     @Inject
     GetProfileListUseCase getProfiles;
+    @Inject
+    GetImageListUseCase getImages;
 
     List<UserProfile> list = new ArrayList<>();
     SearchFragment searchFragment;
@@ -38,7 +40,6 @@ public class SearchHandler implements BaseFragmentHandler {
     }
 
     public MyPageImgAdapter picsAdapter;
-    private GetImageListUseCase getImages = new GetImageListUseCase();
 
     @Override
     public void init() {

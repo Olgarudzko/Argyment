@@ -14,12 +14,12 @@ import io.reactivex.Observable;
 
 public class AddElephantUseCase extends UseCase<Slon, Void>{
 
-//    RestService rest;
-//
-//    @Inject
-//    public AddElephantUseCase(RestService rest) {
-//        this.rest = rest;
-//    }
+    RestService rest;
+
+    @Inject
+    public AddElephantUseCase(RestService rest) {
+        this.rest = rest;
+    }
 
     @Override
     protected Observable<Void> buildUseCase(Slon param) {
@@ -27,6 +27,6 @@ public class AddElephantUseCase extends UseCase<Slon, Void>{
         data.setSlon(param.getSlon());
         data.setTrainer(param.getTrainer());
         data.setWinner("no");
-        return RestService.getInstance().addSlon(data);
+        return rest.addSlon(data);
     }
 }

@@ -19,16 +19,16 @@ import io.reactivex.functions.Function;
 
 public class GetFreeElephantsUseCase extends UseCase<Void, List<Slon>> {
 
-//    RestService rest;
-//
-//    @Inject
-//    public GetFreeElephantsUseCase(RestService rest) {
-//        this.rest = rest;
-//    }
+    RestService rest;
+
+    @Inject
+    public GetFreeElephantsUseCase(RestService rest) {
+        this.rest = rest;
+    }
 
     @Override
     protected Observable<List<Slon>> buildUseCase(Void param) {
-        return RestService.getInstance().getFreeElephants().map(new Function<List<SlonData>, List<Slon>>() {
+        return rest.getFreeElephants().map(new Function<List<SlonData>, List<Slon>>() {
             @Override
             public List<Slon> apply(@NonNull List<SlonData> slonDatas) throws Exception {
                 List<Slon> list=new ArrayList<Slon>();

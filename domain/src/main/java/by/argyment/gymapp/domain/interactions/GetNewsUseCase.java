@@ -20,16 +20,16 @@ import io.reactivex.functions.Function;
 
 public class GetNewsUseCase extends UseCase<Void, List<News>> {
 
-//    RestService rest;
-//
-//    @Inject
-//    public GetNewsUseCase(RestService rest) {
-//        this.rest = rest;
-//    }
+    RestService rest;
+
+    @Inject
+    public GetNewsUseCase(RestService rest) {
+        this.rest = rest;
+    }
 
     @Override
     protected Observable<List<News>> buildUseCase(Void param) {
-        return RestService.getInstance().getNews().map(new Function<List<NewsData>, List<News>>() {
+        return rest.getNews().map(new Function<List<NewsData>, List<News>>() {
             @Override
             public List<News> apply(@NonNull List<NewsData> newsDatas) throws Exception {
                 List<News> list= new ArrayList<>();

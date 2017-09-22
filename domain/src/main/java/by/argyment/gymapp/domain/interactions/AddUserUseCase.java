@@ -1,5 +1,7 @@
 package by.argyment.gymapp.domain.interactions;
 
+import javax.inject.Inject;
+
 import by.argyment.gymapp.data.entity.Profile;
 import by.argyment.gymapp.data.net.RestService;
 import by.argyment.gymapp.domain.entity.UserProfile;
@@ -11,6 +13,12 @@ import io.reactivex.Observable;
  */
 
 public class AddUserUseCase extends UseCase<UserProfile, Void> {
+    RestService rest;
+
+    @Inject
+    public AddUserUseCase(RestService rest) {
+        this.rest = rest;
+    }
 
     @Override
     protected Observable<Void> buildUseCase(UserProfile param) {
@@ -26,6 +34,6 @@ public class AddUserUseCase extends UseCase<UserProfile, Void> {
         newUser.setUserpic(param.getUserpic());
         newUser.setTimeStar(param.getTimeStar());
         newUser.setTimeCheckin(param.getTimeCheckin());
-        return RestService.getInstance().addProfile(newUser);
+        return rest.addProfile(newUser);
     }
 }

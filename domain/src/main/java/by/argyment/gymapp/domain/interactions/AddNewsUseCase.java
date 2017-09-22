@@ -14,12 +14,12 @@ import io.reactivex.Observable;
 
 public class AddNewsUseCase extends UseCase<News, Void> {
 
-//    RestService rest;
-//
-//    @Inject
-//    public AddNewsUseCase(RestService rest) {
-//        this.rest = rest;
-//    }
+    RestService rest;
+
+    @Inject
+    public AddNewsUseCase(RestService rest) {
+        this.rest = rest;
+    }
 
     @Override
     protected Observable<Void> buildUseCase(News param) {
@@ -28,6 +28,6 @@ public class AddNewsUseCase extends UseCase<News, Void> {
         data.setPicture(param.getPicture());
         data.setText(param.getText());
         data.setDate(param.getDate());
-        return RestService.getInstance().addNews(data);
+        return rest.addNews(data);
     }
 }
