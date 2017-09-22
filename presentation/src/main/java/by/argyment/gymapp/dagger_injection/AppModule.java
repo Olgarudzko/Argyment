@@ -1,10 +1,14 @@
 package by.argyment.gymapp.dagger_injection;
 
 import by.argyment.gymapp.domain.interactions.AddBitmapUseCase;
+import by.argyment.gymapp.domain.interactions.AddElephantUseCase;
 import by.argyment.gymapp.domain.interactions.AddImageUseCase;
+import by.argyment.gymapp.domain.interactions.AddNewsUseCase;
 import by.argyment.gymapp.domain.interactions.AddUserUseCase;
 import by.argyment.gymapp.domain.interactions.DeleteImageUseCase;
+import by.argyment.gymapp.domain.interactions.GetFreeElephantsUseCase;
 import by.argyment.gymapp.domain.interactions.GetImageListUseCase;
+import by.argyment.gymapp.domain.interactions.GetNewsUseCase;
 import by.argyment.gymapp.domain.interactions.GetProfileListUseCase;
 import by.argyment.gymapp.domain.interactions.GetProfileUseCase;
 import by.argyment.gymapp.domain.interactions.UpdateProfileUseCase;
@@ -53,5 +57,21 @@ public class AppModule {
     @Provides
     public DeleteImageUseCase removeImg(){
         return new DeleteImageUseCase();
+    }
+
+    @Provides
+    public GetNewsUseCase getNews(){ return new GetNewsUseCase(); }
+
+    @Provides
+    public GetFreeElephantsUseCase getElephants(){ return new GetFreeElephantsUseCase(); }
+
+    @Provides
+    public AddNewsUseCase addNewsUseCase(){
+        return new AddNewsUseCase();
+    }
+
+    @Provides
+    public AddElephantUseCase addSlon(){
+        return new AddElephantUseCase();
     }
 }

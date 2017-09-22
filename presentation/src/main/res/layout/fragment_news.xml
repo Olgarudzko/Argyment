@@ -1,50 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="user"
+            type="by.argyment.gymapp.profile.MyPage" />
+        <variable
+            name="handler"
+            type="by.argyment.gymapp.profile.NewsHandler" />
+    </data>
 
     <RelativeLayout
-        android:id="@+id/slon_panel"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/inner_width_base_button"
-        android:layout_alignParentBottom="true"
-        android:background="@color/transparent"
-        android:paddingEnd="@dimen/greeting_text"
-        android:paddingStart="@dimen/greeting_text">
-
-        <Button
-            android:id="@+id/slon1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true" />
-
-        <Button
-            android:id="@+id/slon2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
-
-        <Button
-            android:id="@+id/slon3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true" />
-    </RelativeLayout>
-
-    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/slon_panel"
-        android:layout_gravity="center">
+        android:background="@color/colorPrimaryDark">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/news_feed"
+        <RelativeLayout
+            android:id="@+id/slon_panel"
+            style="@style/bottom_menu">
+
+            <Button
+                android:id="@+id/slon1"
+                style="@style/menu_button"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/base_button_height"
+                android:background="@drawable/slon"
+                android:visibility="@{handler.slon1==null ? View.GONE : user.isTrainer ? View.GONE : View.VISIBLE}" />
+
+            <Button
+                android:id="@+id/add_slon1"
+                style="@style/menu_button"
+                android:onClick="@{handler::addSlon}"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/base_button_height"
+                android:background="@drawable/add_slon"
+                android:visibility="@{handler.slon1!=null ? View.GONE : user.isTrainer ? View.VISIBLE : View.GONE}" />
+
+            <Button
+                android:id="@+id/slon2"
+                style="@style/menu_button"
+                android:layout_centerInParent="true"
+                android:background="@drawable/slon"
+                android:visibility="@{handler.slon2==null ? View.GONE : user.isTrainer ? View.GONE : View.VISIBLE}"/>
+
+            <Button
+                android:id="@+id/add_slon2"
+                style="@style/menu_button"
+                android:onClick="@{handler::addSlon}"
+                android:layout_centerInParent="true"
+                android:background="@drawable/add_slon"
+                android:visibility="@{handler.slon2!=null ? View.GONE : user.isTrainer ? View.VISIBLE : View.GONE}" />
+
+            <Button
+                android:id="@+id/slon3"
+                style="@style/menu_button"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/base_button_height"
+                android:background="@drawable/slon"
+                android:visibility="@{handler.slon3==null ? View.GONE : user.isTrainer ? View.GONE : View.VISIBLE}" />
+
+            <Button
+                android:id="@+id/add_slon3"
+                style="@style/menu_button"
+                android:onClick="@{handler::addSlon}"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/base_button_height"
+                android:background="@drawable/add_slon"
+                android:visibility="@{handler.slon3!=null ? View.GONE : user.isTrainer ? View.VISIBLE : View.GONE}" />
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="@dimen/base_button_width"
+            android:layout_height="@dimen/base_button_width"
+            android:layout_above="@id/slon_panel"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/add_news"
+            android:visibility="@{user.isAdmin ? View.VISIBLE : View.GONE}"
+            android:onClick="@{handler::showEditor}" />
+
+        <RelativeLayout
+            android:id="@+id/slon_edit"
+            style="@style/bottom_menu"
+            android:visibility="@{handler.isSlonAdding ? View.VISIBLE : View.GONE}">
+            <EditText
+                android:id="@+id/slon_content"
+                style="@style/bottom_menu"
+                android:background="@color/white"
+                android:hint="@string/type_bonus"
+                android:textAlignment="center" />
+            <Button
+                style="@style/menu_button"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/base_button_margin"
+                android:background="@drawable/add_slon"
+                android:onClick="@{handler::addSlonContent}"/>
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/slon_panel"
+            android:layout_gravity="center">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/news_feed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/corners_radius" />
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/adding_news"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/corners_radius" />
-    </ScrollView>
+            android:orientation="vertical"
+            android:background="@color/transparent"
+            android:visibility="@{handler.isAdding==true ? View.VISIBLE : View.GONE}">
 
-</RelativeLayout>
+            <EditText
+                android:id="@+id/news_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_button_height"
+                android:layout_marginTop="@dimen/greeting_text"
+                android:layout_marginStart="@dimen/greeting_text"
+                android:layout_marginEnd="@dimen/greeting_text"
+                android:background="@color/white"
+                android:textAlignment="center"
+                android:hint="@string/news_title"/>
+            <EditText
+                android:id="@+id/news_content"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_edit_width"
+                android:layout_margin="@dimen/greeting_text"
+                android:inputType="textMultiLine"
+                android:padding="@dimen/greeting_text"
+                android:textAlignment="center"
+                android:hint="@string/news_content"/>
+            <Button
+                style="@style/base_edit_field"
+                android:layout_width="@dimen/info_line"
+                android:layout_height="@dimen/inner_width_base_button"
+                android:layout_gravity="center"
+                android:text="@string/add_news"
+                android:textColor="@color/button_text"
+                android:onClick="@{handler::addNews}"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

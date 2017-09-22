@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.List;
 
 import by.argyment.gymapp.data.entity.Image;
+import by.argyment.gymapp.data.entity.NewsData;
 import by.argyment.gymapp.data.entity.Profile;
+import by.argyment.gymapp.data.entity.SlonData;
 import by.argyment.gymapp.data.extra.Strings;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -24,11 +26,8 @@ public interface RestApi {
     @GET(Strings.PROFILE_100_PAGES)
     Observable<List<Profile>> getProfiles();
 
-    @GET(Strings.IMAGES_100_PAGE)
-    Observable<List<Image>> getImages();
-
     @GET(Strings.IMAGES)
-    Observable<Image> getImages(@Query(Strings.WHERE) String email);
+    Observable<List<Image>> getImages(@Query(Strings.WHERE) String email);
 
     @POST(Strings.PROFILES)
     Observable<Void> addProfile(@Body Profile profile);
@@ -48,4 +47,15 @@ public interface RestApi {
     @PUT("files/UsersImages/{name}")
     Observable<Void> addBitmap(@Body File file, @Path("name") String name );
 
+    @GET("data/news")
+    Observable <List<NewsData>> getNews();
+
+    @POST("data/news")
+    Observable<Void> addNews(@Body NewsData news);
+
+    @GET("data/elephants?where=winner='no'")
+    Observable<List<SlonData>> getFreeElephants();
+
+    @POST("data/elephants")
+    Observable<Void> addSlon(@Body SlonData slon);
 }

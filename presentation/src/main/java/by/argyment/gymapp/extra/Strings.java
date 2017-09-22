@@ -18,4 +18,5 @@ public interface Strings {
     String PASSWORD = "PASSWORD";
     String SHARED_PROF = "SHARED_PROF";
     String SAVED_MAIL = "SAVED_MAIL";
+    String DESCRIPTION = "Описание должно содержать 10-50 символов";
 }

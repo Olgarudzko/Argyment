@@ -8,7 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 import by.argyment.gymapp.data.entity.DataBitmap;
 import by.argyment.gymapp.data.entity.Image;
+import by.argyment.gymapp.data.entity.NewsData;
 import by.argyment.gymapp.data.entity.Profile;
+import by.argyment.gymapp.data.entity.SlonData;
 import by.argyment.gymapp.data.extra.Strings;
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
@@ -52,8 +54,8 @@ public class RestService {
       return api.getProfiles();
     }
 
-    public Observable<List<Image>> getImages(){
-        return api.getImages();
+    public Observable<List<Image>> getImages(String email){
+        return api.getImages(email);
     }
 
     public Observable<Void> addImage (Image image) {
@@ -78,5 +80,20 @@ public class RestService {
 
     public Observable<Void> addBitmap (DataBitmap bitmap){
         return api.addBitmap(bitmap.getFile(), bitmap.getName());
+    }
+    public Observable<List<NewsData>> getNews() {
+        return api.getNews();
+    }
+
+    public Observable<List<SlonData>> getFreeElephants() {
+        return api.getFreeElephants();
+    }
+
+    public Observable<Void> addNews(NewsData news) {
+        return api.addNews(news);
+    }
+
+    public Observable<Void> addSlon(SlonData slon){
+        return api.addSlon(slon);
     }
 }

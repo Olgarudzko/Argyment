@@ -42,7 +42,7 @@ public class InfoFragment extends Fragment {
 
 
     public void goVk(View view) {
-        Uri uri = Uri.parse("https://vk.com/argyment_gym/");
+        Uri uri = Uri.parse("https://vk.com/argyment_gym");
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }

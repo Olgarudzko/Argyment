@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import by.argyment.gymapp.greeting.GreetModel;
 import by.argyment.gymapp.profile.MyPageHandler;
+import by.argyment.gymapp.profile.NewsHandler;
 import by.argyment.gymapp.profile.ProfileModel;
 import by.argyment.gymapp.profile.SearchHandler;
 import dagger.Component;
@@ -20,4 +21,5 @@ public interface AppComponent {
     void injectProfileModel (ProfileModel model);
     void injectMyPageHandler(MyPageHandler handler);
     void injectSearchHandler(SearchHandler handler);
+    void injectNewsHandler(NewsHandler handler);
 }
