@@ -27,17 +27,11 @@
 
             <EditText
                 android:id="@+id/find_member"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/base_button_height"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="@dimen/corners_radius"
-                android:layout_marginStart="@dimen/corners_radius"
-                android:background="@drawable/base_edit"
+                style="@style/bottom_menu"
                 android:hint="@string/find_member"
                 android:inputType="text"
                 android:paddingStart="@dimen/greeting_text"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textAlignment="center"/>
             <Button
                 android:layout_width="@dimen/base_button_height"
                 android:layout_height="@dimen/base_button_height"
@@ -50,8 +44,7 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/find_member"
-                android:layout_gravity="center">
+                android:layout_above="@id/find_member">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/users_list"
@@ -130,12 +123,11 @@
                     android:layout_marginBottom="@dimen/base_button_margin"
                     android:background="@drawable/star"
                     android:onClick="@{handler::plusStar}"/>
- </RelativeLayout>
+            </RelativeLayout>
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center">
+                android:layout_height="wrap_content">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/member_gallery"

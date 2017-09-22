@@ -30,6 +30,7 @@ public class SearchHandler implements BaseFragmentHandler {
 
     List<UserProfile> list = new ArrayList<>();
     SearchFragment searchFragment;
+    public SearchAdapter adapter;
 
     SearchHandler(SearchFragment fragment) {
         this.searchFragment=fragment;
@@ -41,6 +42,11 @@ public class SearchHandler implements BaseFragmentHandler {
 
     @Override
     public void init() {
+        adapter = new SearchAdapter(searchFragment);
+    }
+
+    @Override
+    public void resume() {
         getProfiles.makeRequest(null, new DisposableObserver<List<UserProfile>>() {
             @Override
             public void onNext(@NonNull List<UserProfile> userProfiles) {
@@ -50,7 +56,7 @@ public class SearchHandler implements BaseFragmentHandler {
                     }
                 }
                 list = userProfiles;
-                searchFragment.adapter.setItems(list);
+                adapter.setItems(list);
             }
 
             @Override
@@ -67,7 +73,8 @@ public class SearchHandler implements BaseFragmentHandler {
 
     @Override
     public void viewCreated() {
-
+        searchFragment.binding.usersList.setLayoutManager(new GridLayoutManager(searchFragment.getContext(), 3));
+        searchFragment.binding.usersList.setAdapter(adapter);
     }
 
     public void loadMemberPage(UserProfile member) {
@@ -108,9 +115,9 @@ public class SearchHandler implements BaseFragmentHandler {
                     nameSakes.add(user);
                 }
             }
-            searchFragment.adapter.setItems(nameSakes);
+            adapter.setItems(nameSakes);
         } else {
-            searchFragment.adapter.setItems(list);
+            adapter.setItems(list);
         }
     }
 

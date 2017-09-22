@@ -21,6 +21,12 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        handler.resume();
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         handler.viewCreated();

@@ -11,9 +11,9 @@
     <string name="check_email">Проверьте e-mail</string>
     <string name="name_password">Имя и пароль должны содержать 5–10 букв/цифр</string>
     <string name="email_password">Укажите e-mail и пароль</string>
-    <string name="address">пр-т Дзержинского, 104\n (ТРЦ Титан)</string>
-    <string name="phone1">+375–44–5–11111–9</string>
-    <string name="phone2">+375–17–303–39–33</string>
+    <string name="address">пр-т Дзержинского,\n 104 (ТРЦ Титан)</string>
+    <string name="phone1">+375(44)5111119</string>
+    <string name="phone2">+375(17)3033933</string>
     <string name="time">пн–пт. 07:00–23:00\nсб–вс. 09:00–22:00</string>
     <string name="find_member">искать по никнейму</string>
     <string name="email_exists">e-mail уже зарегистрирован</string>
@@ -21,4 +21,8 @@
     <string name="wrong_password">неверный пароль</string>
     <string name="loveandtrain">Love and train</string>
     <string name="areuthere">Are u there?</string>
+    <string name="type_bonus">введите текст бонуса</string>
+    <string name="news_title">Заголовок</string>
+    <string name="news_content">Текст новости</string>
+    <string name="add_news">Выбрать фото и добавить новость</string>
 </resources>

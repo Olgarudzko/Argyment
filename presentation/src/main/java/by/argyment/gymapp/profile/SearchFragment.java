@@ -18,7 +18,6 @@ import by.argyment.gymapp.databinding.FragmentSearchBinding;
 public class SearchFragment extends BaseFragment {
 
     public SearchHandler currentHandler;
-    public SearchAdapter adapter;
     FragmentSearchBinding binding;
 
     public static SearchFragment newInstance(FragmentManager manager) {
@@ -32,8 +31,6 @@ public class SearchFragment extends BaseFragment {
         currentHandler=new SearchHandler(this);
         this.handler=currentHandler;
         super.onCreate(savedInstanceState);
-        adapter = new SearchAdapter(this);
-
     }
 
     @Nullable
@@ -49,12 +46,4 @@ public class SearchFragment extends BaseFragment {
         binding.setMember(MemberPage.getInstance());
         binding.setHandler(currentHandler);
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        binding.usersList.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        binding.usersList.setAdapter(adapter);
-    }
-
 }

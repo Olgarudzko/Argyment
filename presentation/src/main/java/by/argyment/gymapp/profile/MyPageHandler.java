@@ -60,7 +60,27 @@ public class MyPageHandler implements BaseFragmentHandler {
     @Override
     public void init() {
         adapter = new MyPageImgAdapter();
-        fillAdapter();
+    }
+
+    @Override
+    public void resume() {
+        getImages.makeRequest(MyPage.getInstance().getEmail(), new DisposableObserver<List<UserImage>>() {
+            @Override
+            public void onNext(@NonNull List<UserImage> userImages) {
+                list = userImages;
+                adapter.setItems(list);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 
     @Override
@@ -157,26 +177,6 @@ public class MyPageHandler implements BaseFragmentHandler {
             adapter.setItems(list);
             MyPage.getInstance().userpic.set(mainImg);
         }
-    }
-
-    private void fillAdapter() {
-        getImages.makeRequest(MyPage.getInstance().getEmail(), new DisposableObserver<List<UserImage>>() {
-            @Override
-            public void onNext(@NonNull List<UserImage> userImages) {
-                list = userImages;
-                adapter.setItems(list);
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
     }
 
     @Override

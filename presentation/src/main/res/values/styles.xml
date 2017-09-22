@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 
     <style name="base_edit_field">
@@ -37,8 +37,9 @@
     </style>
 
     <style name="menu_button">
-        <item name="android:layout_height">@dimen/menu_button_width</item>
-        <item name="android:layout_width">@dimen/menu_button_width</item>
+        <item name="android:layout_height">@dimen/inner_height_base_button</item>
+        <item name="android:layout_width">@dimen/inner_height_base_button</item>
+        <item name="android:layout_centerVertical">true</item>
     </style>
 
     <style name="info_line">
@@ -50,6 +51,28 @@
         <item name="android:textSize">@dimen/greeting_text</item>
         <item name="android:textAlignment">textEnd</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="phone_number">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:drawableStart">@drawable/phone</item>
+        <item name="android:autoLink">phone</item>
+        <item name="android:textSize">@dimen/greeting_text</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_marginStart">@dimen/base_button_margin</item>
+    </style>
+
+    <style name="bottom_menu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/base_button_height</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_marginEnd">@dimen/corners_radius</item>
+        <item name="android:layout_marginStart">@dimen/corners_radius</item>
+        <item name="android:background">@drawable/base_edit</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
 </resources>

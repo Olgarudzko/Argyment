@@ -12,11 +12,10 @@
             type="by.argyment.gymapp.profile.MyPageHandler" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="vertical">
+        android:background="@color/colorPrimaryDark">
 
         <RelativeLayout
             android:id="@+id/headpage"
@@ -78,58 +77,45 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/gallery_menu"
+            style="@style/bottom_menu">
 
-            <RelativeLayout
-                android:id="@+id/right_menu"
-                android:layout_width="@dimen/menu_button_width"
-                android:layout_height="match_parent"
+            <Button
+                android:id="@+id/delete_button"
+                style="@style/menu_button"
                 android:layout_alignParentEnd="true"
-                android:background="@color/transparent"
-                android:gravity="center">
+                android:layout_marginEnd="@dimen/base_button_height"
+                android:background="@drawable/delete"
+                android:onClick="@{handler::removePhoto}"/>
 
-                <Button
-                    android:id="@+id/delete_button"
-                    style="@style/menu_button"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginBottom="@dimen/base_button_margin"
-                    android:background="@drawable/delete"
-                    android:onClick="@{handler::removePhoto}"/>
+            <Button
+                android:id="@+id/add_button"
+                style="@style/menu_button"
+                android:layout_centerInParent="true"
+                android:background="@drawable/add"
+                android:onClick="@{handler::addPhoto}"/>
 
-                <Button
-                    android:id="@+id/add_button"
-                    style="@style/menu_button"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/add"
-                    android:onClick="@{handler::addPhoto}"/>
-
-                <Button
-                    android:id="@+id/choose_button"
-                    style="@style/menu_button"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="@dimen/base_button_margin"
-                    android:background="@drawable/choose"
-                    android:onClick="@{handler::mainPhoto}"/>
-            </RelativeLayout>
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toStartOf="@id/right_menu"
-                android:layout_gravity="center">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/my_gallery"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </ScrollView>
+            <Button
+                android:id="@+id/choose_button"
+                style="@style/menu_button"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/base_button_height"
+                android:background="@drawable/choose"
+                android:onClick="@{handler::mainPhoto}"/>
         </RelativeLayout>
 
-    </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/headpage"
+            android:layout_above="@+id/gallery_menu">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/my_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>                    />
+        </ScrollView>
+
+    </RelativeLayout>
 
 </layout>

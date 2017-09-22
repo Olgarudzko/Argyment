@@ -31,7 +31,6 @@ public class ProfileActivity extends BaseActivity {
         this.viewModel = model;
         ProfileHandler handler = new ProfileHandler(this);
         ActivityProfileBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
-        binding.setProfile(model);
         binding.setHandler(handler);
         super.onCreate(savedInstanceState);
         String email;
