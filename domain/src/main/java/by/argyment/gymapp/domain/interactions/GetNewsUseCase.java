@@ -1,6 +1,7 @@
 package by.argyment.gymapp.domain.interactions;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class GetNewsUseCase extends UseCase<Void, List<News>> {
                     news.setText(data.getText());
                     list.add(news);
                 }
-                list.sort(new Comparator<News>() {
+                Collections.sort(list, new Comparator<News>() {
                     @Override
                     public int compare(News news, News t1) {
                         return (news.getDate()>t1.getDate()) ? -1 : (news.getDate()<t1.getDate()) ? 1 : 0;

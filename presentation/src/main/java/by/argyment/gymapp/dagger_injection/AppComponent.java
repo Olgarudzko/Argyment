@@ -7,6 +7,7 @@ import by.argyment.gymapp.profile.MyPageHandler;
 import by.argyment.gymapp.profile.NewsHandler;
 import by.argyment.gymapp.profile.ProfileModel;
 import by.argyment.gymapp.profile.SearchHandler;
+import by.argyment.gymapp.profile.VlogHandler;
 import dagger.Component;
 
 /**
@@ -22,4 +23,5 @@ public interface AppComponent {
     void injectMyPageHandler(MyPageHandler handler);
     void injectSearchHandler(SearchHandler handler);
     void injectNewsHandler(NewsHandler handler);
+    void injectVlogFragment(VlogHandler handler);
 }

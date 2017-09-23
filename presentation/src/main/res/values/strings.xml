@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">GymApp</string>
+
+    <!-- Labels and hints for fields -->
     <string name="username">никнейм (для новичков)</string>
     <string name="email">e-mail</string>
     <string name="password">пароль</string>
@@ -7,22 +9,46 @@
     <string name="signin">new</string>
     <string name="enter">Войти без отметки</string>
     <string name="yes">да!</string>
-    <string name="fill_fields">Пожалуйста, заполните все поля</string>
+    <string name="news_title">Заголовок</string>
+    <string name="news_content">Текст новости</string>
+    <string name="add_news">Выбрать фото и добавить новость</string>
+    <string name="find_member">искать по никнейму</string>
+    <string name="type_bonus">введите текст бонуса</string>
+    <string name="videotitle">Заголовок видео</string>
+    <string name="videolink">ccылка</string>
+    <string name="video_added">Видео добавлено</string>
+    <string name="mainingset">Фото закреплено</string>
+
+    <!-- Notifications -->
+    <string name="fill_fields">Заполните все поля</string>
     <string name="check_email">Проверьте e-mail</string>
     <string name="name_password">Имя и пароль должны содержать 5–10 букв/цифр</string>
     <string name="email_password">Укажите e-mail и пароль</string>
+    <string name="description">Описание должно содержать 10–50 символов</string>
+    <string name="email_exists">e-mail уже зарегистрирован</string>
+    <string name="email_not_exists">e-mail не зарегистрирован</string>
+    <string name="wrong_password">неверный пароль</string>
+    <string name="wrong_title">заголовок 5–30 символов</string>
+
+    <!-- Contacts -->
     <string name="address">пр-т Дзержинского,\n 104 (ТРЦ Титан)</string>
     <string name="phone1">+375(44)5111119</string>
     <string name="phone2">+375(17)3033933</string>
     <string name="time">пн–пт. 07:00–23:00\nсб–вс. 09:00–22:00</string>
-    <string name="find_member">искать по никнейму</string>
-    <string name="email_exists">e-mail уже зарегистрирован</string>
-    <string name="email_not_exists">e-mail не зарегистрирован</string>
-    <string name="wrong_password">неверный пароль</string>
-    <string name="loveandtrain">Love and train</string>
-    <string name="areuthere">Are u there?</string>
-    <string name="type_bonus">введите текст бонуса</string>
-    <string name="news_title">Заголовок</string>
-    <string name="news_content">Текст новости</string>
-    <string name="add_news">Выбрать фото и добавить новость</string>
+    <string name="youtube">YOUTUBE</string>
+
+    <!-- Descriptions for ImageViews -->
+    <string name="infobutton">info</string>
+    <string name="vlogbutton">vlog</string>
+    <string name="findbutton">find</string>
+    <string name="newsbutton">news</string>
+    <string name="homebutton">home</string>
+    <string name="greetings">Greetings!</string>
+    <string name="lola_says">Lola says</string>
+    <string name="argyment_gym">Argyment Gym</string>
+    <string name="argyment_logo">Argyment logo</string>
+    <string name="profile_image">Profile image</string>
+    <string name="status">status</string>
+    <string name="slon">slon</string>
+
 </resources>

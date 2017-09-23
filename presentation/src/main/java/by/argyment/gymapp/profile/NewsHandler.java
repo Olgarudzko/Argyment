@@ -69,32 +69,30 @@ public class NewsHandler implements BaseFragmentHandler {
 
     @Override
     public void resume() {
-        getNews.makeRequest(null, new DisposableObserver<List<News>>() {
-            @Override
-            public void onNext(@NonNull List<News> news) {
-                adapter.setItems(news);
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
+//        getNews.makeRequest(null, new DisposableObserver<List<News>>() {
+//            @Override
+//            public void onNext(@NonNull List<News> news) {
+//                adapter.setItems(news);
+//            }
+//            @Override
+//            public void onError(@NonNull Throwable e) {}
+//            @Override
+//            public void onComplete() {}
+//        });
         elephants.makeRequest(null, new DisposableObserver<List<Slon>>() {
             @Override
             public void onNext(@NonNull List<Slon> slons) {
                 if (!slons.isEmpty()) {
-                    slon1.set(slons.get(0).getSlon());
+                    slon1=new ObservableField<String>(slons.get(0).getSlon());
                     if (slons.size() > 1) {
-                        slon2.set(slons.get(1).getSlon());
+                        slon2=new ObservableField<String>(slons.get(1).getSlon());
                         if (slons.size() > 2) {
-                            slon3.set(slons.get(2).getSlon());
+                            slon3=new ObservableField<String>(slons.get(2).getSlon());
+                        } else {
+                            slon3=null;
                         }
+                    } else{
+                        slon2=null; slon3=null;
                     }
                 }
             }
@@ -148,29 +146,21 @@ public class NewsHandler implements BaseFragmentHandler {
         EditText edit=this.fragment.binding.slonContent;
         if (!(edit.getText().toString().equals(Strings.EMPTY))) {
             String slonText;
-            if ((slonText = edit.getText().toString()).matches("[а-яА-Я0-9 !,\\.-]{10,50}")) {
+            if ((slonText = edit.getText().toString()).matches(Strings.SLON_REGEX)) {
                 slon.setSlon(slonText);
                 slon.setTrainer(MyPage.getInstance().getEmail());
                 addSloneUseCase.makeRequest(slon, new DisposableObserver<Void>() {
                     @Override
-                    public void onNext(@NonNull Void aVoid) {
-
-                    }
-
+                    public void onNext(@NonNull Void aVoid) {}
                     @Override
-                    public void onError(@NonNull Throwable e) {
-
-                    }
-
+                    public void onError(@NonNull Throwable e) {}
                     @Override
-                    public void onComplete() {
-
-                    }
+                    public void onComplete() {}
                 });
                 isSlonAdding.set(false);
             } else {
                 edit.setText(Strings.EMPTY);
-                edit.setHint(Strings.DESCRIPTION);
+                edit.setHint(R.string.description);
             }
         } else {
             currentAddSlon.setVisibility(View.VISIBLE);
@@ -192,9 +182,8 @@ public class NewsHandler implements BaseFragmentHandler {
     public void activityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == CHOOSE_IMAGE) {
             File file = new File(data.getData().getPath());
-
         }
-        newsToAdd.setPicture("");
+        newsToAdd.setPicture("http://argyment.by/webroot/606/446a6496.jpg");
         addNewsUseCase.makeRequest(newsToAdd, new DisposableObserver<Void>() {
             @Override
             public void onNext(@NonNull Void aVoid) {

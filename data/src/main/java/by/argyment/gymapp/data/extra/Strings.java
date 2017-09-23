@@ -6,7 +6,6 @@ package by.argyment.gymapp.data.extra;
 
 public interface Strings {
     String PROFILE_100_PAGES = "data/profiles?pageSize=100";
-    String IMAGES_100_PAGE = "data/images?pageSize=100";
     String IMAGES = "data/images";
     String PROFILES = "data/profiles";
     String WHERE = "where";
@@ -25,4 +24,16 @@ public interface Strings {
     String TIME_STAR = "timeStar";
     String BASE_URL = "https://api.backendless.com/FCBFF78E-1D57-5C7C-FF9A-7A8C1078C400/175DDE14-033B-C914-FFF8-D66210C89700/";
     String UPDATE_PROFILES = "data/profiles/{id}";
+    String WINNER = "winner";
+    String TITLE = "title";
+    String CONTENTS = "contents";
+    String PICTURE = "picture";
+    String ADDEDAT = "addedat";
+    String ELEPHANTS = "data/elephants";
+    String NEWS = "data/news";
+    String NEWS_100_PAGES = "data/news?pageSize=100";
+    String DELETE_IMAGE = "data/images/{id}";
+    String ID = "id";
+    String VLOG_100_PAGES = "data/vlog?pageSize=100";
+    String VLOG = "data/vlog";
 }

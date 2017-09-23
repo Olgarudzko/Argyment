@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
@@ -26,14 +27,18 @@
                 style="@style/menu_button"
                 android:layout_alignParentStart="true"
                 android:background="@drawable/home"
-                android:onClick="@{handler::goHome}" />
+                android:onClick="@{handler::goHome}"/>
+                <!--app:srcCompat="@drawable/home"
+                android:contentDescription="@string/homebutton" />-->
 
             <Button
                 android:id="@+id/news"
                 style="@style/menu_button"
                 android:layout_centerInParent="true"
                 android:background="@drawable/news"
-                android:onClick="@{handler::goNews}" />
+                android:onClick="@{handler::goNews}"/>
+                <!--app:srcCompat="@drawable/news"-->
+                <!--android:contentDescription="@string/newsbutton" />-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -46,15 +51,19 @@
                     style="@style/menu_button"
                     android:layout_centerInParent="true"
                     android:background="@drawable/search"
-                    android:onClick="@{handler::goSearch}" />
+                    android:onClick="@{handler::goSearch}"/>
+                    <!--app:srcCompat="@drawable/search"-->
+                    <!--android:contentDescription="@string/findbutton" />-->
             </RelativeLayout>
 
             <Button
                 android:id="@+id/info"
                 style="@style/menu_button"
-                android:layout_alignParentEnd="true"
                 android:background="@drawable/info"
-                android:onClick="@{handler::goInfo}" />
+                android:layout_alignParentEnd="true"
+                android:onClick="@{handler::goInfo}"/>
+                <!--app:srcCompat="@drawable/info"-->
+                <!--android:contentDescription="@string/infobutton" />-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -67,7 +76,9 @@
                     style="@style/menu_button"
                     android:layout_centerInParent="true"
                     android:background="@drawable/vlog"
-                    android:onClick="@{handler::goVlog}" />
+                    android:onClick="@{handler::goVlog}"/>
+                    <!--app:srcCompat="@drawable/vlog"-->
+                    <!--android:contentDescription="@string/vlogbutton" />-->
             </RelativeLayout>
         </RelativeLayout>
 

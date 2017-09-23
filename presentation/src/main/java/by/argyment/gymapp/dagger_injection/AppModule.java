@@ -14,12 +14,14 @@ import by.argyment.gymapp.domain.interactions.AddElephantUseCase;
 import by.argyment.gymapp.domain.interactions.AddImageUseCase;
 import by.argyment.gymapp.domain.interactions.AddNewsUseCase;
 import by.argyment.gymapp.domain.interactions.AddUserUseCase;
+import by.argyment.gymapp.domain.interactions.AddVideoUseCase;
 import by.argyment.gymapp.domain.interactions.DeleteImageUseCase;
 import by.argyment.gymapp.domain.interactions.GetFreeElephantsUseCase;
 import by.argyment.gymapp.domain.interactions.GetImageListUseCase;
 import by.argyment.gymapp.domain.interactions.GetNewsUseCase;
 import by.argyment.gymapp.domain.interactions.GetProfileListUseCase;
 import by.argyment.gymapp.domain.interactions.GetProfileUseCase;
+import by.argyment.gymapp.domain.interactions.GetVideoUseCase;
 import by.argyment.gymapp.domain.interactions.UpdateProfileUseCase;
 import dagger.Module;
 import dagger.Provides;
@@ -116,4 +118,10 @@ public class AppModule {
     public AddElephantUseCase addSlon(RestService rest){
         return new AddElephantUseCase(rest);
     }
+
+    @Provides
+    public GetVideoUseCase getVideo(RestService rest){ return new GetVideoUseCase(rest); }
+
+    @Provides
+    public AddVideoUseCase addVideo(RestService rest) { return new AddVideoUseCase(rest); }
 }

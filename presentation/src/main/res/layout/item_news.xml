@@ -53,7 +53,8 @@
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:text="@{newsItem.title}"
-                tools:text="Мини-группы Илоны Якубович “GIRLS’ POWER”" />
+                tools:text="Мини-группы Илоны Якубович “GIRLS’ POWER”"
+                tools:ignore="RtlSymmetry,SpUsage" />
 
         </RelativeLayout>
 

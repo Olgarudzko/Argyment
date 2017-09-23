@@ -5,9 +5,6 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.view.View;
 
-import java.util.List;
-
-import by.argyment.gymapp.domain.entity.UserImage;
 import by.argyment.gymapp.extra.Strings;
 
 /**

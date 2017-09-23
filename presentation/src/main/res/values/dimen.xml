@@ -12,7 +12,7 @@
     <dimen name="logo_height">85dp</dimen>
     <dimen name="preview_width">100dp</dimen>
     <dimen name="header_height">120dp</dimen>
-    <dimen name="info_line">200dp</dimen>
+    <dimen name="info_line">180dp</dimen>
     <dimen name="base_edit_width">250dp</dimen>
     <dimen name="photo_height">300dp</dimen>
     <dimen name="news_pic_diameter">150dp</dimen>

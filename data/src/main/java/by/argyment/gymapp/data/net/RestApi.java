@@ -7,6 +7,7 @@ import by.argyment.gymapp.data.entity.Image;
 import by.argyment.gymapp.data.entity.NewsData;
 import by.argyment.gymapp.data.entity.Profile;
 import by.argyment.gymapp.data.entity.SlonData;
+import by.argyment.gymapp.data.entity.VideoData;
 import by.argyment.gymapp.data.extra.Strings;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -39,23 +40,29 @@ public interface RestApi {
     Observable<List<Profile>> getProfile(@Query(Strings.WHERE) String data);
 
     @PUT(Strings.UPDATE_PROFILES)
-    Observable<Void> updateProfile(@Body Profile profile, @Path("id") String id);
+    Observable<Void> updateProfile(@Body Profile profile, @Path(Strings.ID) String id);
 
-    @DELETE("data/images/{id}")
-    Observable<Void> deleteImage(@Path("id") String id);
+    @DELETE(Strings.DELETE_IMAGE)
+    Observable<Void> deleteImage(@Path(Strings.ID) String id);
 
     @PUT("files/UsersImages/{name}")
     Observable<Void> addBitmap(@Body File file, @Path("name") String name );
 
-    @GET("data/news")
+    @GET(Strings.NEWS_100_PAGES)
     Observable <List<NewsData>> getNews();
 
-    @POST("data/news")
+    @POST(Strings.NEWS)
     Observable<Void> addNews(@Body NewsData news);
 
     @GET("data/elephants?where=winner='no'")
     Observable<List<SlonData>> getFreeElephants();
 
-    @POST("data/elephants")
+    @POST(Strings.ELEPHANTS)
     Observable<Void> addSlon(@Body SlonData slon);
+
+    @GET(Strings.VLOG_100_PAGES)
+    Observable<List<VideoData>> getVideo();
+
+    @POST(Strings.VLOG)
+    Observable<Void> addVideo(@Body VideoData video);
 }

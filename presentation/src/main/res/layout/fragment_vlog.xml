@@ -1,13 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/colorPrimaryDark">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/news_feed"
+    <data>
+
+        <import type="android.view.View" />
+        <variable
+            name="user"
+            type="by.argyment.gymapp.profile.MyPage" />
+
+        <variable
+            name="handler"
+            type="by.argyment.gymapp.profile.VlogHandler" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/corners_radius" />
-</ScrollView>
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark">
+
+        <RelativeLayout
+            android:id="@+id/video_panel"
+            style="@style/bottom_menu">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:onClick="@{handler::goToChannel}"
+                android:text="@string/youtube"
+                android:textColor="@color/enter_text"
+                android:textSize="@dimen/header_text"
+                tools:ignore="SpUsage" />
+
+            <Button
+                style="@style/menu_button"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/greeting_text"
+                android:onClick="@{handler::addNewVideo}"
+                android:background="@drawable/add_video"
+                android:visibility="@{user.isAdmin ? View.VISIBLE : View.GONE}"/>
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@id/video_panel"
+            android:layout_centerHorizontal="true">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/vlog_feed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/corners_radius" />
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/logo_height"
+            android:layout_above="@id/video_panel"
+            android:background="@color/extraTransp"
+            android:visibility="@{handler.isAdding ? View.VISIBLE : View.GONE}">
+
+            <ImageView
+                style="@style/menu_button"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:onClick="@{handler::closeAdding}"
+                app:srcCompat="@drawable/close" />
+
+            <EditText
+                android:id="@+id/videotitle"
+                style="@style/base_edit_field"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/videotitle" />
+
+            <EditText
+                android:id="@+id/videolink"
+                style="@style/base_edit_field"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/videotitle"
+                android:hint="@string/videolink" />
+
+            <Button
+                android:layout_width="@dimen/base_button_height"
+                android:layout_height="@dimen/base_button_height"
+                android:layout_marginEnd="@dimen/greeting_text"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/upload"
+                android:onClick="@{handler::uploadVideo}"/>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>

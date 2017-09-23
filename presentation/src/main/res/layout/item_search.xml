@@ -29,7 +29,8 @@
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:text="@{searchItem.name}"
-            tools:text="Лола"/>
+            tools:text="Лола"
+            tools:ignore="SpUsage" />
 
     </LinearLayout>
 </layout>

@@ -27,8 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                myapp:main_image="@{mypage.userpic}"/>
-
+                myapp:main_image="@{mypage.userpic}"
+                android:contentDescription="@string/profile_image" />
 
             <ImageView
                 android:id="@+id/status"
@@ -38,7 +38,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_margin="@dimen/base_button_margin"
                 android:src="@{mypage.status>100 ? @drawable/cup : mypage.status>50 ? @drawable/gold : mypage.status>30 ? @drawable/silver : mypage.status>15 ? @drawable/bronze : mypage.status>5 ? @drawable/blin : @drawable/snow}"
-                tools:src="@drawable/cup" />
+                tools:src="@drawable/cup"
+                android:contentDescription="@string/status" />
 
             <TextView
                 android:id="@+id/profile_name"
@@ -51,7 +52,8 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/inner_height_base_button"
                 android:textStyle="italic"
-                tools:text="Профиль Ло" />
+                tools:text="Профиль Ло"
+                tools:ignore="RtlSymmetry,SpUsage" />
 
             <ImageView
                 android:id="@+id/got_slon"
@@ -60,7 +62,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="@dimen/base_button_margin"
                 android:layout_toEndOf="@+id/profile_name"
-                tools:src="@drawable/star_border" />
+                tools:src="@drawable/star_border"
+                android:contentDescription="@{mypage.slon}"/>
 
             <TextView
                 android:id="@+id/ranking"
@@ -73,7 +76,8 @@
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/greeting_text"
-                tools:text="50" />
+                tools:text="50"
+                tools:ignore="RelativeOverlap,SpUsage" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -113,7 +117,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/my_gallery"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>                    />
+                android:layout_height="wrap_content"/>
         </ScrollView>
 
     </RelativeLayout>

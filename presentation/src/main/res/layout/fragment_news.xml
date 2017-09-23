@@ -72,9 +72,23 @@
                 android:visibility="@{handler.slon3!=null ? View.GONE : user.isTrainer ? View.VISIBLE : View.GONE}" />
         </RelativeLayout>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/slon_panel"
+            android:layout_gravity="center">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/news_feed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/corners_radius" />
+        </ScrollView>
+
         <Button
-            android:layout_width="@dimen/base_button_width"
-            android:layout_height="@dimen/base_button_width"
+            android:id="@+id/addNewsButton"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_width"
             android:layout_above="@id/slon_panel"
             android:layout_alignParentEnd="true"
             android:background="@drawable/add_news"
@@ -83,7 +97,10 @@
 
         <RelativeLayout
             android:id="@+id/slon_edit"
-            style="@style/bottom_menu"
+            android:layout_width="match_parent"
+            android:layout_toStartOf="@id/addNewsButton"
+            android:layout_height="@dimen/base_button_height"
+            android:layout_above="@id/slon_panel"
             android:visibility="@{handler.isSlonAdding ? View.VISIBLE : View.GONE}">
             <EditText
                 android:id="@+id/slon_content"
@@ -98,19 +115,6 @@
                 android:background="@drawable/add_slon"
                 android:onClick="@{handler::addSlonContent}"/>
         </RelativeLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/slon_panel"
-            android:layout_gravity="center">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/news_feed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/corners_radius" />
-        </ScrollView>
 
         <LinearLayout
             android:id="@+id/adding_news"

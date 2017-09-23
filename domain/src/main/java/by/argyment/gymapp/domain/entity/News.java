@@ -5,18 +5,19 @@ package by.argyment.gymapp.domain.entity;
  */
 
 public class News implements EntityModel {
+
     private String objectId;
     private String title;
     private String text;
     private String picture;
-    private long date;
+    private long time;
 
     public long getDate() {
-        return date;
+        return time;
     }
 
     public void setDate(long date) {
-        this.date = date;
+        this.time = date;
     }
     public String getObjectId() {
         return objectId;

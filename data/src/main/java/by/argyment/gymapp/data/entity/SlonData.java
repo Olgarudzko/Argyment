@@ -1,14 +1,21 @@
 package by.argyment.gymapp.data.entity;
 
+import com.google.gson.annotations.SerializedName;
+
+import by.argyment.gymapp.data.extra.Strings;
+
 /**
  * @author Olga Rudzko
  */
 
 public class SlonData implements DataModel{
-
+    @SerializedName(Strings.OBJECT_ID)
     private String objectId;
+    @SerializedName(Strings.SLON)
     private String slon;
+    @SerializedName(Strings.WINNER)
     private String winner;
+    @SerializedName(Strings.TRAINER)
     private String trainer;
 
     public String getTrainer() {

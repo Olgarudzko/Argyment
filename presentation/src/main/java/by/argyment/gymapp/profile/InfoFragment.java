@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import by.argyment.gymapp.R;
 import by.argyment.gymapp.databinding.FragmentInfoBinding;
+import by.argyment.gymapp.extra.Strings;
 
 /**
  * @author Olga Rudzko
@@ -42,20 +42,17 @@ public class InfoFragment extends Fragment {
 
 
     public void goVk(View view) {
-        Uri uri = Uri.parse("https://vk.com/argyment_gym");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+        Uri uri = Uri.parse(Strings.VK);
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
     public void goInsta(View view) {
-        Uri uri = Uri.parse("https://www.instagram.com/argyment_gym/");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+        Uri uri = Uri.parse(Strings.INSTAGRAM);
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
     public void goFb(View view) {
-        Uri uri = Uri.parse("https://www.facebook.com/argument.gym/");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+        Uri uri = Uri.parse(Strings.FACEBOOK);
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 }

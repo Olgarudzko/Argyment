@@ -17,14 +17,16 @@
         android:layout_height="@dimen/photo_height"
         android:layout_alignParentTop="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/gymarea" />
+        android:src="@drawable/gymarea"
+        android:contentDescription="@string/argyment_gym" />
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="@dimen/logo_height"
         android:layout_below="@+id/info_pic"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo"
+        android:contentDescription="@string/argyment_logo" />
 
     <RelativeLayout
         android:id="@+id/phones"
@@ -66,15 +68,15 @@
 
             <Button
                 android:id="@+id/vkontakte"
-                android:layout_width="@dimen/base_button_height"
-                android:layout_height="@dimen/base_button_height"
+                android:layout_width="@dimen/header_text"
+                android:layout_height="@dimen/header_text"
                 android:background="@drawable/vk"
                 android:onClick="@{info::goVk}"/>
 
             <Button
                 android:id="@+id/intagram"
-                android:layout_width="@dimen/base_button_height"
-                android:layout_height="@dimen/base_button_height"
+                android:layout_width="@dimen/header_text"
+                android:layout_height="@dimen/header_text"
                 android:layout_marginBottom="@dimen/greeting_text"
                 android:layout_marginTop="@dimen/greeting_text"
                 android:background="@drawable/insta"
@@ -82,8 +84,8 @@
 
             <Button
                 android:id="@+id/facebook"
-                android:layout_width="@dimen/base_button_height"
-                android:layout_height="@dimen/base_button_height"
+                android:layout_width="@dimen/header_text"
+                android:layout_height="@dimen/header_text"
                 android:background="@drawable/fb"
                 android:onClick="@{info::goFb}"/>
         </LinearLayout>

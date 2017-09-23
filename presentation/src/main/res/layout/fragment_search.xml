@@ -31,15 +31,17 @@
                 android:hint="@string/find_member"
                 android:inputType="text"
                 android:paddingStart="@dimen/greeting_text"
-                android:textAlignment="center"/>
-            <Button
+                android:textAlignment="center"
+                tools:ignore="RtlSymmetry" />
+            <ImageView
                 android:layout_width="@dimen/base_button_height"
                 android:layout_height="@dimen/base_button_height"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:background="@drawable/search"
+                myapp:srcCompat="@drawable/search"
                 android:layout_marginEnd="@dimen/greeting_text"
-                android:onClick="@{handler::findName}"/>
+                android:onClick="@{handler::findName}"
+                android:contentDescription="@string/findbutton" />
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -100,7 +102,8 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/inner_height_base_button"
                     android:textStyle="italic"
-                    tools:text="Lola" />
+                    tools:text="Lola"
+                    tools:ignore="RelativeOverlap,RtlSymmetry,SpUsage" />
 
 
                 <TextView
@@ -113,7 +116,8 @@
                     android:text="@{String.valueOf(member.stars)}"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/greeting_text" />
+                    android:textSize="@dimen/greeting_text"
+                    tools:ignore="SpUsage" />
 
                 <Button
                     android:layout_width="@dimen/menu_button_width"

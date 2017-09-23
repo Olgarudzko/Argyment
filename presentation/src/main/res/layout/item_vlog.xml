@@ -1,15 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-<data>
-    <variable
-        name="vlogItem"
-        type="by.argyment.gymapp.profile.VlogItemViewModel"/>
-</data>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/colorPrimaryDark">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</LinearLayout>
+    <data>
+        <variable
+            name="vlogItem"
+            type="by.argyment.gymapp.profile.VlogItemViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="@dimen/base_edit_width"
+        android:layout_height="@dimen/info_line"
+        android:background="@color/extraTransp"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/header_text">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/video_frame" />
+
+        <ImageView
+            android:id="@+id/play_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:srcCompat="@drawable/play" />
+
+        <ImageView
+            android:layout_width="@dimen/info_line"
+            android:layout_height="@dimen/inner_width_base_button"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="@dimen/greeting_text"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/video_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="@dimen/greeting_text"
+            android:textStyle="bold"
+            android:textSize="@dimen/header_text"
+            android:textColor="@color/enter_text"
+            android:text="@{vlogItem.title.get()}"
+            android:textAlignment="center"
+            tools:text="БезусLOвный АрGYMент" />
+
+    </RelativeLayout>
 </layout>

@@ -2,7 +2,9 @@ package by.argyment.gymapp.profile;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import by.argyment.gymapp.GymApplication;
+import by.argyment.gymapp.R;
 import by.argyment.gymapp.base.BaseFragmentHandler;
 import by.argyment.gymapp.domain.entity.UserBitmap;
 import by.argyment.gymapp.domain.entity.UserImage;
@@ -23,6 +26,8 @@ import by.argyment.gymapp.domain.interactions.UpdateProfileUseCase;
 import by.argyment.gymapp.extra.Strings;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
+
+import static android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI;
 
 /**
  * @author Olga Rudzko
@@ -117,11 +122,11 @@ public class MyPageHandler implements BaseFragmentHandler {
 
     public void mainPhoto(View view) {
         mainImg = MyPage.getInstance().userpic.get();
+        Toast.makeText(view.getContext(), R.string.mainingset, Toast.LENGTH_SHORT);
     }
 
     public void addPhoto(View view) {
-        Intent gallery = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        Intent gallery = new Intent(Intent.ACTION_PICK, INTERNAL_CONTENT_URI);
         this.fragment.startActivityForResult(gallery, PICK_IMAGE);
     }
 

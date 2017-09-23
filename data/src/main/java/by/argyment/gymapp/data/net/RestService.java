@@ -10,6 +10,7 @@ import by.argyment.gymapp.data.entity.Image;
 import by.argyment.gymapp.data.entity.NewsData;
 import by.argyment.gymapp.data.entity.Profile;
 import by.argyment.gymapp.data.entity.SlonData;
+import by.argyment.gymapp.data.entity.VideoData;
 import io.reactivex.Observable;
 
 /**
@@ -71,4 +72,8 @@ public class RestService {
     public Observable<Void> addSlon(SlonData slon){
         return api.addSlon(slon);
     }
+
+    public Observable<List<VideoData>> getVideo() { return api.getVideo(); }
+
+    public Observable<Void> addVideo(VideoData video){ return  api.addVideo(video); }
 }
