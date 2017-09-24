@@ -1,5 +1,7 @@
 package by.argyment.gymapp.profile;
 
+import android.util.Log;
+
 import javax.inject.Inject;
 
 import by.argyment.gymapp.GymApplication;
@@ -48,16 +50,14 @@ public class ProfileModel implements BaseViewModel {
                 MyPage.getInstance().isAdmin.set(userProfile.isAdmin());
                 MyPage.getInstance().isTrainer.set(userProfile.isTrainer());
                 MyPage.getInstance().status.set(userProfile.getStatus());
-                MyPage.getInstance().stars.set(userProfile.getStars());
                 MyPage.getInstance().slon.set(userProfile.getSlon());
                 MyPage.getInstance().setObjectId(userProfile.getObjectId());
                 MyPage.getInstance().setTimeCheckin(userProfile.getTimeCheckin());
-                MyPage.getInstance().setTimeStar(userProfile.getTimeStar());
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-
+                Log.e("!!!ProfModel/getProf", e.toString());
             }
 
             @Override
@@ -69,12 +69,14 @@ public class ProfileModel implements BaseViewModel {
     }
 
     @Override
+    public void pause() {
+
+    }
+
+    @Override
     public void release() {
         getProfile.dispose();
     }
 
-    @Override
-    public void pause() {
 
-    }
 }

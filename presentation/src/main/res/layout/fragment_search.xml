@@ -67,13 +67,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/photo_height">
 
-                <Button
-                    android:id="@+id/toSearch"
-                    android:layout_width="@dimen/inner_width_base_button"
-                    android:layout_height="@dimen/menu_button_width"
-                    android:background="@drawable/to_search"
-                    android:onClick="@{member::showSearch}" />
-
                 <ImageView
                     android:id="@+id/main_photo"
                     android:layout_width="match_parent"
@@ -81,6 +74,18 @@
                     android:scaleType="centerCrop"
                     myapp:main_image="@{member.userpic}"/>
 
+                <TextView
+                    android:id="@+id/toSearch"
+                    android:layout_width="@dimen/preview_width"
+                    android:layout_height="@dimen/menu_button_width"
+                    android:drawableStart="@drawable/to_search"
+                    android:text="@string/back"
+                    android:textSize="@dimen/greeting_text"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/button_front_layer"
+                    android:onClick="@{member::showSearch}"
+                    tools:ignore="SpUsage" />
 
                 <ImageView
                     android:id="@+id/status"
@@ -105,28 +110,6 @@
                     tools:text="Lola"
                     tools:ignore="RelativeOverlap,RtlSymmetry,SpUsage" />
 
-
-                <TextView
-                    android:id="@+id/member_stars"
-                    android:layout_width="@dimen/menu_button_width"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginBottom="@dimen/base_button_margin"
-                    android:text="@{String.valueOf(member.stars)}"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/greeting_text"
-                    tools:ignore="SpUsage" />
-
-                <Button
-                    android:layout_width="@dimen/menu_button_width"
-                    android:layout_height="@dimen/menu_button_width"
-                    android:layout_above="@id/member_stars"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginBottom="@dimen/base_button_margin"
-                    android:background="@drawable/star"
-                    android:onClick="@{handler::plusStar}"/>
             </RelativeLayout>
 
             <ScrollView

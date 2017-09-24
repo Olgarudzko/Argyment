@@ -23,6 +23,8 @@ public class GreetActivity extends BaseActivity {
     SharedPreferences preferences;
     public static final String SHARED= Strings.SHARED;
 
+    ActivityGreetBinding binding;
+
     GreetModel model;
     EditText username;
     EditText email;
@@ -33,7 +35,7 @@ public class GreetActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         model = new GreetModel();
         this.viewModel = model;
-        ActivityGreetBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_greet);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_greet);
         binding.setGreet(model);
         super.onCreate(savedInstanceState);
         GreetHandler handler=new GreetHandler(this, model);

@@ -3,6 +3,7 @@ package by.argyment.gymapp.profile;
 import android.app.Activity;
 import android.content.Intent;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -50,7 +51,6 @@ public class MyPageHandler implements BaseFragmentHandler {
     private MyPageFragment fragment;
 
     boolean increaseStatus;
-    boolean starGiven;
 
     MyPageImgAdapter adapter;
     private List<UserImage> list = new ArrayList<>();
@@ -69,6 +69,9 @@ public class MyPageHandler implements BaseFragmentHandler {
 
     @Override
     public void resume() {
+        if (!MyPage.getInstance().slon.get().equals(Strings.NO)) {
+            fragment.binding.gotSlon.setVisibility(View.VISIBLE);
+        }
         getImages.makeRequest(MyPage.getInstance().getEmail(), new DisposableObserver<List<UserImage>>() {
             @Override
             public void onNext(@NonNull List<UserImage> userImages) {
@@ -78,7 +81,7 @@ public class MyPageHandler implements BaseFragmentHandler {
 
             @Override
             public void onError(@NonNull Throwable e) {
-
+                Log.e("!!!MyPageHand/getImages", e.toString());
             }
 
             @Override
@@ -103,7 +106,6 @@ public class MyPageHandler implements BaseFragmentHandler {
             addBitmap.makeRequest(bitmap, new DisposableObserver<Void>() {
                 @Override
                 public void onNext(@NonNull Void aVoid) {
-
                 }
 
                 @Override
@@ -120,9 +122,13 @@ public class MyPageHandler implements BaseFragmentHandler {
         }
     }
 
+    public void used(View view) {
+
+    }
+
     public void mainPhoto(View view) {
         mainImg = MyPage.getInstance().userpic.get();
-        Toast.makeText(view.getContext(), R.string.mainingset, Toast.LENGTH_SHORT);
+        Toast.makeText(view.getContext(), R.string.mainingset, Toast.LENGTH_SHORT).show();
     }
 
     public void addPhoto(View view) {
@@ -133,22 +139,19 @@ public class MyPageHandler implements BaseFragmentHandler {
     private void addImage(String name) {
         UserImage image = new UserImage();
         image.setEmail(MyPage.getInstance().getEmail());
-        image.setLink("https://api.backendless.com/FCBFF78E-1D57-5C7C-FF9A-7A8C1078C400/" +
-                "175DDE14-033B-C914-FFF8-D66210C89700/files/UsersImages/" + name);
+        image.setLink("");
         addImg.makeRequest(image, new DisposableObserver<Void>() {
             @Override
             public void onNext(@NonNull Void aVoid) {
-
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-
+                Log.e("!!!MyPageHand/addImg", e.toString());
             }
 
             @Override
             public void onComplete() {
-
             }
         });
     }
@@ -166,17 +169,15 @@ public class MyPageHandler implements BaseFragmentHandler {
             removeImg.makeRequest(id, new DisposableObserver<Void>() {
                 @Override
                 public void onNext(@NonNull Void aVoid) {
-
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
-
+                    Log.e("!!!MyPageHand/removeImg", e.toString());
                 }
 
                 @Override
                 public void onComplete() {
-
                 }
             });
             adapter.setItems(list);
@@ -191,9 +192,6 @@ public class MyPageHandler implements BaseFragmentHandler {
             MyPage.getInstance().setTimeCheckin(System.currentTimeMillis());
             increaseStatus = false;
         }
-        if (starGiven){
-            MyPage.getInstance().setTimeStar(System.currentTimeMillis());
-        }
         UserProfile updated = new UserProfile();
         updated.setEmail(MyPage.getInstance().getEmail());
         updated.setUsername(MyPage.getInstance().username.get());
@@ -202,25 +200,21 @@ public class MyPageHandler implements BaseFragmentHandler {
         updated.setAdmin(MyPage.getInstance().isAdmin.get());
         updated.setUserpic(mainImg);
         updated.setSlon(MyPage.getInstance().slon.get());
-        updated.setStars(MyPage.getInstance().stars.get());
         updated.setStatus(MyPage.getInstance().status.get());
         updated.setObjectId(MyPage.getInstance().getObjectId());
         updated.setTimeCheckin(MyPage.getInstance().getTimeCheckin());
-        updated.setTimeStar(MyPage.getInstance().getTimeStar());
         updateUser.makeRequest(updated, new DisposableObserver<Void>() {
             @Override
             public void onNext(@NonNull Void aVoid) {
-
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-
+                Log.e("!!!MyPageHand/updUser", e.toString());
             }
 
             @Override
             public void onComplete() {
-
             }
         });
     }

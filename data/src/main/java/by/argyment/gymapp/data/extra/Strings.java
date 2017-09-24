@@ -17,11 +17,9 @@ public interface Strings {
     String ADMIN = "admin";
     String TRAINER = "trainer";
     String STATUS = "status";
-    String STARS = "stars";
     String SLON = "slon";
     String USERPIC = "userpic";
     String TIME_CHECKIN = "timeCheckin";
-    String TIME_STAR = "timeStar";
     String BASE_URL = "https://api.backendless.com/FCBFF78E-1D57-5C7C-FF9A-7A8C1078C400/175DDE14-033B-C914-FFF8-D66210C89700/";
     String UPDATE_PROFILES = "data/profiles/{id}";
     String WINNER = "winner";
@@ -36,4 +34,6 @@ public interface Strings {
     String ID = "id";
     String VLOG_100_PAGES = "data/vlog?pageSize=100";
     String VLOG = "data/vlog";
+    String FREESLON = "winner='no'";
+    String UPDATE_SLON="data/elephants/{id}";
 }

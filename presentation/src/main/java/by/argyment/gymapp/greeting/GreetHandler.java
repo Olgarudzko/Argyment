@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.text.Editable;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+
 import by.argyment.gymapp.R;
 import by.argyment.gymapp.extra.Strings;
 import by.argyment.gymapp.profile.ProfileActivity;
@@ -20,6 +23,7 @@ public class GreetHandler {
     public GreetHandler(GreetActivity activity, GreetModel model) {
         this.activity = activity;
         this.model = model;
+        Glide.with(activity).load(R.drawable.loading).into(new GlideDrawableImageViewTarget(activity.binding.loading));
     }
 
 
@@ -56,7 +60,7 @@ public class GreetHandler {
                 && (b = activity.email.getText()) != null
                 && (c = activity.password.getText()) != null) {
 
-            if (a.toString().matches(Strings.NAME_REGEX) && c.toString().matches(Strings.NAME_REGEX)) {
+            if (a.toString().matches(Strings.NAME_REGEX) && c.toString().matches(Strings.PASSW_REGEX)) {
                 if (b.toString().matches(Strings.EMAIL_REGEX)) {
                     if (!model.users.containsKey(b.toString())) {
                         model.setName(a.toString());
@@ -89,5 +93,9 @@ public class GreetHandler {
         intent.putExtra(ProfileActivity.USERMAIL, model.email.get());
         intent.putExtra(ProfileActivity.CHECKIN, isCheckedIn);
         activity.goTo(intent);
+    }
+
+    public void reTry(View view){
+        activity.goTo(new Intent(activity, GreetActivity.class));
     }
 }

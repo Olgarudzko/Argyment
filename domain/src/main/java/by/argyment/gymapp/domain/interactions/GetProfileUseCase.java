@@ -37,7 +37,6 @@ public class GetProfileUseCase extends UseCase<String, UserProfile> {
                         Profile profile = profiles.get(0);
                         userProfile.setEmail(profile.getEmail());
                         userProfile.setSlon(profile.getSlon());
-                        userProfile.setStars(profile.getStars());
                         userProfile.setStatus(profile.getStatus());
                         userProfile.setAdmin(profile.isAdmin());
                         userProfile.setPassword(profile.getPassword());
@@ -45,7 +44,6 @@ public class GetProfileUseCase extends UseCase<String, UserProfile> {
                         userProfile.setUsername(profile.getUsername());
                         userProfile.setUserpic(profile.getUserpic());
                         userProfile.setObjectId(profile.getObjectId());
-                        userProfile.setTimeStar(profile.getTimeStar());
                         userProfile.setTimeCheckin(profile.getTimeCheckin());
                         return userProfile;
                     }

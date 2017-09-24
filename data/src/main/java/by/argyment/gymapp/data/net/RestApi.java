@@ -54,11 +54,14 @@ public interface RestApi {
     @POST(Strings.NEWS)
     Observable<Void> addNews(@Body NewsData news);
 
-    @GET("data/elephants?where=winner='no'")
-    Observable<List<SlonData>> getFreeElephants();
+    @GET(Strings.ELEPHANTS)
+    Observable<List<SlonData>> getFreeElephants(@Query(Strings.WHERE) String data);
 
     @POST(Strings.ELEPHANTS)
     Observable<Void> addSlon(@Body SlonData slon);
+
+    @PUT(Strings.UPDATE_SLON)
+    Observable<Void> setWinner(@Body SlonData slon, @Path(Strings.ID) String id);
 
     @GET(Strings.VLOG_100_PAGES)
     Observable<List<VideoData>> getVideo();

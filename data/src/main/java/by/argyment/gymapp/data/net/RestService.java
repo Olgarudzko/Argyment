@@ -11,6 +11,7 @@ import by.argyment.gymapp.data.entity.NewsData;
 import by.argyment.gymapp.data.entity.Profile;
 import by.argyment.gymapp.data.entity.SlonData;
 import by.argyment.gymapp.data.entity.VideoData;
+import by.argyment.gymapp.data.extra.Strings;
 import io.reactivex.Observable;
 
 /**
@@ -62,7 +63,7 @@ public class RestService {
     }
 
     public Observable<List<SlonData>> getFreeElephants() {
-        return api.getFreeElephants();
+        return api.getFreeElephants(Strings.FREESLON);
     }
 
     public Observable<Void> addNews(NewsData news) {
@@ -76,4 +77,6 @@ public class RestService {
     public Observable<List<VideoData>> getVideo() { return api.getVideo(); }
 
     public Observable<Void> addVideo(VideoData video){ return  api.addVideo(video); }
+
+    public Observable<Void> setWinner (SlonData slon, String id) { return api.setWinner(slon, id); }
 }

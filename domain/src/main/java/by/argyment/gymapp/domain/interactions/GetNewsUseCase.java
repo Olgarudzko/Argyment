@@ -40,12 +40,13 @@ public class GetNewsUseCase extends UseCase<Void, List<News>> {
                     news.setPicture(data.getPicture());
                     news.setTitle(data.getTitle());
                     news.setText(data.getText());
+                    news.setTime(data.getTime());
                     list.add(news);
                 }
                 Collections.sort(list, new Comparator<News>() {
                     @Override
                     public int compare(News news, News t1) {
-                        return (news.getDate()>t1.getDate()) ? -1 : (news.getDate()<t1.getDate()) ? 1 : 0;
+                        return (news.getTime()>t1.getTime()) ? -1 : (news.getTime()<t1.getTime()) ? 1 : 0;
                     }
                 });
                 return list;

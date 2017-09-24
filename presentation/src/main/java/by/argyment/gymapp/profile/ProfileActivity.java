@@ -61,4 +61,10 @@ public class ProfileActivity extends BaseActivity {
             goTo(new Intent(this, GreetActivity.class));
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
 }

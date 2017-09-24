@@ -5,7 +5,8 @@ package by.argyment.gymapp.domain.extra;
  */
 
 public interface Strings {
+    String DEFAULT_IMG = "https://goo.gl/1PrGgG";
     String EMAILIS = "email=";
-    String MAILTO = "@";
+    String NO="no";
     String CH = "'";
 }

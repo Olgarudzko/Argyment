@@ -28,19 +28,27 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/header_height"
+                android:layout_height="@dimen/preview_width"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@id/extra"
-                android:background="@color/colorPrimary"
+                android:background="@color/transparent"
                 android:id="@+id/view" />
 
             <ImageView
-                android:id="@+id/news_pic"
                 android:layout_width="@dimen/news_pic_diameter"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
+                android:src="@drawable/circle" />
+
+            <ImageView
+                android:id="@+id/news_pic"
+                android:layout_width="@dimen/news_photo_diameter"
+                android:layout_height="@dimen/news_photo_diameter"
+                android:layout_alignParentEnd="true"
                 myapp:set_round_img="@{newsItem.picture}"
-                tools:src="@drawable/circle_tools" />
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/base_button_margin"
+                tools:src="@drawable/circle"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -55,19 +63,38 @@
                 android:text="@{newsItem.title}"
                 tools:text="Мини-группы Илоны Якубович “GIRLS’ POWER”"
                 tools:ignore="RtlSymmetry,SpUsage" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/header_text"
+                android:text="@{newsItem.date}"
+                android:layout_marginTop="@dimen/base_button_margin"
+                tools:text="20/01/2017 15:40"
+                android:textColor="@color/extraTransp"
+                android:paddingStart="@dimen/corners_radius"
+                tools:ignore="RtlSymmetry" />
 
         </RelativeLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/lightYellow"
             android:layout_margin="@dimen/corners_radius"
             android:paddingStart="@dimen/header_text"
             android:paddingEnd="@dimen/greeting_text"
             android:text="@{newsItem.text}"
             tools:text="Хотите научиться женской самообороне? Посещаете тайский бокс, но вам необходимо больше внимания? Быть может, вы слегка теряетесь в большой группе? У нас для вас отличные новости! Мы объявляем набор в женские мини-группы Илоны Якубович GIRLS' POWER! Занятия будут проходить по вторникам и четвергам в 15.30. Занятия в мини-группе GIRLS' POWER (от 3 до 5 человек) — прекрасная возможность освоить технику тайского бокса в более узком кругу и под пристальным профессиональным контролем. Записывайтесь по номеру 8 (044) 5-11111-9 как можно скорее: количество мест в мини-группах строго ограничено."
             />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/min"
+            android:layout_marginTop="@dimen/base_button_margin"
+            android:background="@color/extraTransp"
+            android:layout_marginStart="@dimen/greeting_text"
+            android:layout_marginEnd="@dimen/greeting_text"/>
 
     </LinearLayout>
 </layout>

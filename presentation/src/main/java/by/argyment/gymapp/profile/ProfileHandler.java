@@ -1,11 +1,14 @@
 package by.argyment.gymapp.profile;
 
+import android.content.Intent;
+import android.databinding.ObservableBoolean;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import by.argyment.gymapp.R;
+import by.argyment.gymapp.greeting.GreetActivity;
 
 /**
  * @author Olga Rudzko
@@ -14,6 +17,8 @@ import by.argyment.gymapp.R;
 public class ProfileHandler {
 
     ProfileActivity activity;
+
+    public ObservableBoolean ok=new ObservableBoolean(true);
 
     public ProfileHandler(ProfileActivity activity){
         this.activity=activity;
@@ -49,5 +54,10 @@ public class ProfileHandler {
         transaction.replace(R.id.container, fragment, fragment.getClass().getName());
         if (addToBackStack) transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public void reTry(View view){
+        ok.set(true);
+        activity.goTo(new Intent(activity, GreetActivity.class));
     }
 }

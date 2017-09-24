@@ -60,24 +60,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/base_button_margin"
+                android:layout_marginBottom="@dimen/under_slon"
+                android:layout_marginStart="@dimen/corners_radius"
                 android:layout_toEndOf="@+id/profile_name"
-                tools:src="@drawable/star_border"
-                android:contentDescription="@{mypage.slon}"/>
+                android:src="@drawable/slon"
+                android:onClick="@{handler::used}"
+                android:visibility="gone"/>
 
-            <TextView
-                android:id="@+id/ranking"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:drawableTop="@drawable/star_border"
-                android:text="@{String.valueOf(mypage.stars)}"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/greeting_text"
-                tools:text="50"
-                tools:ignore="RelativeOverlap,SpUsage" />
         </RelativeLayout>
 
         <RelativeLayout

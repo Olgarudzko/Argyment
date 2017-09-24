@@ -2,6 +2,7 @@ package by.argyment.gymapp.profile;
 
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -30,12 +31,14 @@ public class SearchHandler implements BaseFragmentHandler {
     @Inject
     GetImageListUseCase getImages;
 
+    public int star;
+
     List<UserProfile> list = new ArrayList<>();
     SearchFragment searchFragment;
     public SearchAdapter adapter;
 
     SearchHandler(SearchFragment fragment) {
-        this.searchFragment=fragment;
+        this.searchFragment = fragment;
         GymApplication.appComponent.injectSearchHandler(this);
     }
 
@@ -62,12 +65,12 @@ public class SearchHandler implements BaseFragmentHandler {
 
             @Override
             public void onError(@NonNull Throwable e) {
+                Log.e("!!!SearchHand/getProf", e.toString());
 
             }
 
             @Override
             public void onComplete() {
-
             }
         });
     }
@@ -85,7 +88,6 @@ public class SearchHandler implements BaseFragmentHandler {
         MemberPage.getInstance().isTrainer.set(member.isTrainer());
         MemberPage.getInstance().userpic.set(member.getUserpic());
         MemberPage.getInstance().status.set(member.getStatus());
-        MemberPage.getInstance().stars.set(member.getStars());
         getImages.makeRequest(member.getEmail(), new DisposableObserver<List<UserImage>>() {
             @Override
             public void onNext(@NonNull List<UserImage> userImages) {
@@ -95,17 +97,18 @@ public class SearchHandler implements BaseFragmentHandler {
 
             @Override
             public void onError(@NonNull Throwable e) {
+                Log.e("!!!SearchHand/getImg", e.toString());
 
             }
 
             @Override
             public void onComplete() {
-
             }
         });
         searchFragment.binding.memberGallery.setLayoutManager(new GridLayoutManager(searchFragment.getContext(), 3));
         searchFragment.binding.memberGallery.setAdapter(picsAdapter);
     }
+
     public void findName(View view) {
         String name = searchFragment.binding.findMember.getText().toString();
         if (!name.equals(Strings.EMPTY)) {
@@ -122,7 +125,6 @@ public class SearchHandler implements BaseFragmentHandler {
         }
     }
 
-    public void plusStar(View view) {}
     @Override
     public void pause() {
         MemberPage.getInstance().visibility.set(false);

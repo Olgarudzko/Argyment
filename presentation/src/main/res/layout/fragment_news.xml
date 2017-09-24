@@ -22,54 +22,58 @@
 
             <Button
                 android:id="@+id/slon1"
-                style="@style/menu_button"
-                android:layout_centerVertical="true"
+                android:layout_height="@dimen/inner_height_base_button"
+                android:layout_width="@dimen/menu_button_width"                android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/base_button_height"
                 android:background="@drawable/slon"
-                android:visibility="@{handler.slon1==null ? View.GONE : user.isTrainer ? View.GONE : View.VISIBLE}" />
+                android:visibility="gone"
+                android:onClick="@{handler::wonSlon}"/>
 
             <Button
                 android:id="@+id/add_slon1"
                 style="@style/menu_button"
-                android:onClick="@{handler::addSlon}"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/base_button_height"
                 android:background="@drawable/add_slon"
-                android:visibility="@{handler.slon1!=null ? View.GONE : user.isTrainer ? View.VISIBLE : View.GONE}" />
+                android:onClick="@{handler::addSlon}"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/slon2"
-                style="@style/menu_button"
-                android:layout_centerInParent="true"
+                android:layout_height="@dimen/inner_height_base_button"
+                android:layout_width="@dimen/menu_button_width"                android:layout_centerInParent="true"
                 android:background="@drawable/slon"
-                android:visibility="@{handler.slon2==null ? View.GONE : user.isTrainer ? View.GONE : View.VISIBLE}"/>
+                android:visibility="gone"
+                android:onClick="@{handler::wonSlon}"/>
 
             <Button
                 android:id="@+id/add_slon2"
                 style="@style/menu_button"
-                android:onClick="@{handler::addSlon}"
                 android:layout_centerInParent="true"
                 android:background="@drawable/add_slon"
-                android:visibility="@{handler.slon2!=null ? View.GONE : user.isTrainer ? View.VISIBLE : View.GONE}" />
+                android:onClick="@{handler::addSlon}"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/slon3"
-                style="@style/menu_button"
+                android:layout_height="@dimen/inner_height_base_button"
+                android:layout_width="@dimen/menu_button_width"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/base_button_height"
                 android:background="@drawable/slon"
-                android:visibility="@{handler.slon3==null ? View.GONE : user.isTrainer ? View.GONE : View.VISIBLE}" />
+                android:visibility="gone"
+                android:onClick="@{handler::wonSlon}"/>
 
             <Button
                 android:id="@+id/add_slon3"
                 style="@style/menu_button"
-                android:onClick="@{handler::addSlon}"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/base_button_height"
                 android:background="@drawable/add_slon"
-                android:visibility="@{handler.slon3!=null ? View.GONE : user.isTrainer ? View.VISIBLE : View.GONE}" />
+                android:onClick="@{handler::addSlon}"
+                android:visibility="gone"/>
         </RelativeLayout>
 
         <ScrollView
@@ -92,67 +96,87 @@
             android:layout_above="@id/slon_panel"
             android:layout_alignParentEnd="true"
             android:background="@drawable/add_news"
-            android:visibility="@{user.isAdmin ? View.VISIBLE : View.GONE}"
-            android:onClick="@{handler::showEditor}" />
+            android:onClick="@{handler::showEditor}"
+            android:visibility="@{user.isAdmin ? View.VISIBLE : View.GONE}" />
 
         <RelativeLayout
             android:id="@+id/slon_edit"
             android:layout_width="match_parent"
-            android:layout_toStartOf="@id/addNewsButton"
             android:layout_height="@dimen/base_button_height"
             android:layout_above="@id/slon_panel"
+            android:layout_toStartOf="@id/addNewsButton"
             android:visibility="@{handler.isSlonAdding ? View.VISIBLE : View.GONE}">
+
             <EditText
                 android:id="@+id/slon_content"
                 style="@style/bottom_menu"
                 android:background="@color/white"
                 android:hint="@string/type_bonus"
                 android:textAlignment="center" />
+
             <Button
                 style="@style/menu_button"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/base_button_margin"
                 android:background="@drawable/add_slon"
-                android:onClick="@{handler::addSlonContent}"/>
+                android:onClick="@{handler::addSlonContent}" />
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/adding_news"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
             android:orientation="vertical"
-            android:background="@color/extraTransp"
             android:visibility="@{handler.isAdding==true ? View.VISIBLE : View.GONE}">
 
             <EditText
                 android:id="@+id/news_title"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/base_button_height"
-                android:layout_marginTop="@dimen/greeting_text"
-                android:layout_marginStart="@dimen/greeting_text"
-                android:layout_marginEnd="@dimen/greeting_text"
-                android:background="@color/white"
-                android:textAlignment="center"
-                android:hint="@string/news_title"/>
-            <EditText
-                android:id="@+id/news_content"
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/base_edit_width"
                 android:layout_margin="@dimen/greeting_text"
-                android:inputType="textMultiLine"
-                android:padding="@dimen/greeting_text"
-                android:textAlignment="center"
-                android:hint="@string/news_content"/>
-            <Button
-                style="@style/base_edit_field"
-                android:layout_width="@dimen/info_line"
-                android:layout_height="@dimen/inner_width_base_button"
-                android:layout_gravity="center"
-                android:text="@string/add_news"
-                android:textColor="@color/button_text"
-                android:onClick="@{handler::addNews}"/>
+                android:background="@color/white"
+                android:hint="@string/news_title"
+                android:textAlignment="center" />
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/header_height">
+
+                <EditText
+                    android:id="@+id/news_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/greeting_text"
+                    android:layout_marginStart="@dimen/greeting_text"
+                    android:background="@color/white"
+                    android:hint="@string/news_content"
+                    android:inputType="textMultiLine"
+                    android:minHeight="@dimen/header_height"
+                    android:padding="@dimen/greeting_text"
+                    android:textAlignment="center" />
+            </ScrollView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="@dimen/base_edit_width"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:onClick="@{handler::addNews}"
+                    android:text="@string/add_news"
+                    android:textColor="@color/button_text"
+                    android:layout_centerInParent="true"/>
+
+                <Button
+                    style="@style/menu_button"
+                    android:background="@drawable/close"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/base_button_margin"
+                    android:onClick="@{handler::hideEditor}"/>
+            </RelativeLayout>
         </LinearLayout>
 
     </RelativeLayout>

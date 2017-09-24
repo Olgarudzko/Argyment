@@ -18,17 +18,19 @@
     <string name="videolink">ccылка</string>
     <string name="video_added">Видео добавлено</string>
     <string name="mainingset">Фото закреплено</string>
+    <string name="newsadded">Новость добавлена</string>
 
     <!-- Notifications -->
     <string name="fill_fields">Заполните все поля</string>
     <string name="check_email">Проверьте e-mail</string>
-    <string name="name_password">Имя и пароль должны содержать 5–10 букв/цифр</string>
+    <string name="name_password">Имя и пароль должны содержать 4–12 букв/цифр</string>
     <string name="email_password">Укажите e-mail и пароль</string>
-    <string name="description">Описание должно содержать 10–50 символов</string>
+    <string name="description">Описание допускает 10–50 символов</string>
     <string name="email_exists">e-mail уже зарегистрирован</string>
     <string name="email_not_exists">e-mail не зарегистрирован</string>
     <string name="wrong_password">неверный пароль</string>
-    <string name="wrong_title">заголовок 5–30 символов</string>
+    <string name="wrong_format">Проверьте данные</string>
+    <string name="secondslon">Второго слона нельзя! :)</string>
 
     <!-- Contacts -->
     <string name="address">пр-т Дзержинского,\n 104 (ТРЦ Титан)</string>
@@ -50,5 +52,8 @@
     <string name="profile_image">Profile image</string>
     <string name="status">status</string>
     <string name="slon">slon</string>
+    <string name="back">BACK</string>
+    <string name="check_connection">Проверьте подключение</string>
+    <string name="ok">ok</string>
 
 </resources>

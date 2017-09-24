@@ -20,7 +20,7 @@ import by.argyment.gymapp.databinding.FragmentMypageBinding;
 
 public class MyPageFragment extends BaseFragment {
 
-    private FragmentMypageBinding binding;
+    FragmentMypageBinding binding;
     public static final String CHECKIN = Strings.CHECKIN;
 
     private MyPageHandler currentHandler;

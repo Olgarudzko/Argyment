@@ -12,12 +12,12 @@ public class News implements EntityModel {
     private String picture;
     private long time;
 
-    public long getDate() {
+    public long getTime() {
         return time;
     }
 
-    public void setDate(long date) {
-        this.time = date;
+    public void setTime(long time) {
+        this.time = time;
     }
     public String getObjectId() {
         return objectId;

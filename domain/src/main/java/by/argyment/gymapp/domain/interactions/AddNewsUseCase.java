@@ -27,7 +27,7 @@ public class AddNewsUseCase extends UseCase<News, Void> {
         data.setTitle(param.getTitle());
         data.setPicture(param.getPicture());
         data.setText(param.getText());
-        data.setDate(param.getDate());
+        data.setTime(System.currentTimeMillis());
         return rest.addNews(data);
     }
 }

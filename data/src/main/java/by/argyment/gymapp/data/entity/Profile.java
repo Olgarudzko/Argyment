@@ -28,9 +28,6 @@ public class Profile implements DataModel {
     @SerializedName(Strings.STATUS)
     private int status;
 
-    @SerializedName(Strings.STARS)
-    private int stars;
-
     @SerializedName(Strings.SLON)
     private String slon;
 
@@ -43,8 +40,6 @@ public class Profile implements DataModel {
     @SerializedName(Strings.TIME_CHECKIN)
     private long timeCheckin;
 
-    @SerializedName(Strings.TIME_STAR)
-    private long timeStar;
 
     public long getTimeCheckin() {
         return timeCheckin;
@@ -52,14 +47,6 @@ public class Profile implements DataModel {
 
     public void setTimeCheckin(long timeCheckin) {
         this.timeCheckin = timeCheckin;
-    }
-
-    public long getTimeStar() {
-        return timeStar;
-    }
-
-    public void setTimeStar(long timeStar) {
-        this.timeStar = timeStar;
     }
 
     public String getUsername() {
@@ -108,14 +95,6 @@ public class Profile implements DataModel {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public int getStars() {
-        return stars;
-    }
-
-    public void setStars(int stars) {
-        this.stars = stars;
     }
 
     public String getSlon() {

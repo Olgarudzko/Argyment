@@ -12,10 +12,13 @@
     <RelativeLayout
         android:layout_width="@dimen/base_edit_width"
         android:layout_height="@dimen/info_line"
-        android:background="@color/extraTransp"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/header_text">
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@{vlogItem.random==1 ? @drawable/back1 : vlogItem.random==2 ? @drawable/back2 : vlogItem.random==3 ? @drawable/back3 : vlogItem.random==4 ? @drawable/back4 : @drawable/back5}"
+            android:scaleType="centerCrop"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

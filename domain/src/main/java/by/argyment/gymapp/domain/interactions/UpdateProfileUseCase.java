@@ -30,11 +30,10 @@ public class UpdateProfileUseCase extends UseCase<UserProfile, Void> {
         updated.setAdmin(param.isAdmin());
         updated.setUserpic(param.getUserpic());
         updated.setSlon(param.getSlon());
-        updated.setStars(param.getStars());
         updated.setStatus(param.getStatus());
         updated.setObjectId(param.getObjectId());
         updated.setTimeCheckin(param.getTimeCheckin());
-        updated.setTimeStar(param.getTimeStar());
+        updated.setSlon(param.getSlon());
         return rest.updateProfile(updated, param.getObjectId());
     }
 }

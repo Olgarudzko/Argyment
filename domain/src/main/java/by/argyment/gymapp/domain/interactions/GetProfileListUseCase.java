@@ -1,6 +1,8 @@
 package by.argyment.gymapp.domain.interactions;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -32,7 +34,6 @@ public class GetProfileListUseCase extends UseCase<Void, List<UserProfile>> {
                             UserProfile userProfile=new UserProfile();
                             userProfile.setEmail(profile.getEmail());
                             userProfile.setSlon(profile.getSlon());
-                            userProfile.setStars(profile.getStars());
                             userProfile.setStatus(profile.getStatus());
                             userProfile.setAdmin(profile.isAdmin());
                             userProfile.setPassword(profile.getPassword());
@@ -41,9 +42,14 @@ public class GetProfileListUseCase extends UseCase<Void, List<UserProfile>> {
                             userProfile.setUserpic(profile.getUserpic());
                             userProfile.setObjectId(profile.getObjectId());
                             userProfile.setTimeCheckin(profile.getTimeCheckin());
-                            userProfile.setTimeStar(profile.getTimeStar());
                             list.add(userProfile);
                         }
+                        Collections.sort(list, new Comparator<UserProfile>() {
+                            @Override
+                            public int compare(UserProfile userProfile, UserProfile t1) {
+                                return userProfile.getStatus()>t1.getStatus() ? -1 : userProfile.getStatus()<t1.getStatus() ? 1 : 0;
+                            }
+                        });
                         return list;
                     }
                 });

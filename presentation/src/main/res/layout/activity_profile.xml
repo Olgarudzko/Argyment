@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="handler"
             type="by.argyment.gymapp.profile.ProfileHandler" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/menu"
             android:layout_width="match_parent"
             android:layout_height="@dimen/menu_button_width"
             android:background="@color/colorPrimary"
@@ -28,8 +30,6 @@
                 android:layout_alignParentStart="true"
                 android:background="@drawable/home"
                 android:onClick="@{handler::goHome}"/>
-                <!--app:srcCompat="@drawable/home"
-                android:contentDescription="@string/homebutton" />-->
 
             <Button
                 android:id="@+id/news"
@@ -37,8 +37,6 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/news"
                 android:onClick="@{handler::goNews}"/>
-                <!--app:srcCompat="@drawable/news"-->
-                <!--android:contentDescription="@string/newsbutton" />-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -52,8 +50,6 @@
                     android:layout_centerInParent="true"
                     android:background="@drawable/search"
                     android:onClick="@{handler::goSearch}"/>
-                    <!--app:srcCompat="@drawable/search"-->
-                    <!--android:contentDescription="@string/findbutton" />-->
             </RelativeLayout>
 
             <Button
@@ -62,10 +58,8 @@
                 android:background="@drawable/info"
                 android:layout_alignParentEnd="true"
                 android:onClick="@{handler::goInfo}"/>
-                <!--app:srcCompat="@drawable/info"-->
-                <!--android:contentDescription="@string/infobutton" />-->
 
-            <RelativeLayout
+              <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@+id/news"
@@ -77,16 +71,45 @@
                     android:layout_centerInParent="true"
                     android:background="@drawable/vlog"
                     android:onClick="@{handler::goVlog}"/>
-                    <!--app:srcCompat="@drawable/vlog"-->
-                    <!--android:contentDescription="@string/vlogbutton" />-->
+
             </RelativeLayout>
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/container"
+            android:layout_below="@+id/menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            android:visibility="@{handler.ok ? View.VISIBLE : View.GONE}"/>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/bad_connection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:visibility="@{handler.ok ? View.GONE : View.VISIBLE}">
+
+            <ImageView
+                android:id="@+id/loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="@dimen/info_line"
+                android:layout_height="wrap_content"
+                android:text="@string/check_connection"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/greeting_text"
+                tools:ignore="SpUsage" />
+
+            <Button
+                style="@style/base_button"
+                android:onClick="@{handler::reTry}"
+                android:text="@string/ok" />
+        </LinearLayout>
+
+    </RelativeLayout>
 </layout>

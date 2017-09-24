@@ -18,7 +18,7 @@ public class NewsData implements DataModel {
     private String text;
     @SerializedName(Strings.PICTURE)
     private String picture;
-    @SerializedName(Strings.PICTURE)
+    @SerializedName(Strings.ADDEDAT)
     private Long time;
 
     public Long getTime() {
@@ -28,16 +28,6 @@ public class NewsData implements DataModel {
     public void setTime(Long time) {
         this.time = time;
     }
-
-    public long getDate() {
-        return date;
-    }
-
-    public void setDate(long date) {
-        this.date = date;
-    }
-
-    private long date;
 
     public String getObjectId() {
         return objectId;

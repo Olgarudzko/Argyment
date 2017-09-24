@@ -22,6 +22,7 @@ import by.argyment.gymapp.domain.interactions.GetNewsUseCase;
 import by.argyment.gymapp.domain.interactions.GetProfileListUseCase;
 import by.argyment.gymapp.domain.interactions.GetProfileUseCase;
 import by.argyment.gymapp.domain.interactions.GetVideoUseCase;
+import by.argyment.gymapp.domain.interactions.SetSlonWinnerUseCase;
 import by.argyment.gymapp.domain.interactions.UpdateProfileUseCase;
 import dagger.Module;
 import dagger.Provides;
@@ -124,4 +125,7 @@ public class AppModule {
 
     @Provides
     public AddVideoUseCase addVideo(RestService rest) { return new AddVideoUseCase(rest); }
+
+    @Provides
+    public SetSlonWinnerUseCase setSlonWinner(RestService rest) {return new SetSlonWinnerUseCase(rest); }
 }

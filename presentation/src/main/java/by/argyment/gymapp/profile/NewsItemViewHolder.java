@@ -9,7 +9,9 @@ import by.argyment.gymapp.domain.entity.News;
  */
 
 public class NewsItemViewHolder extends BaseItemViewHolder<News, NewsItemViewModel, ItemNewsBinding>{
+
     public NewsItemViewHolder(ItemNewsBinding dataBinding, NewsItemViewModel viewModel) {
         super(dataBinding, viewModel);
+        dataBinding.setNewsItem(viewModel);
     }
 }

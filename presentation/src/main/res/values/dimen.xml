@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="min">1dp</dimen>
     <dimen name="corners_radius">3dp</dimen>
     <dimen name="base_button_margin">5dp</dimen>
+    <dimen name="under_slon">10dp</dimen>
     <dimen name="greeting_text">15dp</dimen>
     <dimen name="header_text">25dp</dimen>
     <dimen name="inner_height_base_button">30dp</dimen>
@@ -15,6 +17,7 @@
     <dimen name="info_line">180dp</dimen>
     <dimen name="base_edit_width">250dp</dimen>
     <dimen name="photo_height">300dp</dimen>
+    <dimen name="news_photo_diameter">140dp</dimen>
     <dimen name="news_pic_diameter">150dp</dimen>
     <dimen name="infopic">350dp</dimen>
 </resources>

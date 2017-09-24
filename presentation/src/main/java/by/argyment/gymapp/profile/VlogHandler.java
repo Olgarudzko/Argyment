@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -34,7 +35,7 @@ public class VlogHandler implements BaseFragmentHandler {
 
     VlogFragment vlog;
 
-    public ObservableBoolean isAdding=new ObservableBoolean(false);
+    public ObservableBoolean isAdding = new ObservableBoolean(false);
 
     public VlogHandler(VlogFragment vlog) {
         this.vlog = vlog;
@@ -46,7 +47,7 @@ public class VlogHandler implements BaseFragmentHandler {
 
     @Override
     public void init() {
-        adapter=new VlogAdapter(vlog);
+        adapter = new VlogAdapter(vlog);
     }
 
     @Override
@@ -59,12 +60,11 @@ public class VlogHandler implements BaseFragmentHandler {
 
             @Override
             public void onError(@NonNull Throwable e) {
-
+                Log.e("!!!VlogHand/getVideo", e.toString());
             }
 
             @Override
             public void onComplete() {
-
             }
         });
     }
@@ -75,48 +75,52 @@ public class VlogHandler implements BaseFragmentHandler {
         vlog.binding.vlogFeed.setAdapter(adapter);
     }
 
-    public void addNewVideo(View view){
+    public void addNewVideo(View view) {
         isAdding.set(true);
     }
 
-    public void uploadVideo(View view){
-        String title=vlog.binding.videotitle.getText().toString();
-        String link=vlog.binding.videolink.getText().toString();
-        if(!(title.equals(Strings.EMPTY))&&!(link.equals(Strings.EMPTY))){
-                if (title.matches(Strings.TITLEVIDEO)){
-//                    if (link.matches("")){
-
-                    Video video=new Video();
+    public void uploadVideo(View view) {
+        String title = vlog.binding.videotitle.getText().toString();
+        String link = vlog.binding.videolink.getText().toString();
+        if (!(title.equals(Strings.EMPTY)) && !(link.equals(Strings.EMPTY))) {
+            if (title.matches(Strings.TITLE_REGEX)) {
+                if (link.matches("")) {
+                    Video video = new Video();
                     video.setUrl(link);
                     video.setTitle(title);
                     addVideo.makeRequest(video, new DisposableObserver<Void>() {
                         @Override
-                        public void onNext(@NonNull Void aVoid) {}
+                        public void onNext(@NonNull Void aVoid) {
+                            resume();
+                        }
+
                         @Override
-                        public void onError(@NonNull Throwable e) {}
+                        public void onError(@NonNull Throwable e) {
+                            Log.e("!!!VlogHand/addVideo", e.toString());
+                        }
+
                         @Override
-                        public void onComplete() {}
+                        public void onComplete() {
+                        }
                     });
                     vlog.binding.videotitle.setText(Strings.EMPTY);
                     vlog.binding.videolink.setText(Strings.EMPTY);
                     isAdding.set(false);
                     Toast.makeText(view.getContext(), R.string.video_added, Toast.LENGTH_SHORT).show();
-
-//                    }
-
-                }else{
-                    Toast.makeText(view.getContext(), R.string.wrong_title, Toast.LENGTH_SHORT).show();
                 }
-        }else{
+            } else {
+                Toast.makeText(view.getContext(), R.string.wrong_format, Toast.LENGTH_SHORT).show();
+            }
+        } else {
             Toast.makeText(view.getContext(), R.string.fill_fields, Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void closeAdding(View view){
+    public void closeAdding(View view) {
         isAdding.set(false);
     }
 
-    public void goToChannel(View view){
+    public void goToChannel(View view) {
         vlog.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Strings.YOUTUBE_CHANNEL)));
     }
 
