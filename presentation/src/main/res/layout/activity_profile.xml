@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="handler"
-            type="by.argyment.gymapp.profile.ProfileHandler" />
+            type="by.argyment.gymapp.profile.ProfileModel" />
     </data>
 
     <RelativeLayout
@@ -90,10 +90,11 @@
             android:orientation="vertical"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:visibility="@{handler.ok ? View.GONE : View.VISIBLE}">
+            android:visibility="@{handler.ok ? View.GONE : View.VISIBLE}"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
-                android:id="@+id/loading"
+                android:id="@+id/prloading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -105,10 +106,6 @@
                 android:textSize="@dimen/greeting_text"
                 tools:ignore="SpUsage" />
 
-            <Button
-                style="@style/base_button"
-                android:onClick="@{handler::reTry}"
-                android:text="@string/ok" />
         </LinearLayout>
 
     </RelativeLayout>

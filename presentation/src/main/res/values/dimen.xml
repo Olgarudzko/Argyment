@@ -5,6 +5,7 @@
     <dimen name="base_button_margin">5dp</dimen>
     <dimen name="under_slon">10dp</dimen>
     <dimen name="greeting_text">15dp</dimen>
+    <dimen name="header_smaller">20dp</dimen>
     <dimen name="header_text">25dp</dimen>
     <dimen name="inner_height_base_button">30dp</dimen>
     <dimen name="base_button_height">35dp</dimen>

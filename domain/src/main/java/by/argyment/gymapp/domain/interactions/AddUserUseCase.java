@@ -8,12 +8,14 @@ import by.argyment.gymapp.domain.entity.UserProfile;
 import by.argyment.gymapp.domain.extra.Strings;
 import by.argyment.gymapp.domain.interactions.base.UseCase;
 import io.reactivex.Observable;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
 
 /**
  * @author Olga Rudzko
  */
 
-public class AddUserUseCase extends UseCase<UserProfile, Void> {
+public class AddUserUseCase extends UseCase<UserProfile, UserProfile> {
     RestService rest;
 
     @Inject
@@ -22,7 +24,7 @@ public class AddUserUseCase extends UseCase<UserProfile, Void> {
     }
 
     @Override
-    protected Observable<Void> buildUseCase(UserProfile param) {
+    protected Observable<UserProfile> buildUseCase(UserProfile param) {
         Profile newUser = new Profile();
         newUser.setAdmin(false);
         newUser.setEmail(param.getEmail());
@@ -33,6 +35,22 @@ public class AddUserUseCase extends UseCase<UserProfile, Void> {
         newUser.setUsername(param.getUsername());
         newUser.setUserpic(Strings.DEFAULT_IMG);
         newUser.setTimeCheckin(System.currentTimeMillis() - 81000000);
-        return rest.addProfile(newUser);
+        return rest.addProfile(newUser).map(new Function<Profile, UserProfile>() {
+            @Override
+            public UserProfile apply(@NonNull Profile profile) throws Exception {
+                UserProfile user = new UserProfile();
+                user.setObjectId(profile.getObjectId());
+                user.setEmail(profile.getEmail());
+                user.setUserpic(profile.getUserpic());
+                user.setStatus(profile.getStatus());
+                user.setSlon(profile.getSlon());
+                user.setAdmin(profile.isAdmin());
+                user.setPassword(profile.getPassword());
+                user.setUsername(profile.getUsername());
+                user.setTimeCheckin(profile.getTimeCheckin());
+                user.setTrainer(profile.isTrainer());
+                return user;
+            }
+        });
     }
 }

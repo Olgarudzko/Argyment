@@ -9,7 +9,6 @@ import javax.inject.Singleton;
 import by.argyment.gymapp.data.extra.Strings;
 import by.argyment.gymapp.data.net.RestApi;
 import by.argyment.gymapp.data.net.RestService;
-import by.argyment.gymapp.domain.interactions.AddBitmapUseCase;
 import by.argyment.gymapp.domain.interactions.AddElephantUseCase;
 import by.argyment.gymapp.domain.interactions.AddImageUseCase;
 import by.argyment.gymapp.domain.interactions.AddNewsUseCase;
@@ -92,11 +91,6 @@ public class AppModule {
     @Provides
     public AddImageUseCase addImg(RestService rest){
         return new AddImageUseCase(rest);
-    }
-
-    @Provides
-    public AddBitmapUseCase addBitmap(RestService rest){
-        return new AddBitmapUseCase(rest);
     }
 
     @Provides

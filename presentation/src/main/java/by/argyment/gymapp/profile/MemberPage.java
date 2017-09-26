@@ -16,7 +16,6 @@ public class MemberPage{
     public ObservableField<String> username = new ObservableField<>(Strings.EMPTY);
     public ObservableBoolean isTrainer = new ObservableBoolean(false);
     public ObservableInt status = new ObservableInt(0);
-    public ObservableInt stars = new ObservableInt(0);
     public ObservableBoolean visibility = new ObservableBoolean(false);
     public ObservableField<String> userpic = new ObservableField<>(Strings.EMPTY);
     private String objectId;

@@ -31,41 +31,38 @@ public interface RestApi {
     Observable<List<Image>> getImages(@Query(Strings.WHERE) String email);
 
     @POST(Strings.PROFILES)
-    Observable<Void> addProfile(@Body Profile profile);
+    Observable<Profile> addProfile(@Body Profile profile);
 
     @POST(Strings.IMAGES)
-    Observable<Void> addImage(@Body Image image);
+    Observable<Image> addImage(@Body Image image);
 
     @GET(Strings.PROFILES)
     Observable<List<Profile>> getProfile(@Query(Strings.WHERE) String data);
 
     @PUT(Strings.UPDATE_PROFILES)
-    Observable<Void> updateProfile(@Body Profile profile, @Path(Strings.ID) String id);
+    Observable<Profile> updateProfile(@Body Profile profile, @Path(Strings.ID) String id);
 
     @DELETE(Strings.DELETE_IMAGE)
-    Observable<Void> deleteImage(@Path(Strings.ID) String id);
-
-    @PUT("files/UsersImages/{name}")
-    Observable<Void> addBitmap(@Body File file, @Path("name") String name );
+    Observable<Long> deleteImage(@Path(Strings.ID) String id);
 
     @GET(Strings.NEWS_100_PAGES)
     Observable <List<NewsData>> getNews();
 
     @POST(Strings.NEWS)
-    Observable<Void> addNews(@Body NewsData news);
+    Observable<NewsData> addNews(@Body NewsData news);
 
     @GET(Strings.ELEPHANTS)
     Observable<List<SlonData>> getFreeElephants(@Query(Strings.WHERE) String data);
 
     @POST(Strings.ELEPHANTS)
-    Observable<Void> addSlon(@Body SlonData slon);
+    Observable<SlonData> addSlon(@Body SlonData slon);
 
     @PUT(Strings.UPDATE_SLON)
-    Observable<Void> setWinner(@Body SlonData slon, @Path(Strings.ID) String id);
+    Observable<SlonData> setWinner(@Body SlonData slon, @Path(Strings.ID) String id);
 
     @GET(Strings.VLOG_100_PAGES)
     Observable<List<VideoData>> getVideo();
 
     @POST(Strings.VLOG)
-    Observable<Void> addVideo(@Body VideoData video);
+    Observable<VideoData> addVideo(@Body VideoData video);
 }

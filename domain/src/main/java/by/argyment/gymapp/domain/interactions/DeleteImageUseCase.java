@@ -10,7 +10,7 @@ import io.reactivex.Observable;
  * @author Olga Rudzko
  */
 
-public class DeleteImageUseCase extends UseCase<String, Void> {
+public class DeleteImageUseCase extends UseCase<String, Long> {
     RestService rest;
 
     @Inject
@@ -19,7 +19,7 @@ public class DeleteImageUseCase extends UseCase<String, Void> {
     }
 
     @Override
-    protected Observable<Void> buildUseCase(String param) {
+    protected Observable<Long> buildUseCase(String param) {
         return rest.deleteImage(param);
     }
 }

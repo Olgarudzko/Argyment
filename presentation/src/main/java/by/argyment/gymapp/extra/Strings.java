@@ -31,11 +31,12 @@ public interface Strings {
     String NO = "no";
 
     //Regex strings
-    String NAME_REGEX = "[a-zA-Zа-яА-Я0-9]{4,12}";
+    String NAME_REGEX = "[a-zA-Zа-яёЁА-Я0-9 ]{4,12}";
     String PASSW_REGEX = "[a-zA-Z0-9]{4,12}";
     String EMAIL_REGEX = "[-\\w\\.]+@[a-zA-Z]+\\.[a-zA-Z]{2,3}";
-    String SLON_REGEX = "[\\wа-яА-Я0-9 -]{10,50}";
-    String NEWS_REGEX = "[\\wа-яА-Я0-9 -—\\.,!?;:]{30,450}";
-    String TITLE_REGEX = "[\\wа-яА-Я -]{5,30}";
-
+    String SLON_REGEX = "[\\wа-яёЁА-Я0-9 -]{10,50}";
+    String NEWS_REGEX = "[\\wа-яёЁА-Я0-9 ()«»—\\n\\.,!?;:\"%-]{30,499}";
+    String TITLE_REGEX = "[\\wа-яёЁА-Я0-9 ()«»\"?-]{5,50}";
+    String YOUTU_BE = "http[s]?:\\/\\/youtu\\.be\\/[\\w?=&-]{5,}";
+    String YOUTUBE_COM = "http[s]?:\\/\\/www\\.youtube\\.com\\/[\\w?=&-]{5,}";
 }

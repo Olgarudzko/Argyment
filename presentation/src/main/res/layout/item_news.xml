@@ -57,7 +57,7 @@
                 android:gravity="center"
                 android:padding="@dimen/base_button_margin"
                 android:paddingStart="@dimen/header_text"
-                android:textSize="@dimen/header_text"
+                android:textSize="@dimen/header_smaller"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:text="@{newsItem.title}"

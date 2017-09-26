@@ -5,7 +5,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import by.argyment.gymapp.data.entity.DataBitmap;
 import by.argyment.gymapp.data.entity.Image;
 import by.argyment.gymapp.data.entity.NewsData;
 import by.argyment.gymapp.data.entity.Profile;
@@ -35,11 +34,11 @@ public class RestService {
         return api.getImages(email);
     }
 
-    public Observable<Void> addImage (Image image) {
+    public Observable<Image> addImage (Image image) {
         return api.addImage(image);
     }
 
-    public Observable<Void> addProfile (Profile profile){
+    public Observable<Profile> addProfile (Profile profile){
         return api.addProfile(profile);
     }
 
@@ -47,17 +46,14 @@ public class RestService {
         return api.getProfile(email);
     }
 
-    public Observable<Void> updateProfile(Profile profile, String id){
+    public Observable<Profile> updateProfile(Profile profile, String id){
         return api.updateProfile(profile, id);
     }
 
-    public Observable <Void> deleteImage (String id){
+    public Observable <Long> deleteImage (String id){
         return api.deleteImage(id);
     }
 
-    public Observable<Void> addBitmap (DataBitmap bitmap){
-        return api.addBitmap(bitmap.getFile(), bitmap.getName());
-    }
     public Observable<List<NewsData>> getNews() {
         return api.getNews();
     }
@@ -66,17 +62,17 @@ public class RestService {
         return api.getFreeElephants(Strings.FREESLON);
     }
 
-    public Observable<Void> addNews(NewsData news) {
+    public Observable<NewsData> addNews(NewsData news) {
         return api.addNews(news);
     }
 
-    public Observable<Void> addSlon(SlonData slon){
+    public Observable<SlonData> addSlon(SlonData slon){
         return api.addSlon(slon);
     }
 
     public Observable<List<VideoData>> getVideo() { return api.getVideo(); }
 
-    public Observable<Void> addVideo(VideoData video){ return  api.addVideo(video); }
+    public Observable<VideoData> addVideo(VideoData video){ return  api.addVideo(video); }
 
-    public Observable<Void> setWinner (SlonData slon, String id) { return api.setWinner(slon, id); }
+    public Observable<SlonData> setWinner (SlonData slon, String id) { return api.setWinner(slon, id); }
 }

@@ -1,8 +1,9 @@
 package by.argyment.gymapp.profile;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -16,10 +17,8 @@ import javax.inject.Inject;
 import by.argyment.gymapp.GymApplication;
 import by.argyment.gymapp.R;
 import by.argyment.gymapp.base.BaseFragmentHandler;
-import by.argyment.gymapp.domain.entity.UserBitmap;
 import by.argyment.gymapp.domain.entity.UserImage;
 import by.argyment.gymapp.domain.entity.UserProfile;
-import by.argyment.gymapp.domain.interactions.AddBitmapUseCase;
 import by.argyment.gymapp.domain.interactions.AddImageUseCase;
 import by.argyment.gymapp.domain.interactions.DeleteImageUseCase;
 import by.argyment.gymapp.domain.interactions.GetImageListUseCase;
@@ -42,8 +41,6 @@ public class MyPageHandler implements BaseFragmentHandler {
     UpdateProfileUseCase updateUser;
     @Inject
     AddImageUseCase addImg;
-    @Inject
-    AddBitmapUseCase addBitmap;
     @Inject
     DeleteImageUseCase removeImg;
 
@@ -71,6 +68,8 @@ public class MyPageHandler implements BaseFragmentHandler {
     public void resume() {
         if (!MyPage.getInstance().slon.get().equals(Strings.NO)) {
             fragment.binding.gotSlon.setVisibility(View.VISIBLE);
+        } else {
+            Log.d("+++MyPageResume", MyPage.getInstance().slon.get());
         }
         getImages.makeRequest(MyPage.getInstance().getEmail(), new DisposableObserver<List<UserImage>>() {
             @Override
@@ -100,31 +99,27 @@ public class MyPageHandler implements BaseFragmentHandler {
     public void activityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
             File file = new File(data.getData().getPath());
-            UserBitmap bitmap = new UserBitmap();
-            bitmap.setFile(file);
-            bitmap.setName(String.valueOf(System.currentTimeMillis()).concat(MyPage.getInstance().username.get()));
-            addBitmap.makeRequest(bitmap, new DisposableObserver<Void>() {
-                @Override
-                public void onNext(@NonNull Void aVoid) {
-                }
 
-                @Override
-                public void onError(@NonNull Throwable e) {
-
-                }
-
-                @Override
-                public void onComplete() {
-
-                }
-            });
-            addImage(bitmap.getName());
+            //TODO save img to server
+            addImage("");
         }
     }
 
     public void used(View view) {
 
+        AlertDialog.Builder dialog = new AlertDialog.Builder(view.getContext());
+        dialog.setTitle("Удалить слона?").setIcon(R.drawable.slon).setMessage(MyPage.getInstance().slon.get()); // сообщение
+        dialog.setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                    MyPage.getInstance().slon.set(Strings.NO);
+            }
+        });
+        dialog.setCancelable(true);
+        dialog.show();
     }
+
+
 
     public void mainPhoto(View view) {
         mainImg = MyPage.getInstance().userpic.get();
@@ -136,22 +131,26 @@ public class MyPageHandler implements BaseFragmentHandler {
         this.fragment.startActivityForResult(gallery, PICK_IMAGE);
     }
 
-    private void addImage(String name) {
+    private void addImage(String link) {
         UserImage image = new UserImage();
         image.setEmail(MyPage.getInstance().getEmail());
-        image.setLink("");
-        addImg.makeRequest(image, new DisposableObserver<Void>() {
+        image.setLink(link);
+        addImg.makeRequest(image, new DisposableObserver<UserImage>() {
             @Override
-            public void onNext(@NonNull Void aVoid) {
+            public void onNext(@NonNull UserImage userImage) {
+                list.add(userImage);
+                adapter.setItems(list);
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
                 Log.e("!!!MyPageHand/addImg", e.toString());
+
             }
 
             @Override
             public void onComplete() {
+
             }
         });
     }
@@ -166,27 +165,31 @@ public class MyPageHandler implements BaseFragmentHandler {
             }
         }
         if (!(id.equals(Strings.EMPTY))) {
-            removeImg.makeRequest(id, new DisposableObserver<Void>() {
+            removeImg.makeRequest(id, new DisposableObserver<Long>() {
                 @Override
-                public void onNext(@NonNull Void aVoid) {
+                public void onNext(@NonNull Long aLong) {
+                    adapter.setItems(list);
+                    MyPage.getInstance().userpic.set(mainImg);
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
                     Log.e("!!!MyPageHand/removeImg", e.toString());
+
                 }
 
                 @Override
                 public void onComplete() {
+
                 }
             });
-            adapter.setItems(list);
-            MyPage.getInstance().userpic.set(mainImg);
         }
     }
 
     @Override
     public void pause() {
+        Log.d("+++MyPagePause", MyPage.getInstance().slon.get());
+
         if (increaseStatus) {
             MyPage.getInstance().status.set(MyPage.getInstance().status.get() + 1);
             MyPage.getInstance().setTimeCheckin(System.currentTimeMillis());
@@ -203,18 +206,21 @@ public class MyPageHandler implements BaseFragmentHandler {
         updated.setStatus(MyPage.getInstance().status.get());
         updated.setObjectId(MyPage.getInstance().getObjectId());
         updated.setTimeCheckin(MyPage.getInstance().getTimeCheckin());
-        updateUser.makeRequest(updated, new DisposableObserver<Void>() {
+        updateUser.makeRequest(updated, new DisposableObserver<UserProfile>() {
             @Override
-            public void onNext(@NonNull Void aVoid) {
+            public void onNext(@NonNull UserProfile userProfile) {
+
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
                 Log.e("!!!MyPageHand/updUser", e.toString());
+
             }
 
             @Override
             public void onComplete() {
+
             }
         });
     }
@@ -223,7 +229,6 @@ public class MyPageHandler implements BaseFragmentHandler {
     public void release() {
         getImages.dispose();
         addImg.dispose();
-        addBitmap.dispose();
         updateUser.dispose();
         removeImg.dispose();
     }

@@ -30,6 +30,8 @@
     <string name="email_not_exists">e-mail не зарегистрирован</string>
     <string name="wrong_password">неверный пароль</string>
     <string name="wrong_format">Проверьте данные</string>
+    <string name="wrong_title">Введите заголовок 5–30 букв/цифр</string>
+    <string name="wrong_link">Запрещенная ссылка</string>
     <string name="secondslon">Второго слона нельзя! :)</string>
 
     <!-- Contacts -->

@@ -93,6 +93,7 @@ public class SearchHandler implements BaseFragmentHandler {
             public void onNext(@NonNull List<UserImage> userImages) {
                 picsAdapter.setItems(userImages);
                 MemberPage.getInstance().visibility.set(true);
+                Log.d("!!!CountedPics", String.valueOf(userImages.size()));
             }
 
             @Override

@@ -18,7 +18,8 @@
 
         <RelativeLayout
             android:id="@+id/slon_panel"
-            style="@style/bottom_menu">
+            style="@style/bottom_menu"
+            android:layout_marginTop="@dimen/corners_radius">
 
             <Button
                 android:id="@+id/slon1"
@@ -86,7 +87,7 @@
                 android:id="@+id/news_feed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/corners_radius" />
+                android:layout_marginTop="@dimen/corners_radius"/>
         </ScrollView>
 
         <Button

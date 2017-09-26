@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import by.argyment.gymapp.R;
 import by.argyment.gymapp.base.BaseActivity;
@@ -20,38 +22,25 @@ import by.argyment.gymapp.extra.Strings;
 
 public class GreetActivity extends BaseActivity {
 
-    SharedPreferences preferences;
-    public static final String SHARED= Strings.SHARED;
-
     ActivityGreetBinding binding;
 
     GreetModel model;
     EditText username;
     EditText email;
     EditText password;
-    TextView message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        model = new GreetModel();
+        model = new GreetModel(this);
         this.viewModel = model;
         binding = DataBindingUtil.setContentView(this, R.layout.activity_greet);
         binding.setGreet(model);
         super.onCreate(savedInstanceState);
-        GreetHandler handler=new GreetHandler(this, model);
-        binding.setHandler(handler);
+        Glide.with(this).load(R.drawable.loading).into(new GlideDrawableImageViewTarget(binding.loading));
+        Glide.with(this).load(R.drawable.loading).into(new GlideDrawableImageViewTarget(binding.problem));
         username = binding.username;
         email = binding.email;
         password = binding.password;
-        message = binding.notifyMessage;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        preferences=getSharedPreferences(SHARED, Context.MODE_PRIVATE);
-        model.savedMail=preferences.getString(GreetModel.NAME, null);
-        model.savedPass=preferences.getString(GreetModel.PASS, null);
     }
 
     @Override

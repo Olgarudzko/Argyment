@@ -65,6 +65,7 @@ public class NewsHandler implements BaseFragmentHandler {
     private NewsFragment fragment;
     private News newsToAdd;
     public NewsAdapter adapter;
+    List<News> list;
 
     public NewsHandler(NewsFragment fragment) {
         this.fragment = fragment;
@@ -81,7 +82,8 @@ public class NewsHandler implements BaseFragmentHandler {
         getNews.makeRequest(null, new DisposableObserver<List<News>>() {
             @Override
             public void onNext(@NonNull List<News> news) {
-                adapter.setItems(news);
+                list = news;
+                adapter.setItems(list);
             }
 
             @Override
@@ -167,20 +169,71 @@ public class NewsHandler implements BaseFragmentHandler {
     public void wonSlon(View view) {
         String str = MyPage.getInstance().slon.get();
         if (str != null && str.equals(Strings.NO)) {
+            Slon slon = new Slon();
+            slon.setWinner(MyPage.getInstance().getEmail());
             switch (view.getId()) {
                 case R.id.slon1:
-                    MyPage.getInstance().slon = slon1;
-                    Toast.makeText(view.getContext(), slon1.get(), Toast.LENGTH_SHORT).show();
-                    fragment.binding.slon1.setVisibility(View.GONE);
-                    slon1.set(Strings.EMPTY);
-                    Slon slon = new Slon();
                     slon.setTrainer(slony.get(0).getTrainer());
                     slon.setObjectId(slony.get(0).getObjectId());
-                    slon.setWinner(MyPage.getInstance().getEmail());
                     slon.setSlon(slony.get(0).getSlon());
-                    setWinner.makeRequest(slon, new DisposableObserver<Void>() {
+                    setWinner.makeRequest(slon, new DisposableObserver<Slon>() {
                         @Override
-                        public void onNext(@NonNull Void aVoid) {
+                        public void onNext(@NonNull Slon slon) {
+                            MyPage.getInstance().slon = slon1;
+                            Toast.makeText(fragment.getContext(), slon1.get(), Toast.LENGTH_SHORT).show();
+                            fragment.binding.slon1.setVisibility(View.GONE);
+                            slon1.set(Strings.EMPTY);
+                        }
+
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+                            Log.e("!!!NewsHand/setWinner", e.toString());
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+                    break;
+                case R.id.slon2:
+                    slon.setTrainer(slony.get(1).getTrainer());
+                    slon.setObjectId(slony.get(1).getObjectId());
+                    slon.setSlon(slony.get(1).getSlon());
+                    setWinner.makeRequest(slon, new DisposableObserver<Slon>() {
+                        @Override
+                        public void onNext(@NonNull Slon slon) {
+                            MyPage.getInstance().slon.set(slon2.get());
+                            Toast.makeText(fragment.getContext(), slon2.get(), Toast.LENGTH_SHORT).show();
+                            fragment.binding.slon2.setVisibility(View.GONE);
+                            slon2.set(Strings.EMPTY);
+                            Log.d("+++Just won slon", MyPage.getInstance().slon.get());
+                        }
+
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+                            Log.e("!!!NewsHand/setWinner", e.toString());
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+                    break;
+                default:
+                    slon.setTrainer(slony.get(2).getTrainer());
+                    slon.setObjectId(slony.get(2).getObjectId());
+                    slon.setSlon(slony.get(2).getSlon());
+                    setWinner.makeRequest(slon, new DisposableObserver<Slon>() {
+                        @Override
+                        public void onNext(@NonNull Slon slon) {
+                            MyPage.getInstance().slon = slon3;
+                            Toast.makeText(fragment.getContext(), slon3.get(), Toast.LENGTH_SHORT).show();
+                            fragment.binding.slon3.setVisibility(View.GONE);
+                            slon3.set(Strings.EMPTY);
                         }
 
                         @Override
@@ -190,61 +243,12 @@ public class NewsHandler implements BaseFragmentHandler {
 
                         @Override
                         public void onComplete() {
+
                         }
                     });
-                    break;
-                case R.id.slon2:
-                    MyPage.getInstance().slon = slon2;
-                    Toast.makeText(view.getContext(), slon2.get(), Toast.LENGTH_SHORT).show();
-                    fragment.binding.slon2.setVisibility(View.GONE);
-                    slon2.set(Strings.EMPTY);
-                    Slon slon2 = new Slon();
-                    slon2.setTrainer(slony.get(1).getTrainer());
-                    slon2.setObjectId(slony.get(1).getObjectId());
-                    slon2.setWinner(MyPage.getInstance().getEmail());
-                    slon2.setSlon(slony.get(1).getSlon());
-                    setWinner.makeRequest(slon2, new DisposableObserver<Void>() {
-                        @Override
-                        public void onNext(@NonNull Void aVoid) {
-                        }
-
-                        @Override
-                        public void onError(@NonNull Throwable e) {
-                            Log.e("!!!NewsHand/setWinner2", e.toString());
-                        }
-
-                        @Override
-                        public void onComplete() {
-                        }
-                    });
-                    break;
-                default:
-                    MyPage.getInstance().slon = slon3;
-                    Toast.makeText(view.getContext(), slon3.get(), Toast.LENGTH_SHORT).show();
-                    fragment.binding.slon3.setVisibility(View.GONE);
-                    slon3.set(Strings.EMPTY);
-                    Slon slon3 = new Slon();
-                    slon3.setTrainer(slony.get(0).getTrainer());
-                    slon3.setObjectId(slony.get(0).getObjectId());
-                    slon3.setWinner(MyPage.getInstance().getEmail());
-                    slon3.setSlon(slony.get(0).getSlon());
-                    setWinner.makeRequest(slon3, new DisposableObserver<Void>() {
-                        @Override
-                        public void onNext(@NonNull Void aVoid) {
-                        }
-
-                        @Override
-                        public void onError(@NonNull Throwable e) {
-                            Log.e("!!!NewsHand/setWinner3", e.toString());
-                        }
-
-                        @Override
-                        public void onComplete() {
-                        }
-                    });
-                    break;
             }
         } else {
+            Log.d("+++Just failed slon", MyPage.getInstance().slon.get());
             Toast.makeText(view.getContext(), R.string.secondslon, Toast.LENGTH_SHORT).show();
         }
     }
@@ -275,9 +279,10 @@ public class NewsHandler implements BaseFragmentHandler {
             if ((slonText = edit.getText().toString()).matches(Strings.SLON_REGEX)) {
                 slon.setSlon(slonText);
                 slon.setTrainer(MyPage.getInstance().getEmail());
-                addSloneUseCase.makeRequest(slon, new DisposableObserver<Void>() {
+                addSloneUseCase.makeRequest(slon, new DisposableObserver<Slon>() {
                     @Override
-                    public void onNext(@NonNull Void aVoid) {
+                    public void onNext(@NonNull Slon slon) {
+
                     }
 
                     @Override
@@ -287,6 +292,7 @@ public class NewsHandler implements BaseFragmentHandler {
 
                     @Override
                     public void onComplete() {
+
                     }
                 });
                 isSlonAdding.set(false);
@@ -312,6 +318,7 @@ public class NewsHandler implements BaseFragmentHandler {
                         android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 this.fragment.startActivityForResult(gallery, CHOOSE_IMAGE);
             } else {
+                Log.d("///Text", text);
                 Toast.makeText(view.getContext(), R.string.wrong_format, Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -324,9 +331,12 @@ public class NewsHandler implements BaseFragmentHandler {
         if (resultCode == Activity.RESULT_OK && requestCode == CHOOSE_IMAGE) {
             File file = new File(data.getData().getPath());
             newsToAdd.setPicture(MyPage.getInstance().userpic.get());
-            addNewsUseCase.makeRequest(newsToAdd, new DisposableObserver<Void>() {
+            addNewsUseCase.makeRequest(newsToAdd, new DisposableObserver<News>() {
                 @Override
-                public void onNext(@NonNull Void aVoid) {
+                public void onNext(@NonNull News news) {
+                    list.add(news);
+                    adapter.setItems(list);
+                    Toast.makeText(fragment.getContext(), R.string.newsadded, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -336,12 +346,12 @@ public class NewsHandler implements BaseFragmentHandler {
 
                 @Override
                 public void onComplete() {
+
                 }
             });
             fragment.binding.newsContent.setText(Strings.EMPTY);
             fragment.binding.newsTitle.setText(Strings.EMPTY);
             isAdding.set(false);
-            Toast.makeText(fragment.getContext(), R.string.newsadded, Toast.LENGTH_SHORT).show();
         }
     }
 

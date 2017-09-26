@@ -7,6 +7,9 @@ import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+
 import by.argyment.gymapp.R;
 import by.argyment.gymapp.base.BaseActivity;
 import by.argyment.gymapp.databinding.ActivityProfileBinding;
@@ -27,19 +30,19 @@ public class ProfileActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ProfileModel model = new ProfileModel();
+        ProfileModel model = new ProfileModel(this);
         this.viewModel = model;
-        ProfileHandler handler = new ProfileHandler(this);
         ActivityProfileBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
-        binding.setHandler(handler);
+        binding.setHandler(model);
         super.onCreate(savedInstanceState);
+        Glide.with(this).load(R.drawable.loading).into(new GlideDrawableImageViewTarget(binding.prloading));
         String email;
         if ((email=getIntent().getStringExtra(USERMAIL))!=null) {
             MyPage.getInstance().setEmail(email);
             boolean checkIn = getIntent().getBooleanExtra(CHECKIN, false);
             if (savedInstanceState == null) {
                 MyPageFragment newMyPage = MyPageFragment.newInstance(getSupportFragmentManager(), checkIn);
-                ProfileHandler.showFragment(getSupportFragmentManager(), newMyPage, false);
+                ProfileModel.showFragment(getSupportFragmentManager(), newMyPage, false);
                 model.setMypage(newMyPage);
             }
         } else {

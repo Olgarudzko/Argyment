@@ -43,7 +43,7 @@ public class VlogHandler implements BaseFragmentHandler {
     }
 
     public VlogAdapter adapter;
-
+    List<Video> list;
 
     @Override
     public void init() {
@@ -55,7 +55,8 @@ public class VlogHandler implements BaseFragmentHandler {
         getVideo.makeRequest(null, new DisposableObserver<List<Video>>() {
             @Override
             public void onNext(@NonNull List<Video> videos) {
-                adapter.setItems(videos);
+                list=videos;
+                adapter.setItems(list);
             }
 
             @Override
@@ -84,32 +85,37 @@ public class VlogHandler implements BaseFragmentHandler {
         String link = vlog.binding.videolink.getText().toString();
         if (!(title.equals(Strings.EMPTY)) && !(link.equals(Strings.EMPTY))) {
             if (title.matches(Strings.TITLE_REGEX)) {
-                if (link.matches("")) {
+                if (link.matches(Strings.YOUTU_BE) || link.matches(Strings.YOUTUBE_COM)) {
                     Video video = new Video();
                     video.setUrl(link);
                     video.setTitle(title);
-                    addVideo.makeRequest(video, new DisposableObserver<Void>() {
-                        @Override
-                        public void onNext(@NonNull Void aVoid) {
-                            resume();
-                        }
+                    addVideo.makeRequest(video, new DisposableObserver<Video>() {
+                                @Override
+                                public void onNext(@NonNull Video video) {
+                                    vlog.binding.videotitle.setText(Strings.EMPTY);
+                                    vlog.binding.videolink.setText(Strings.EMPTY);
+                                    isAdding.set(false);
+                                    Toast.makeText(vlog.getContext(), R.string.video_added, Toast.LENGTH_SHORT).show();
+                                    list.add(video);
+                                    adapter.setItems(list);
+                                }
 
-                        @Override
-                        public void onError(@NonNull Throwable e) {
-                            Log.e("!!!VlogHand/addVideo", e.toString());
-                        }
+                                @Override
+                                public void onError(@NonNull Throwable e) {
+                                    Log.e("!!!VlogHand/addVideo", e.toString());
+                                }
 
-                        @Override
-                        public void onComplete() {
-                        }
-                    });
-                    vlog.binding.videotitle.setText(Strings.EMPTY);
-                    vlog.binding.videolink.setText(Strings.EMPTY);
-                    isAdding.set(false);
-                    Toast.makeText(view.getContext(), R.string.video_added, Toast.LENGTH_SHORT).show();
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
+
+                } else {
+                    Toast.makeText(view.getContext(), R.string.wrong_link, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(view.getContext(), R.string.wrong_format, Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), R.string.wrong_title, Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(view.getContext(), R.string.fill_fields, Toast.LENGTH_SHORT).show();
