@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -50,7 +50,7 @@ public class MyPageHandler implements BaseFragmentHandler {
     boolean increaseStatus;
 
     MyPageImgAdapter adapter;
-    private List<UserImage> list = new ArrayList<>();
+    private List<UserImage> list;
     private String mainImg;
 
 
@@ -76,11 +76,13 @@ public class MyPageHandler implements BaseFragmentHandler {
             public void onNext(@NonNull List<UserImage> userImages) {
                 list = userImages;
                 adapter.setItems(list);
+                mainImg = MyPage.getInstance().userpic.get();
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
                 Log.e("!!!MyPageHand/getImages", e.toString());
+                Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -92,8 +94,7 @@ public class MyPageHandler implements BaseFragmentHandler {
 
     @Override
     public void viewCreated() {
-        mainImg = MyPage.getInstance().userpic.get();
-    }
+     }
 
     @Override
     public void activityResult(int requestCode, int resultCode, Intent data) {
@@ -108,11 +109,12 @@ public class MyPageHandler implements BaseFragmentHandler {
     public void used(View view) {
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(view.getContext());
-        dialog.setTitle("Удалить слона?").setIcon(R.drawable.slon).setMessage(MyPage.getInstance().slon.get()); // сообщение
-        dialog.setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
+        dialog.setTitle(R.string.slondialog).setIcon(R.drawable.slon).setMessage(MyPage.getInstance().slon.get()); // сообщение
+        dialog.setPositiveButton(R.string.deleteslon, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                     MyPage.getInstance().slon.set(Strings.NO);
+                    fragment.binding.gotSlon.setVisibility(View.GONE);
             }
         });
         dialog.setCancelable(true);
@@ -138,14 +140,16 @@ public class MyPageHandler implements BaseFragmentHandler {
         addImg.makeRequest(image, new DisposableObserver<UserImage>() {
             @Override
             public void onNext(@NonNull UserImage userImage) {
+                Collections.reverse(list);
                 list.add(userImage);
+                Collections.reverse(list);
                 adapter.setItems(list);
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
                 Log.e("!!!MyPageHand/addImg", e.toString());
-
+                Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -175,7 +179,7 @@ public class MyPageHandler implements BaseFragmentHandler {
                 @Override
                 public void onError(@NonNull Throwable e) {
                     Log.e("!!!MyPageHand/removeImg", e.toString());
-
+                    Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
                 }
 
                 @Override
@@ -188,8 +192,6 @@ public class MyPageHandler implements BaseFragmentHandler {
 
     @Override
     public void pause() {
-        Log.d("+++MyPagePause", MyPage.getInstance().slon.get());
-
         if (increaseStatus) {
             MyPage.getInstance().status.set(MyPage.getInstance().status.get() + 1);
             MyPage.getInstance().setTimeCheckin(System.currentTimeMillis());
@@ -201,7 +203,11 @@ public class MyPageHandler implements BaseFragmentHandler {
         updated.setPassword(MyPage.getInstance().getPassword());
         updated.setTrainer(MyPage.getInstance().isTrainer.get());
         updated.setAdmin(MyPage.getInstance().isAdmin.get());
-        updated.setUserpic(mainImg);
+        if (mainImg!=null) {
+            updated.setUserpic(mainImg);
+        } else {
+            updated.setUserpic(MyPage.getInstance().userpic.get());
+        }
         updated.setSlon(MyPage.getInstance().slon.get());
         updated.setStatus(MyPage.getInstance().status.get());
         updated.setObjectId(MyPage.getInstance().getObjectId());
@@ -215,7 +221,7 @@ public class MyPageHandler implements BaseFragmentHandler {
             @Override
             public void onError(@NonNull Throwable e) {
                 Log.e("!!!MyPageHand/updUser", e.toString());
-
+                Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
             @Override

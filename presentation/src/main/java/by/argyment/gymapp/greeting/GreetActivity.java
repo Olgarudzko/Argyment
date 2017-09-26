@@ -37,7 +37,6 @@ public class GreetActivity extends BaseActivity {
         binding.setGreet(model);
         super.onCreate(savedInstanceState);
         Glide.with(this).load(R.drawable.loading).into(new GlideDrawableImageViewTarget(binding.loading));
-        Glide.with(this).load(R.drawable.loading).into(new GlideDrawableImageViewTarget(binding.problem));
         username = binding.username;
         email = binding.email;
         password = binding.password;

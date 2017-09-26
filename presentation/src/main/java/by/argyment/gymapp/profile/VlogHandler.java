@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -33,21 +34,21 @@ public class VlogHandler implements BaseFragmentHandler {
     @Inject
     AddVideoUseCase addVideo;
 
-    VlogFragment vlog;
+    VlogFragment fragment;
 
     public ObservableBoolean isAdding = new ObservableBoolean(false);
 
-    public VlogHandler(VlogFragment vlog) {
-        this.vlog = vlog;
+    public VlogHandler(VlogFragment fragment) {
+        this.fragment = fragment;
         GymApplication.appComponent.injectVlogFragment(this);
     }
 
     public VlogAdapter adapter;
-    List<Video> list;
+    private  List<Video> list;
 
     @Override
     public void init() {
-        adapter = new VlogAdapter(vlog);
+        adapter = new VlogAdapter(fragment);
     }
 
     @Override
@@ -62,6 +63,7 @@ public class VlogHandler implements BaseFragmentHandler {
             @Override
             public void onError(@NonNull Throwable e) {
                 Log.e("!!!VlogHand/getVideo", e.toString());
+                Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -72,8 +74,8 @@ public class VlogHandler implements BaseFragmentHandler {
 
     @Override
     public void viewCreated() {
-        vlog.binding.vlogFeed.setLayoutManager(new LinearLayoutManager(vlog.getContext()));
-        vlog.binding.vlogFeed.setAdapter(adapter);
+        fragment.binding.vlogFeed.setLayoutManager(new LinearLayoutManager(fragment.getContext()));
+        fragment.binding.vlogFeed.setAdapter(adapter);
     }
 
     public void addNewVideo(View view) {
@@ -81,8 +83,8 @@ public class VlogHandler implements BaseFragmentHandler {
     }
 
     public void uploadVideo(View view) {
-        String title = vlog.binding.videotitle.getText().toString();
-        String link = vlog.binding.videolink.getText().toString();
+        String title = fragment.binding.videotitle.getText().toString();
+        String link = fragment.binding.videolink.getText().toString();
         if (!(title.equals(Strings.EMPTY)) && !(link.equals(Strings.EMPTY))) {
             if (title.matches(Strings.TITLE_REGEX)) {
                 if (link.matches(Strings.YOUTU_BE) || link.matches(Strings.YOUTUBE_COM)) {
@@ -92,17 +94,20 @@ public class VlogHandler implements BaseFragmentHandler {
                     addVideo.makeRequest(video, new DisposableObserver<Video>() {
                                 @Override
                                 public void onNext(@NonNull Video video) {
-                                    vlog.binding.videotitle.setText(Strings.EMPTY);
-                                    vlog.binding.videolink.setText(Strings.EMPTY);
+                                    fragment.binding.videotitle.setText(Strings.EMPTY);
+                                    fragment.binding.videolink.setText(Strings.EMPTY);
                                     isAdding.set(false);
-                                    Toast.makeText(vlog.getContext(), R.string.video_added, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(fragment.getContext(), R.string.video_added, Toast.LENGTH_SHORT).show();
+                                    Collections.reverse(list);
                                     list.add(video);
+                                    Collections.reverse(list);
                                     adapter.setItems(list);
                                 }
 
                                 @Override
                                 public void onError(@NonNull Throwable e) {
                                     Log.e("!!!VlogHand/addVideo", e.toString());
+                                    Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
                                 }
 
                                 @Override
@@ -127,7 +132,7 @@ public class VlogHandler implements BaseFragmentHandler {
     }
 
     public void goToChannel(View view) {
-        vlog.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Strings.YOUTUBE_CHANNEL)));
+        fragment.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Strings.YOUTUBE_CHANNEL)));
     }
 
     @Override

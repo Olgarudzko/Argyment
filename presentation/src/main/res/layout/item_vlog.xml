@@ -49,7 +49,7 @@
             android:textStyle="bold"
             android:textSize="@dimen/greeting_text"
             android:textColor="@color/enter_text"
-            android:text="@{vlogItem.title.get()}"
+            android:text="@{vlogItem.title}"
             android:textAlignment="center"
             tools:text="БезусLOвный АрGYMент" />
 

@@ -33,6 +33,10 @@
     <string name="wrong_title">Введите заголовок 5–30 букв/цифр</string>
     <string name="wrong_link">Запрещенная ссылка</string>
     <string name="secondslon">Второго слона нельзя! :)</string>
+    <string name="slondialog">Удалить слона?</string>
+    <string name="deleteslon">Удалить</string>
+    <string name="unavailable">Ошибка сервера. Обновления недоступны</string>
+    <string name="slonadded">Слон добавлен</string>
 
     <!-- Contacts -->
     <string name="address">пр-т Дзержинского,\n 104 (ТРЦ Титан)</string>

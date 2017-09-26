@@ -34,6 +34,7 @@ public class AddImageUseCase extends UseCase<UserImage, UserImage> {
                 img.setEmail(image.getEmail());
                 img.setObjectId(image.getObjectId());
                 img.setLink(image.getLink());
+                img.setDay(System.currentTimeMillis());
                 return img;
             }
         });

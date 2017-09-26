@@ -1,6 +1,8 @@
 package by.argyment.gymapp.domain.interactions;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -40,8 +42,15 @@ public class GetImageListUseCase extends UseCase<String, List<UserImage>> {
                         newImg.setEmail(param);
                         newImg.setLink(img.getLink());
                         newImg.setObjectId(img.getObjectId());
+                        newImg.setDay(img.getDay());
                         newList.add(newImg);
                     }
+                    Collections.sort(newList, new Comparator<UserImage>() {
+                        @Override
+                        public int compare(UserImage userImage, UserImage t1) {
+                            return (userImage.getDay()>(t1.getDay())) ? 1 : -1;
+                        }
+                    });
                 }
                 return newList;
             }

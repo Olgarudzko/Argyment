@@ -2,6 +2,8 @@ package by.argyment.gymapp.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 import by.argyment.gymapp.data.extra.Strings;
 
 /**
@@ -18,6 +20,17 @@ public class Image implements DataModel {
 
     @SerializedName(Strings.OBJECT_ID)
     private String objectId;
+
+    @SerializedName(Strings.CREATED)
+    private Long day;
+
+    public Long getDay() {
+        return day;
+    }
+
+    public void setDay(Long day) {
+        this.day = day;
+    }
 
     public String getLink() {
         return link;

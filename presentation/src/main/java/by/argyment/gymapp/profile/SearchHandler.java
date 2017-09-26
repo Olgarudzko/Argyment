@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import by.argyment.gymapp.GymApplication;
+import by.argyment.gymapp.R;
 import by.argyment.gymapp.base.BaseFragmentHandler;
 import by.argyment.gymapp.domain.entity.UserImage;
 import by.argyment.gymapp.domain.entity.UserProfile;
@@ -33,12 +35,12 @@ public class SearchHandler implements BaseFragmentHandler {
 
     public int star;
 
-    List<UserProfile> list = new ArrayList<>();
-    SearchFragment searchFragment;
+    private List<UserProfile> list;
+    SearchFragment fragment;
     public SearchAdapter adapter;
 
     SearchHandler(SearchFragment fragment) {
-        this.searchFragment = fragment;
+        this.fragment = fragment;
         GymApplication.appComponent.injectSearchHandler(this);
     }
 
@@ -46,7 +48,7 @@ public class SearchHandler implements BaseFragmentHandler {
 
     @Override
     public void init() {
-        adapter = new SearchAdapter(searchFragment);
+        adapter = new SearchAdapter(fragment);
     }
 
     @Override
@@ -66,7 +68,7 @@ public class SearchHandler implements BaseFragmentHandler {
             @Override
             public void onError(@NonNull Throwable e) {
                 Log.e("!!!SearchHand/getProf", e.toString());
-
+                Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -77,8 +79,8 @@ public class SearchHandler implements BaseFragmentHandler {
 
     @Override
     public void viewCreated() {
-        searchFragment.binding.usersList.setLayoutManager(new GridLayoutManager(searchFragment.getContext(), 3));
-        searchFragment.binding.usersList.setAdapter(adapter);
+        fragment.binding.usersList.setLayoutManager(new GridLayoutManager(fragment.getContext(), 3));
+        fragment.binding.usersList.setAdapter(adapter);
     }
 
     public void loadMemberPage(UserProfile member) {
@@ -99,19 +101,19 @@ public class SearchHandler implements BaseFragmentHandler {
             @Override
             public void onError(@NonNull Throwable e) {
                 Log.e("!!!SearchHand/getImg", e.toString());
-
+                Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onComplete() {
             }
         });
-        searchFragment.binding.memberGallery.setLayoutManager(new GridLayoutManager(searchFragment.getContext(), 3));
-        searchFragment.binding.memberGallery.setAdapter(picsAdapter);
+        fragment.binding.memberGallery.setLayoutManager(new GridLayoutManager(fragment.getContext(), 3));
+        fragment.binding.memberGallery.setAdapter(picsAdapter);
     }
 
     public void findName(View view) {
-        String name = searchFragment.binding.findMember.getText().toString();
+        String name = fragment.binding.findMember.getText().toString();
         if (!name.equals(Strings.EMPTY)) {
             List<UserProfile> nameSakes = new ArrayList<>();
             for (UserProfile user : list) {

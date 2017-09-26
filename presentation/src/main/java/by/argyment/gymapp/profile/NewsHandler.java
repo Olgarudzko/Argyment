@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -60,12 +61,11 @@ public class NewsHandler implements BaseFragmentHandler {
     public ObservableBoolean isSlonAdding = new ObservableBoolean(false);
 
     Button currentAddSlon;
-    Button currentSlon;
 
     private NewsFragment fragment;
     private News newsToAdd;
     public NewsAdapter adapter;
-    List<News> list;
+    private List<News> list;
 
     public NewsHandler(NewsFragment fragment) {
         this.fragment = fragment;
@@ -89,6 +89,7 @@ public class NewsHandler implements BaseFragmentHandler {
             @Override
             public void onError(@NonNull Throwable e) {
                 Log.e("!!!NewsHand/getNews", e.toString());
+                Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -144,6 +145,7 @@ public class NewsHandler implements BaseFragmentHandler {
             @Override
             public void onError(@NonNull Throwable e) {
                 Log.e("!!!NewsHand/eleph", e.toString());
+                Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -188,7 +190,7 @@ public class NewsHandler implements BaseFragmentHandler {
                         @Override
                         public void onError(@NonNull Throwable e) {
                             Log.e("!!!NewsHand/setWinner", e.toString());
-
+                            Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
                         }
 
                         @Override
@@ -214,7 +216,7 @@ public class NewsHandler implements BaseFragmentHandler {
                         @Override
                         public void onError(@NonNull Throwable e) {
                             Log.e("!!!NewsHand/setWinner", e.toString());
-
+                            Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
                         }
 
                         @Override
@@ -239,6 +241,7 @@ public class NewsHandler implements BaseFragmentHandler {
                         @Override
                         public void onError(@NonNull Throwable e) {
                             Log.e("!!!NewsHand/setWinner", e.toString());
+                            Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
                         }
 
                         @Override
@@ -256,24 +259,20 @@ public class NewsHandler implements BaseFragmentHandler {
     public void addSlon(View view) {
         switch (view.getId()) {
             case R.id.add_slon2:
-                currentSlon = fragment.binding.slon2;
                 currentAddSlon = fragment.binding.addSlon2;
                 break;
             case R.id.add_slon3:
-                currentSlon = fragment.binding.slon3;
                 currentAddSlon = fragment.binding.addSlon3;
                 break;
             default:
-                currentSlon = fragment.binding.slon1;
                 currentAddSlon = fragment.binding.addSlon1;
         }
-        view.setVisibility(View.GONE);
         isSlonAdding.set(true);
     }
 
     public void addSlonContent(View view) {
         Slon slon = new Slon();
-        EditText edit = this.fragment.binding.slonContent;
+        final EditText edit = this.fragment.binding.slonContent;
         if (!(edit.getText().toString().equals(Strings.EMPTY))) {
             String slonText;
             if ((slonText = edit.getText().toString()).matches(Strings.SLON_REGEX)) {
@@ -282,12 +281,15 @@ public class NewsHandler implements BaseFragmentHandler {
                 addSloneUseCase.makeRequest(slon, new DisposableObserver<Slon>() {
                     @Override
                     public void onNext(@NonNull Slon slon) {
-
+                        edit.setText(Strings.EMPTY);
+                        currentAddSlon.setVisibility(View.GONE);
+                        Toast.makeText(fragment.getContext(), R.string.slonadded, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         Log.e("!!!NewsHand/addSlon", e.toString());
+                        Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -297,11 +299,9 @@ public class NewsHandler implements BaseFragmentHandler {
                 });
                 isSlonAdding.set(false);
             } else {
-                edit.setText(Strings.EMPTY);
                 edit.setHint(R.string.description);
             }
         } else {
-            currentAddSlon.setVisibility(View.VISIBLE);
             isSlonAdding.set(false);
         }
     }
@@ -334,7 +334,9 @@ public class NewsHandler implements BaseFragmentHandler {
             addNewsUseCase.makeRequest(newsToAdd, new DisposableObserver<News>() {
                 @Override
                 public void onNext(@NonNull News news) {
+                    Collections.reverse(list);
                     list.add(news);
+                    Collections.reverse(list);
                     adapter.setItems(list);
                     Toast.makeText(fragment.getContext(), R.string.newsadded, Toast.LENGTH_SHORT).show();
                 }
@@ -342,6 +344,7 @@ public class NewsHandler implements BaseFragmentHandler {
                 @Override
                 public void onError(@NonNull Throwable e) {
                     Log.e("!!!NewsHand/addNews", e.toString());
+                    Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
                 }
 
                 @Override

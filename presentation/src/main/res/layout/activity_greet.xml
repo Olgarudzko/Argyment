@@ -71,33 +71,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:visibility="@{greet.isLoading ? View.VISIBLE : View.GONE}" />
-
-            <LinearLayout
-                android:id="@+id/lost_connection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/loading"
-                android:orientation="vertical"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:visibility="@{greet.problem ? View.VISIBLE : View.GONE}">
-
-                <ImageView
-                    android:id="@+id/problem"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:visibility="@{greet.isLoading ? View.VISIBLE : greet.problem ? View.VISIBLE : View.GONE}" />
 
                 <TextView
-                    android:layout_width="@dimen/info_line"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/loading"
                     android:text="@string/check_connection"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/greeting_text"
+                    android:visibility="@{greet.problem ? View.VISIBLE : View.GONE}"
                     tools:ignore="SpUsage" />
 
-            </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout

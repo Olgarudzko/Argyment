@@ -25,8 +25,8 @@ public class ProfileActivity extends BaseActivity {
     public static final String USERMAIL = Strings.USERMAIL;
     public static final String CHECKIN = Strings.CHECKIN;
     SharedPreferences sharedPreferences;
-    public static final String SHARED_PROF= Strings.SHARED_PROF;
-    public static final String SAVED_MAIL= Strings.SAVED_MAIL;
+    public static final String SHARED_PROF = Strings.SHARED_PROF;
+    public static final String SAVED_MAIL = Strings.SAVED_MAIL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class ProfileActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         Glide.with(this).load(R.drawable.loading).into(new GlideDrawableImageViewTarget(binding.prloading));
         String email;
-        if ((email=getIntent().getStringExtra(USERMAIL))!=null) {
+        if ((email = getIntent().getStringExtra(USERMAIL)) != null) {
             MyPage.getInstance().setEmail(email);
             boolean checkIn = getIntent().getBooleanExtra(CHECKIN, false);
             if (savedInstanceState == null) {
@@ -53,21 +53,27 @@ public class ProfileActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sharedPreferences=getSharedPreferences(SHARED_PROF, Context.MODE_PRIVATE);
-        if (MyPage.getInstance().getEmail()==null){
+        sharedPreferences = getSharedPreferences(SHARED_PROF, Context.MODE_PRIVATE);
+        if (MyPage.getInstance().getEmail() == null) {
             MyPage.getInstance().setEmail(sharedPreferences.getString(SAVED_MAIL, null));
-            if (MyPage.getInstance().getEmail()==null){
+            if (MyPage.getInstance().getEmail() == null) {
                 goTo(new Intent(this, GreetActivity.class));
             }
         }
-        if ((int)(System.currentTimeMillis()-MyPage.getInstance().getTimeCheckin())>80000000){
+        if ((int) (System.currentTimeMillis() - MyPage.getInstance().getTimeCheckin()) > 80000000) {
             goTo(new Intent(this, GreetActivity.class));
         }
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
+        try {
+            super.onBackPressed();
+        }catch (IllegalStateException e){
+            Intent bye = new Intent(Intent.ACTION_MAIN);
+            bye.addCategory(Intent.CATEGORY_HOME );
+            bye.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(bye);
+        }
     }
 }

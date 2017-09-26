@@ -18,7 +18,6 @@ import javax.inject.Inject;
 import by.argyment.gymapp.GymApplication;
 import by.argyment.gymapp.R;
 import by.argyment.gymapp.base.BaseViewModel;
-import by.argyment.gymapp.data.entity.Profile;
 import by.argyment.gymapp.domain.entity.UserProfile;
 import by.argyment.gymapp.domain.interactions.GetProfileUseCase;
 import io.reactivex.annotations.NonNull;
@@ -46,7 +45,7 @@ public class ProfileModel implements BaseViewModel {
     }
 
     public ProfileModel(ProfileActivity activity) {
-        this.activity=activity;
+        this.activity = activity;
         GymApplication.appComponent.injectProfileModel(this);
     }
 
@@ -109,35 +108,47 @@ public class ProfileModel implements BaseViewModel {
     }
 
     @Override
-    public void release() {}
+    public void release() {
+    }
 
     public void goHome(View view) {
-        showFragment(activity.getSupportFragmentManager(),
-                MyPageFragment.newInstance(activity.getSupportFragmentManager(), true), false);
+        if (ok.get()) {
+            showFragment(activity.getSupportFragmentManager(),
+                    MyPageFragment.newInstance(activity.getSupportFragmentManager(), false), true);
+        }
     }
 
     public void goSearch(View view) {
-        showFragment(activity.getSupportFragmentManager(),
-                SearchFragment.newInstance(activity.getSupportFragmentManager()), true);
+        if (ok.get()) {
+            showFragment(activity.getSupportFragmentManager(),
+                    SearchFragment.newInstance(activity.getSupportFragmentManager()), true);
+        }
     }
 
     public void goNews(View view) {
-        showFragment(activity.getSupportFragmentManager(),
-                NewsFragment.newInstance(activity.getSupportFragmentManager()), true);
+        if (ok.get()) {
+            showFragment(activity.getSupportFragmentManager(),
+                    NewsFragment.newInstance(activity.getSupportFragmentManager()), true);
+        }
     }
 
     public void goVlog(View view) {
-        showFragment(activity.getSupportFragmentManager(),
-                VlogFragment.newInstance(activity.getSupportFragmentManager()), true);
+        if (ok.get()) {
+            showFragment(activity.getSupportFragmentManager(),
+                    VlogFragment.newInstance(activity.getSupportFragmentManager()), true);
+        }
     }
 
     public void goInfo(View view) {
-        showFragment(activity.getSupportFragmentManager(),
-                InfoFragment.newInstance(activity.getSupportFragmentManager()), true);
+        if (ok.get()) {
+            showFragment(activity.getSupportFragmentManager(),
+                    InfoFragment.newInstance(activity.getSupportFragmentManager()), true);
+        }
     }
 
     public static void showFragment(FragmentManager manager, Fragment fragment, boolean addToBackStack) {
         FragmentTransaction transaction = manager.beginTransaction();
+        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         transaction.replace(R.id.container, fragment, fragment.getClass().getName());
         if (addToBackStack) transaction.addToBackStack(null);
         transaction.commit();
