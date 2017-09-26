@@ -29,7 +29,7 @@ public class GetProfileListUseCase extends UseCase<Void, List<UserProfile>> {
                 .map(new Function<List<Profile>, List<UserProfile>>() {
                     @Override
                     public List<UserProfile> apply(@NonNull List<Profile> profiles) throws Exception {
-                        List<UserProfile> list=new ArrayList<UserProfile>();
+                        List<UserProfile> list=new ArrayList<>();
                         for (Profile profile: profiles) {
                             UserProfile userProfile=new UserProfile();
                             userProfile.setEmail(profile.getEmail());

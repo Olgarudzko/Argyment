@@ -4,24 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
-import by.argyment.gymapp.GymApplication;
-import by.argyment.gymapp.R;
 import by.argyment.gymapp.base.BaseFragment;
 import by.argyment.gymapp.databinding.FragmentVlogBinding;
-import by.argyment.gymapp.domain.entity.Video;
-import by.argyment.gymapp.domain.interactions.AddVideoUseCase;
-import by.argyment.gymapp.domain.interactions.GetVideoUseCase;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.observers.DisposableObserver;
 
 /**
  * @author Olga Rudzko

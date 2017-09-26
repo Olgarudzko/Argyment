@@ -1,7 +1,6 @@
 package by.argyment.gymapp.base;
 
 import android.databinding.BindingAdapter;
-import android.databinding.ObservableField;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 

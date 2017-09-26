@@ -20,5 +20,4 @@
     <dimen name="photo_height">300dp</dimen>
     <dimen name="news_photo_diameter">140dp</dimen>
     <dimen name="news_pic_diameter">150dp</dimen>
-    <dimen name="infopic">350dp</dimen>
 </resources>

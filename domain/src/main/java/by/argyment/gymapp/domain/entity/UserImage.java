@@ -1,7 +1,5 @@
 package by.argyment.gymapp.domain.entity;
 
-import java.util.Date;
-
 /**
  * @author Olga Rudzko
  */

@@ -5,11 +5,9 @@ import by.argyment.gymapp.R;
 import by.argyment.gymapp.base.BaseViewModel;
 import by.argyment.gymapp.domain.entity.UserProfile;
 import by.argyment.gymapp.domain.interactions.AddUserUseCase;
-import by.argyment.gymapp.domain.interactions.GetProfileListUseCase;
 import by.argyment.gymapp.domain.interactions.GetProfileUseCase;
 import by.argyment.gymapp.extra.Strings;
 import by.argyment.gymapp.profile.ProfileActivity;
-import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
 
@@ -23,16 +21,9 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-
-import java.util.HashMap;
-import java.util.List;
 
 import javax.inject.Inject;
 

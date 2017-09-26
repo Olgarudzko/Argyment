@@ -24,7 +24,6 @@
     <string name="fill_fields">Заполните все поля</string>
     <string name="check_email">Проверьте e-mail</string>
     <string name="name_password">Имя и пароль должны содержать 4–12 букв/цифр</string>
-    <string name="email_password">Укажите e-mail и пароль</string>
     <string name="description">Описание допускает 10–50 символов</string>
     <string name="email_exists">e-mail уже зарегистрирован</string>
     <string name="email_not_exists">e-mail не зарегистрирован</string>
@@ -46,11 +45,6 @@
     <string name="youtube">YOUTUBE</string>
 
     <!-- Descriptions for ImageViews -->
-    <string name="infobutton">info</string>
-    <string name="vlogbutton">vlog</string>
-    <string name="findbutton">find</string>
-    <string name="newsbutton">news</string>
-    <string name="homebutton">home</string>
     <string name="greetings">Greetings!</string>
     <string name="lola_says">Lola says</string>
     <string name="argyment_gym">Argyment Gym</string>
@@ -60,6 +54,6 @@
     <string name="slon">slon</string>
     <string name="back">BACK</string>
     <string name="check_connection">Проверьте подключение</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
 
 </resources>

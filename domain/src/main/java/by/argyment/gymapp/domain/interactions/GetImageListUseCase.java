@@ -34,7 +34,7 @@ public class GetImageListUseCase extends UseCase<String, List<UserImage>> {
         return rest.getImages(ready).map(new Function<List<Image>, List<UserImage>>() {
             @Override
             public List<UserImage> apply(@NonNull List<Image> images) throws Exception {
-                List<UserImage> newList = new ArrayList<UserImage>();
+                List<UserImage> newList = new ArrayList<>();
                 for (Image img : images) {
                     if (img.getEmail().equals(param)) {
                         UserImage newImg = new UserImage();

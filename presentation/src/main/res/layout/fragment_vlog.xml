@@ -32,7 +32,7 @@
                 android:text="@string/youtube"
                 android:textColor="@color/enter_text"
                 android:textSize="@dimen/header_text"
-                tools:ignore="SpUsage" />
+                tools:ignore="RelativeOverlap,SpUsage" />
 
             <Button
                 style="@style/menu_button"

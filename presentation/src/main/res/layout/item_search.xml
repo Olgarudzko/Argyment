@@ -13,7 +13,8 @@
         android:layout_width="@dimen/preview_width"
         android:layout_height="@dimen/preview_width"
         android:orientation="vertical"
-        android:layout_margin="@dimen/corners_radius">
+        android:layout_margin="@dimen/corners_radius"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/search_pic"

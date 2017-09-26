@@ -2,8 +2,6 @@ package by.argyment.gymapp.base;
 
 import android.content.Intent;
 
-import by.argyment.gymapp.GymApplication;
-
 /**
  * @author Olga Rudzko
  */

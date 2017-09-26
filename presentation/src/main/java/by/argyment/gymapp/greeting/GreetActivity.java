@@ -1,8 +1,6 @@
 package by.argyment.gymapp.greeting;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -13,7 +11,6 @@ import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import by.argyment.gymapp.R;
 import by.argyment.gymapp.base.BaseActivity;
 import by.argyment.gymapp.databinding.ActivityGreetBinding;
-import by.argyment.gymapp.extra.Strings;
 
 /**
  * @author Olga Rudzko

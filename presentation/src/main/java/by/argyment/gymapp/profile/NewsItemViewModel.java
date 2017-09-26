@@ -16,9 +16,9 @@ import by.argyment.gymapp.extra.Strings;
 
 public class NewsItemViewModel extends BaseItemViewModel<News>{
 
-    public ObservableField<String> title=new ObservableField<String>("");
-    public ObservableField<String> picture=new ObservableField<String>("");
-    public ObservableField<String>  text=new ObservableField<String>("");
+    public ObservableField<String> title=new ObservableField<>("");
+    public ObservableField<String> picture=new ObservableField<>("");
+    public ObservableField<String>  text=new ObservableField<>("");
     public ObservableField<String> date=new ObservableField<>("");
 
     @Override

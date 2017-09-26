@@ -31,7 +31,7 @@ public class GetFreeElephantsUseCase extends UseCase<Void, List<Slon>> {
         return rest.getFreeElephants().map(new Function<List<SlonData>, List<Slon>>() {
             @Override
             public List<Slon> apply(@NonNull List<SlonData> slonDatas) throws Exception {
-                List<Slon> list=new ArrayList<Slon>();
+                List<Slon> list=new ArrayList<>();
                 for (SlonData data: slonDatas) {
                     Slon slon=new Slon();
                     slon.setObjectId(data.getObjectId());

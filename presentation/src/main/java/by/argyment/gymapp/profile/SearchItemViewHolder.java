@@ -4,7 +4,6 @@ import by.argyment.gymapp.base.BaseItemViewHolder;
 import by.argyment.gymapp.databinding.ItemSearchBinding;
 import by.argyment.gymapp.domain.entity.UserProfile;
 
-
 /**
  * @author Olga Rudzko
  */

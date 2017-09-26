@@ -99,7 +99,7 @@ public class NewsHandler implements BaseFragmentHandler {
         elephants.makeRequest(null, new DisposableObserver<List<Slon>>() {
             @Override
             public void onNext(@NonNull List<Slon> slons) {
-                slony = new ArrayList<Elephant>();
+                slony = new ArrayList<>();
                 for (Slon slon : slons) {
                     Elephant el = new Elephant();
                     el.setObjectId(slon.getObjectId());

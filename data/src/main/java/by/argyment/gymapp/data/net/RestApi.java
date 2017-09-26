@@ -1,6 +1,5 @@
 package by.argyment.gymapp.data.net;
 
-import java.io.File;
 import java.util.List;
 
 import by.argyment.gymapp.data.entity.Image;

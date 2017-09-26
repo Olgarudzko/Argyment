@@ -2,8 +2,6 @@ package by.argyment.gymapp.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-
 import by.argyment.gymapp.data.extra.Strings;
 
 /**

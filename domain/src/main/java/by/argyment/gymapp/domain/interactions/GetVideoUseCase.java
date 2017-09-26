@@ -33,7 +33,7 @@ public class GetVideoUseCase extends UseCase<Void, List<Video>>{
         return rest.getVideo().map(new Function<List<VideoData>, List<Video>>() {
             @Override
             public List<Video> apply(@NonNull List<VideoData> videoDatas) throws Exception {
-                List <Video> vlog=new ArrayList<Video>();
+                List <Video> vlog=new ArrayList<>();
                 for (VideoData data: videoDatas) {
                     Video video=new Video();
                     video.setUrl(data.getUrl());
