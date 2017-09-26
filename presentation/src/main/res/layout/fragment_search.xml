@@ -33,15 +33,14 @@
                 android:paddingStart="@dimen/greeting_text"
                 android:textAlignment="center"
                 tools:ignore="RtlSymmetry" />
-            <ImageView
+            <Button
                 android:layout_width="@dimen/base_button_height"
                 android:layout_height="@dimen/base_button_height"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                myapp:srcCompat="@drawable/search"
+                android:background="@drawable/search"
                 android:layout_marginEnd="@dimen/greeting_text"
-                android:onClick="@{handler::findName}"
-                android:contentDescription="@string/findbutton" />
+                android:onClick="@{handler::findName}"/>
 
             <ScrollView
                 android:layout_width="match_parent"

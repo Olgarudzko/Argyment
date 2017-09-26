@@ -100,8 +100,8 @@ public class MyPageHandler implements BaseFragmentHandler {
     public void activityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
             File file = new File(data.getData().getPath());
-
             //TODO save img to server
+
             addImage("");
         }
     }
