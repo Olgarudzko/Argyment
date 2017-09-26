@@ -46,25 +46,25 @@ public abstract class BaseAdapter<Model,
     }
 
     @BindingAdapter({Strings.BIND_MAIN_IMAGE})
-    public static void setMainPhoto(ImageView view, ObservableField<String> url) {
-        if (url.get()!=null) {
-            Glide.with(view.getContext()).load(url.get()).into(view);
+    public static void setMainPhoto(ImageView view, String url) {
+        if (url!=null && !url.isEmpty()) {
+            Glide.with(view.getContext()).load(url).into(view);
         }
     }
 
     @BindingAdapter({Strings.BIND_SET_IMAGE})
-    public static void setImg(ImageView view, ObservableField<String> url) {
-        if (url.get()!=null) {
-            Glide.with(view.getContext()).load(url.get())
+    public static void setImg(ImageView view, String url) {
+        if (url!=null && !url.isEmpty()) {
+            Glide.with(view.getContext()).load(url)
                     .bitmapTransform(new CenterCrop(view.getContext()),
                             new RoundedCornersTransformation(view.getContext(), 10, 0)).into(view);
         }
     }
 
     @BindingAdapter({Strings.BIND_ROUND})
-    public static void setRoundImg(ImageView view, ObservableField<String> url){
-        if (url.get()!=null) {
-            Glide.with(view.getContext()).load(url.get())
+    public static void setRoundImg(ImageView view, String url){
+        if (url!=null && !url.isEmpty()) {
+            Glide.with(view.getContext()).load(url)
                     .bitmapTransform(new CropCircleTransformation(view.getContext())).into(view);
         }
     }

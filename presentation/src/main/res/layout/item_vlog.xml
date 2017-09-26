@@ -51,7 +51,8 @@
             android:textColor="@color/enter_text"
             android:text="@{vlogItem.title}"
             android:textAlignment="center"
-            tools:text="БезусLOвный АрGYMент" />
+            tools:text="БезусLOвный АрGYMент"
+            tools:ignore="SpUsage" />
 
     </RelativeLayout>
 </layout>
