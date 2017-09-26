@@ -104,15 +104,12 @@ public class ProfileModel implements BaseViewModel {
 
     @Override
     public void pause() {
-
-    }
-
-    @Override
-    public void release() {
+        activity.unregisterReceiver(connectCheck);
         getProfile.dispose();
     }
 
-
+    @Override
+    public void release() {}
 
     public void goHome(View view) {
         showFragment(activity.getSupportFragmentManager(),
