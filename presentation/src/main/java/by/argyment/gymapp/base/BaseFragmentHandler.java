@@ -4,6 +4,9 @@ import android.content.Intent;
 
 /**
  * @author Olga Rudzko
+ *
+ * Prototype of the view model of BaseFragment
+ * @see BaseFragment
  */
 
 public interface BaseFragmentHandler {

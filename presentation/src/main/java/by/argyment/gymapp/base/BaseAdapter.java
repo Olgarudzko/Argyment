@@ -16,6 +16,11 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * @author Olga Rudzko
+ *
+ * Prototype of the adapter for RecyclerView
+ * @see BaseItemViewModel
+ * @see BaseItemViewHolder
+ *
  */
 
 public abstract class BaseAdapter<Model,

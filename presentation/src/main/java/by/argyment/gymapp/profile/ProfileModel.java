@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -20,6 +21,7 @@ import by.argyment.gymapp.R;
 import by.argyment.gymapp.base.BaseViewModel;
 import by.argyment.gymapp.domain.entity.UserProfile;
 import by.argyment.gymapp.domain.interactions.GetProfileUseCase;
+import by.argyment.gymapp.greeting.GreetActivity;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
 
@@ -90,7 +92,8 @@ public class ProfileModel implements BaseViewModel {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.e("!!!ProfModel/getProf", e.toString());
+                activity.goTo(new Intent(activity, GreetActivity.class));
+                Toast.makeText(activity.getApplicationContext(), R.string.errorloading, Toast.LENGTH_LONG).show();
             }
 
             @Override

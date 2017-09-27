@@ -13,6 +13,11 @@ import by.argyment.gymapp.databinding.FragmentVlogBinding;
 
 /**
  * @author Olga Rudzko
+ *
+ * Fragment which shows all committed links to youtube channel of the fitness centre.
+ * Provides opportunity for administators to add new links. All business logic is implemented
+ * in VlogHandler
+ * @see VlogHandler
  */
 
 public class VlogFragment extends BaseFragment {

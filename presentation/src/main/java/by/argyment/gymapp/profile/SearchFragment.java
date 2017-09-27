@@ -12,6 +12,9 @@ import by.argyment.gymapp.databinding.FragmentSearchBinding;
 
 /**
  * @author Olga Rudzko
+ *
+ * shows all users and searches users by names. All business logic is implemented in SearchHandler
+ * @see SearchHandler
  */
 
 public class SearchFragment extends BaseFragment {

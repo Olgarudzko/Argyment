@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -31,6 +30,9 @@ import static android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI;
 
 /**
  * @author Olga Rudzko
+ *
+ * @see MyPageFragment
+ * View model for MyPageFragment, defines the view of personal user page
  */
 
 public class MyPageHandler implements BaseFragmentHandler {
@@ -68,9 +70,8 @@ public class MyPageHandler implements BaseFragmentHandler {
     public void resume() {
         if (!MyPage.getInstance().slon.get().equals(Strings.NO)) {
             fragment.binding.gotSlon.setVisibility(View.VISIBLE);
-        } else {
-            Log.d("+++MyPageResume", MyPage.getInstance().slon.get());
         }
+        //loads images links from database and sets them for adapter
         getImages.makeRequest(MyPage.getInstance().getEmail(), new DisposableObserver<List<UserImage>>() {
             @Override
             public void onNext(@NonNull List<UserImage> userImages) {
@@ -81,7 +82,6 @@ public class MyPageHandler implements BaseFragmentHandler {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.e("!!!MyPageHand/getImages", e.toString());
                 Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
@@ -102,12 +102,15 @@ public class MyPageHandler implements BaseFragmentHandler {
             File file = new File(data.getData().getPath());
             //TODO save img to server
 
-            addImage("");
+            addImage("https://goo.gl/1PrGgG");
         }
     }
 
+    /**
+     * Removes the bonus. User can execute it when he got a service in order to be able to win new bonus
+     * @param view binded element in layout
+     */
     public void used(View view) {
-
         AlertDialog.Builder dialog = new AlertDialog.Builder(view.getContext());
         dialog.setTitle(R.string.slondialog).setIcon(R.drawable.slon).setMessage(MyPage.getInstance().slon.get()); // сообщение
         dialog.setPositiveButton(R.string.deleteslon, new DialogInterface.OnClickListener() {
@@ -121,18 +124,57 @@ public class MyPageHandler implements BaseFragmentHandler {
         dialog.show();
     }
 
+    /**
+     * opens field for changing username
+     * @param view binded element in layout
+     */
+    public void rename (View view){
+        view.setVisibility(View.INVISIBLE);
+        fragment.binding.changing.setVisibility(View.VISIBLE);
+    }
 
+    /**
+     * sets new username to MyPage if it matches regex
+     * @see MyPage
+     * @param view binded element in layout
+     */
+    public void accept (View view){
+        String input=fragment.binding.rename.getText().toString();
+        if (!input.isEmpty() && input.matches(Strings.NAME_REGEX)){
+            MyPage.getInstance().username.set(input);
+            fragment.binding.changing.setVisibility(View.GONE);
+            fragment.binding.profileName.setVisibility(View.VISIBLE);
+            Toast.makeText(view.getContext(), R.string.renamed, Toast.LENGTH_SHORT).show();
+        }else {
+            fragment.binding.changing.setVisibility(View.GONE);
+            fragment.binding.profileName.setVisibility(View.VISIBLE);
+            Toast.makeText(view.getContext(), R.string.forbiddenformat, Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    /**
+     * sets chosen photo s main
+     * @param view binded element in layout
+     */
     public void mainPhoto(View view) {
         mainImg = MyPage.getInstance().userpic.get();
         Toast.makeText(view.getContext(), R.string.mainingset, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * opens android gallery
+     * @param view binded element in layout
+     */
     public void addPhoto(View view) {
         Intent gallery = new Intent(Intent.ACTION_PICK, INTERNAL_CONTENT_URI);
         this.fragment.startActivityForResult(gallery, PICK_IMAGE);
     }
 
+    /**
+     * adds new link of the image assosiated with user email to database
+     * @see AddImageUseCase
+     * @param link link that should bew assotiated with user image in databes
+     */
     private void addImage(String link) {
         UserImage image = new UserImage();
         image.setEmail(MyPage.getInstance().getEmail());
@@ -148,7 +190,6 @@ public class MyPageHandler implements BaseFragmentHandler {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.e("!!!MyPageHand/addImg", e.toString());
                 Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
@@ -159,6 +200,10 @@ public class MyPageHandler implements BaseFragmentHandler {
         });
     }
 
+    /**
+     * Removes the chosen link assotiated with user email from database
+     * @param view binded element in layout
+     */
     public void removePhoto(View view) {
         String link = MyPage.getInstance().userpic.get();
         String id = Strings.EMPTY;
@@ -169,16 +214,15 @@ public class MyPageHandler implements BaseFragmentHandler {
             }
         }
         if (!(id.equals(Strings.EMPTY))) {
-            removeImg.makeRequest(id, new DisposableObserver<Long>() {
+            removeImg.makeRequest(id, new DisposableObserver<UserImage>() {
                 @Override
-                public void onNext(@NonNull Long aLong) {
+                public void onNext(@NonNull UserImage image) {
                     adapter.setItems(list);
                     MyPage.getInstance().userpic.set(mainImg);
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
-                    Log.e("!!!MyPageHand/removeImg", e.toString());
                     Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
                 }
 
@@ -190,6 +234,9 @@ public class MyPageHandler implements BaseFragmentHandler {
         }
     }
 
+    /**
+     * updates user information in database on pause
+     */
     @Override
     public void pause() {
         if (increaseStatus) {
@@ -220,7 +267,6 @@ public class MyPageHandler implements BaseFragmentHandler {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.e("!!!MyPageHand/updUser", e.toString());
                 Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 

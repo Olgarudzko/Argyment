@@ -9,6 +9,8 @@ import by.argyment.gymapp.extra.Strings;
 
 /**
  * @author Olga Rudzko
+ *
+ * Singleton which provides preview of chosen user
  */
 
 public class MemberPage{

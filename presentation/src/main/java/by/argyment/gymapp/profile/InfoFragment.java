@@ -15,6 +15,9 @@ import by.argyment.gymapp.extra.Strings;
 
 /**
  * @author Olga Rudzko
+ *
+ * Fragment without any requests to server, provides general information about the fitness centre,
+ * contains social buttons and clickable phone numbers
  */
 
 public class InfoFragment extends Fragment {

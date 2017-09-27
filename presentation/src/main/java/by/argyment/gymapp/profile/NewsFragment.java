@@ -13,6 +13,11 @@ import by.argyment.gymapp.databinding.FragmentNewsBinding;
 
 /**
  * @author Olga Rudzko
+ *
+ * Fragment which froms the view of news feed, gives opportunity to add news for administrators,
+ * to add bonuses for trainers and to win bonuses for clients
+ * All business logic is implemented in NewsHandler
+ * @see NewsHandler
  */
 
 public class NewsFragment extends BaseFragment {

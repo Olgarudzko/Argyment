@@ -15,6 +15,10 @@ import io.reactivex.functions.Function;
 
 /**
  * @author Olga Rudzko
+ *
+ * @see Slon
+ * the business logic of the application permits trainer to create only 3 Slon objects which
+ * still have no winners
  */
 
 public class GetFreeElephantsUseCase extends UseCase<Void, List<Slon>> {

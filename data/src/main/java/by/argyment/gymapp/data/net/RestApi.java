@@ -42,7 +42,7 @@ public interface RestApi {
     Observable<Profile> updateProfile(@Body Profile profile, @Path(Strings.ID) String id);
 
     @DELETE(Strings.DELETE_IMAGE)
-    Observable<Long> deleteImage(@Path(Strings.ID) String id);
+    Observable<Image> deleteImage(@Path(Strings.ID) String id);
 
     @GET(Strings.NEWS_100_PAGES)
     Observable <List<NewsData>> getNews();

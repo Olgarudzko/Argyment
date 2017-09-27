@@ -21,7 +21,6 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,6 +28,10 @@ import javax.inject.Inject;
 
 /**
  * @author Olga Rudzko
+ *
+ * @see GreetActivity
+ *
+ * view model for the activity which provides registration and authorization
  */
 
 public class GreetModel implements BaseViewModel {
@@ -48,10 +51,15 @@ public class GreetModel implements BaseViewModel {
     public static final String PASS = Strings.PASSWORD;
 
     public ObservableField<String> name = new ObservableField<>();
+    //depends on database response, turns true when the password matches the email
     public ObservableBoolean done = new ObservableBoolean(false);
+    //indicates the process of loading data from server
     public ObservableBoolean isLoading = new ObservableBoolean(true);
+    //true when there's any connection problen
     public ObservableBoolean problem;
 
+    //special field for checking whether the user was "checked in" during the last 80.000.000
+    // milliseconds or not (the number is checked in layout)
     public ObservableInt checkin = new ObservableInt();
     ObservableField<String> email = new ObservableField<>();
     private ObservableField<String> password = new ObservableField<>();
@@ -61,6 +69,7 @@ public class GreetModel implements BaseViewModel {
         GymApplication.appComponent.injectGreetModel(this);
     }
 
+    //catches disconnections
     private BroadcastReceiver connectCheck = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -104,7 +113,15 @@ public class GreetModel implements BaseViewModel {
         }
         loadPreferences();
     }
-
+    /**
+     * Checkes whether the device contains shared preferences for the application.
+     * If contains, compares the password from database with password in shared preferences.
+     * Sets the checkin variable which influence whether special button for check-in is visible or not
+     *
+     * @see UserProfile
+     * @see GetProfileUseCase
+     *
+     */
     private void loadPreferences() {
         isLoading.set(true);
         preferences = activity.getSharedPreferences(SHARED, Context.MODE_PRIVATE);
@@ -120,14 +137,12 @@ public class GreetModel implements BaseViewModel {
                         checkin.set((int) (System.currentTimeMillis() - userProfile.getTimeCheckin()));
                         isLoading.set(false);
                         done.set(true);
-                        Log.d("---Loading false", "Done true");
                     }
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
                     isLoading.set(false);
-                    Log.d("---Loading false", "on error");
                 }
 
                 @Override
@@ -137,10 +152,18 @@ public class GreetModel implements BaseViewModel {
             });
         } else {
             isLoading.set(false);
-            Log.d("---Loading false", "empty preferences");
         }
     }
 
+    /**
+     * If shared preferences are empty, requests login and password, checks syntax by regex
+     * and compares them with the data in database
+     * Sets the checkin variable which influence whether special button for check-in is visible or not
+     *
+     * @see GetProfileUseCase
+     * @param view binded element in layout
+     *
+     */
     public void login(View view) {
         final String b = activity.email.getText().toString();
         final String c = activity.password.getText().toString();
@@ -175,6 +198,12 @@ public class GreetModel implements BaseViewModel {
         }
     }
 
+    /**
+     * Provides registration. Checkes input by regex, adds the new user to database
+     *
+     * @see AddUserUseCase
+     * @param view binded element in layout
+     */
     public void signIn(View view) {
         final String a = activity.username.getText().toString();
         final String b = activity.email.getText().toString();
@@ -221,6 +250,11 @@ public class GreetModel implements BaseViewModel {
         }
     }
 
+    /**
+     * Two variants of loading profile: with check-in and without it. Depends on what view was pressed
+     *
+     * @param view binded element in layout
+     */
     public void loadProfile(View view) {
         boolean isCheckedIn = false;
         if (view.getId() == R.id.checkin) isCheckedIn = true;

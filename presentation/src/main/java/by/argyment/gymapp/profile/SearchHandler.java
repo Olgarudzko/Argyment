@@ -2,7 +2,6 @@ package by.argyment.gymapp.profile;
 
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,6 +23,8 @@ import io.reactivex.observers.DisposableObserver;
 
 /**
  * @author Olga Rudzko
+ * View model for SearchFragment
+ * @see SearchFragment
  */
 
 public class SearchHandler implements BaseFragmentHandler {
@@ -32,8 +33,6 @@ public class SearchHandler implements BaseFragmentHandler {
     GetProfileListUseCase getProfiles;
     @Inject
     GetImageListUseCase getImages;
-
-    public int star;
 
     private List<UserProfile> list;
     SearchFragment fragment;
@@ -51,6 +50,10 @@ public class SearchHandler implements BaseFragmentHandler {
         adapter = new SearchAdapter(fragment);
     }
 
+    /**
+     * get all profiles from database sorted by status (depends on amount of check-ins)
+     * @see GetProfileListUseCase
+     */
     @Override
     public void resume() {
         getProfiles.makeRequest(null, new DisposableObserver<List<UserProfile>>() {
@@ -67,7 +70,6 @@ public class SearchHandler implements BaseFragmentHandler {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.e("!!!SearchHand/getProf", e.toString());
                 Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
@@ -83,6 +85,11 @@ public class SearchHandler implements BaseFragmentHandler {
         fragment.binding.usersList.setAdapter(adapter);
     }
 
+    /**
+     * Shows chosen user information and loads images assotiated with his email.
+     * @see GetImageListUseCase
+     * @param member binded element in layout
+     */
     public void loadMemberPage(UserProfile member) {
         picsAdapter = new MyPageImgAdapter();
         MemberPage.getInstance().setObjectId(member.getObjectId());
@@ -95,12 +102,10 @@ public class SearchHandler implements BaseFragmentHandler {
             public void onNext(@NonNull List<UserImage> userImages) {
                 picsAdapter.setItems(userImages);
                 MemberPage.getInstance().visibility.set(true);
-                Log.d("!!!CountedPics", String.valueOf(userImages.size()));
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.e("!!!SearchHand/getImg", e.toString());
                 Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
@@ -112,6 +117,10 @@ public class SearchHandler implements BaseFragmentHandler {
         fragment.binding.memberGallery.setAdapter(picsAdapter);
     }
 
+    /**
+     * searches for given row of symbols through the list formed on resume
+     * @param view binded element in layout
+     */
     public void findName(View view) {
         String name = fragment.binding.findMember.getText().toString();
         if (!name.equals(Strings.EMPTY)) {

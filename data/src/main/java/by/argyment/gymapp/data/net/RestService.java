@@ -50,7 +50,7 @@ public class RestService {
         return api.updateProfile(profile, id);
     }
 
-    public Observable <Long> deleteImage (String id){
+    public Observable <Image> deleteImage (String id){
         return api.deleteImage(id);
     }
 

@@ -8,6 +8,9 @@ import by.argyment.gymapp.extra.Strings;
 
 /**
  * @author Olga Rudzko
+ *
+ * Singleton which contains all information of the current user profile for the personal account
+ * @see by.argyment.gymapp.domain.entity.UserProfile
  */
 
 public class MyPage {

@@ -9,6 +9,9 @@ import android.os.Bundle;
 
 /**
  * @author Olga Rudzko
+ *
+ * Prototype of activity, all business logic is implemented in view model
+ * @see BaseViewModel
  */
 public abstract class BaseActivity extends AppCompatActivity {
 

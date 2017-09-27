@@ -15,6 +15,10 @@ import by.argyment.gymapp.databinding.FragmentMypageBinding;
 
 /**
  * @author Olga Rudzko
+ *
+ * Fragment which forms the view of personal user page.
+ * All business logic is implemented in MyPageHandler
+ * @see MyPageHandler
  */
 
 public class MyPageFragment extends BaseFragment {

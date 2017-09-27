@@ -36,6 +36,9 @@
     <string name="deleteslon">Удалить</string>
     <string name="unavailable">Ошибка сервера. Обновления недоступны</string>
     <string name="slonadded">Слон добавлен</string>
+    <string name="forbiddenformat">Недопустимое значение</string>
+    <string name="renamed">Имя изменено</string>
+    <string name="errorloading">Страница недоступна</string>
 
     <!-- Contacts -->
     <string name="address">пр-т Дзержинского,\n 104 (ТРЦ Титан)</string>
@@ -51,9 +54,7 @@
     <string name="argyment_logo">Argyment logo</string>
     <string name="profile_image">Profile image</string>
     <string name="status">status</string>
-    <string name="slon">slon</string>
     <string name="back">BACK</string>
     <string name="check_connection">Проверьте подключение</string>
-    <string name="ok">OK</string>
 
 </resources>

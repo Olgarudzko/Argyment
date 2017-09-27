@@ -14,7 +14,8 @@ import by.argyment.gymapp.databinding.ActivityGreetBinding;
 
 /**
  * @author Olga Rudzko
- *         This class provides registration and authorization
+ * This activity provides registration and authorization
+ * @see GreetModel
  */
 
 public class GreetActivity extends BaseActivity {

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,6 +24,8 @@ import io.reactivex.observers.DisposableObserver;
 
 /**
  * @author Olga Rudzko
+ * View model for VlogFragment
+ * @see VlogFragment
  */
 
 public class VlogHandler implements BaseFragmentHandler {
@@ -62,7 +63,6 @@ public class VlogHandler implements BaseFragmentHandler {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.e("!!!VlogHand/getVideo", e.toString());
                 Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
@@ -106,7 +106,6 @@ public class VlogHandler implements BaseFragmentHandler {
 
                                 @Override
                                 public void onError(@NonNull Throwable e) {
-                                    Log.e("!!!VlogHand/addVideo", e.toString());
                                     Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
                                 }
 

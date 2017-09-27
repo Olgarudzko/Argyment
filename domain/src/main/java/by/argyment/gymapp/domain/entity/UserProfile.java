@@ -11,10 +11,12 @@ public class UserProfile implements EntityModel {
     private boolean isTrainer;
     private int status;
     private String userpic;
+    //contents of special bonus which can be won at NewsFragment. Profile can contain only one bonus
     private String slon;
     private String email;
     private String password;
     private String objectId;
+    //the date in milliseconds when user pressed special check-in button last time
     private long timeCheckin;
 
     public long getTimeCheckin() {

@@ -2,6 +2,8 @@ package by.argyment.gymapp.domain.entity;
 
 /**
  * @author Olga Rudzko
+ *
+ * objects are created by trainers and contain of special bonuses for clients
  */
 
 public class Slon implements EntityModel{

@@ -6,7 +6,7 @@ package by.argyment.gymapp.data.extra;
 
 public interface Strings {
     String PROFILE_100_PAGES = "data/profiles?pageSize=100";
-    String IMAGES = "data/images";
+    String IMAGES = "data/images?pageSize=100";
     String PROFILES = "data/profiles";
     String WHERE = "where";
     String LINK = "link";

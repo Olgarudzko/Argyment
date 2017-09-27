@@ -2,6 +2,10 @@ package by.argyment.gymapp.extra;
 
 /**
  * @author Olga Rudzko
+ *
+ * objects are created by trainers and contain of special bonuses for clients
+ * according to business logic apllication can contain only 3 or less elephants without winner
+ * user can have only one active bonus
  */
 
 public class Elephant {

@@ -8,6 +8,9 @@ import android.view.View;
 
 /**
  * @author Olga Rudzko
+ *
+ * Prototype of the fragment. All business logic is implemented in BaseFragmentHandler
+ * @see BaseFragmentHandler
  */
 
 public abstract class BaseFragment extends Fragment {

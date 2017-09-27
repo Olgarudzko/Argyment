@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +34,9 @@ import io.reactivex.observers.DisposableObserver;
 
 /**
  * @author Olga Rudzko
+ *
+ * the view model of News Fragment
+ * @see NewsFragment
  */
 
 public class NewsHandler implements BaseFragmentHandler {
@@ -52,9 +54,9 @@ public class NewsHandler implements BaseFragmentHandler {
 
     private static final int CHOOSE_IMAGE = 111;
 
-    public ObservableField<String> slon1 = new ObservableField<>("");
-    public ObservableField<String> slon2 = new ObservableField<>("");
-    public ObservableField<String> slon3 = new ObservableField<>("");
+    public ObservableField<String> slon1 = new ObservableField<>(Strings.EMPTY);
+    public ObservableField<String> slon2 = new ObservableField<>(Strings.EMPTY);
+    public ObservableField<String> slon3 = new ObservableField<>(Strings.EMPTY);
     private List<Elephant> slony;
 
     public ObservableBoolean isAdding = new ObservableBoolean(false);
@@ -77,6 +79,11 @@ public class NewsHandler implements BaseFragmentHandler {
         adapter = new NewsAdapter();
     }
 
+    /**
+     * on resume gets all news and all available bonuses from database
+     * @see GetNewsUseCase
+     * @see GetFreeElephantsUseCase
+     */
     @Override
     public void resume() {
         getNews.makeRequest(null, new DisposableObserver<List<News>>() {
@@ -88,7 +95,6 @@ public class NewsHandler implements BaseFragmentHandler {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.e("!!!NewsHand/getNews", e.toString());
                 Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
@@ -107,6 +113,7 @@ public class NewsHandler implements BaseFragmentHandler {
                     el.setTrainer(slon.getTrainer());
                     slony.add(el);
                 }
+                //sets visibility of available bonuses
                 if (!slony.isEmpty()) {
                     slon1.set(slony.get(0).getSlon());
                     if (!MyPage.getInstance().isTrainer.get()) {
@@ -144,7 +151,6 @@ public class NewsHandler implements BaseFragmentHandler {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.e("!!!NewsHand/eleph", e.toString());
                 Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
             }
 
@@ -168,6 +174,13 @@ public class NewsHandler implements BaseFragmentHandler {
         isAdding.set(false);
     }
 
+    /**
+     * assosiate chosen bonus with user email, adds bonus to user page, redirects to MyPage Fragment
+     * @see MyPageFragment
+     * @see MyPage
+     * @see SetSlonWinnerUseCase
+     * @param view binded element in layout
+     */
     public void wonSlon(View view) {
         String str = MyPage.getInstance().slon.get();
         if (str != null && str.equals(Strings.NO)) {
@@ -181,15 +194,16 @@ public class NewsHandler implements BaseFragmentHandler {
                     setWinner.makeRequest(slon, new DisposableObserver<Slon>() {
                         @Override
                         public void onNext(@NonNull Slon slon) {
-                            MyPage.getInstance().slon = slon1;
-                            Toast.makeText(fragment.getContext(), slon1.get(), Toast.LENGTH_SHORT).show();
+                            MyPage.getInstance().slon.set(slon1.get());
                             fragment.binding.slon1.setVisibility(View.GONE);
                             slon1.set(Strings.EMPTY);
+                            ProfileModel.showFragment(fragment.getFragmentManager(),
+                                    MyPageFragment.newInstance(fragment.getFragmentManager(), false), true);
+                            Toast.makeText(fragment.getContext(), slon1.get(), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onError(@NonNull Throwable e) {
-                            Log.e("!!!NewsHand/setWinner", e.toString());
                             Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
                         }
 
@@ -198,6 +212,7 @@ public class NewsHandler implements BaseFragmentHandler {
 
                         }
                     });
+
                     break;
                 case R.id.slon2:
                     slon.setTrainer(slony.get(1).getTrainer());
@@ -210,12 +225,13 @@ public class NewsHandler implements BaseFragmentHandler {
                             Toast.makeText(fragment.getContext(), slon2.get(), Toast.LENGTH_SHORT).show();
                             fragment.binding.slon2.setVisibility(View.GONE);
                             slon2.set(Strings.EMPTY);
-                            Log.d("+++Just won slon", MyPage.getInstance().slon.get());
+                            ProfileModel.showFragment(fragment.getFragmentManager(),
+                                    MyPageFragment.newInstance(fragment.getFragmentManager(), false), true);
+                            Toast.makeText(fragment.getContext(), slon2.get(), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onError(@NonNull Throwable e) {
-                            Log.e("!!!NewsHand/setWinner", e.toString());
                             Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
                         }
 
@@ -232,15 +248,17 @@ public class NewsHandler implements BaseFragmentHandler {
                     setWinner.makeRequest(slon, new DisposableObserver<Slon>() {
                         @Override
                         public void onNext(@NonNull Slon slon) {
-                            MyPage.getInstance().slon = slon3;
+                            MyPage.getInstance().slon.set(slon3.get());
                             Toast.makeText(fragment.getContext(), slon3.get(), Toast.LENGTH_SHORT).show();
                             fragment.binding.slon3.setVisibility(View.GONE);
                             slon3.set(Strings.EMPTY);
+                            ProfileModel.showFragment(fragment.getFragmentManager(),
+                                    MyPageFragment.newInstance(fragment.getFragmentManager(), false), true);
+                            Toast.makeText(fragment.getContext(), slon3.get(), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onError(@NonNull Throwable e) {
-                            Log.e("!!!NewsHand/setWinner", e.toString());
                             Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
                         }
 
@@ -251,11 +269,16 @@ public class NewsHandler implements BaseFragmentHandler {
                     });
             }
         } else {
-            Log.d("+++Just failed slon", MyPage.getInstance().slon.get());
             Toast.makeText(view.getContext(), R.string.secondslon, Toast.LENGTH_SHORT).show();
         }
     }
 
+    /**
+     * Action is available for trainers only. Opens the menu for adding bonus to the bottom panel
+     * where the first client who presses at "slon" icon can win it
+     *
+     * @param view binded element in layout
+     */
     public void addSlon(View view) {
         switch (view.getId()) {
             case R.id.add_slon2:
@@ -270,6 +293,12 @@ public class NewsHandler implements BaseFragmentHandler {
         isSlonAdding.set(true);
     }
 
+    /**
+     * adds new bonus to database
+     * @see AddElephantUseCase
+     *
+     * @param view binded element in layout
+     */
     public void addSlonContent(View view) {
         Slon slon = new Slon();
         final EditText edit = this.fragment.binding.slonContent;
@@ -288,7 +317,6 @@ public class NewsHandler implements BaseFragmentHandler {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Log.e("!!!NewsHand/addSlon", e.toString());
                         Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
                     }
 
@@ -306,6 +334,11 @@ public class NewsHandler implements BaseFragmentHandler {
         }
     }
 
+    /**
+     * Action is available for administrators only. Opens the panel for adding news.
+     *
+     * @param view binded element in layout
+     */
     public void addNews(View view) {
         String title = fragment.binding.newsTitle.getText().toString();
         String text = fragment.binding.newsContent.getText().toString();
@@ -318,7 +351,6 @@ public class NewsHandler implements BaseFragmentHandler {
                         android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 this.fragment.startActivityForResult(gallery, CHOOSE_IMAGE);
             } else {
-                Log.d("///Text", text);
                 Toast.makeText(view.getContext(), R.string.wrong_format, Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -326,6 +358,13 @@ public class NewsHandler implements BaseFragmentHandler {
         }
     }
 
+    /**
+     * Loads picture to server and adds news
+     * @see AddNewsUseCase
+     * @param requestCode special code of the request defined previously
+     * @param resultCode indicates whether the user made his choice in gallery
+     * @param data chosen data
+     */
     @Override
     public void activityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == CHOOSE_IMAGE) {
@@ -343,7 +382,6 @@ public class NewsHandler implements BaseFragmentHandler {
 
                 @Override
                 public void onError(@NonNull Throwable e) {
-                    Log.e("!!!NewsHand/addNews", e.toString());
                     Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
                 }
 
