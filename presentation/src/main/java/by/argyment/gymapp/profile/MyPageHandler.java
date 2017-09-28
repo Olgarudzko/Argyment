@@ -3,11 +3,20 @@ package by.argyment.gymapp.profile;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Toast;
 
-import java.io.File;
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.backendless.files.BackendlessFile;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,6 +28,7 @@ import by.argyment.gymapp.base.BaseFragmentHandler;
 import by.argyment.gymapp.domain.entity.UserImage;
 import by.argyment.gymapp.domain.entity.UserProfile;
 import by.argyment.gymapp.domain.interactions.AddImageUseCase;
+import by.argyment.gymapp.domain.interactions.AddNewsUseCase;
 import by.argyment.gymapp.domain.interactions.DeleteImageUseCase;
 import by.argyment.gymapp.domain.interactions.GetImageListUseCase;
 import by.argyment.gymapp.domain.interactions.UpdateProfileUseCase;
@@ -30,7 +40,6 @@ import static android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI;
 
 /**
  * @author Olga Rudzko
- *
  * @see MyPageFragment
  * View model for MyPageFragment, defines the view of personal user page
  */
@@ -94,20 +103,49 @@ public class MyPageHandler implements BaseFragmentHandler {
 
     @Override
     public void viewCreated() {
-     }
-
-    @Override
-    public void activityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
-            File file = new File(data.getData().getPath());
-            //TODO save img to server
-
-            addImage("https://goo.gl/1PrGgG");
-        }
     }
 
     /**
+     * Loads picture to server and adds to page
+     *
+     * @param requestCode special code of the request defined previously
+     * @param resultCode  indicates whether the user made his choice in gallery
+     * @param data        chosen data
+     * @see AddNewsUseCase
+     */
+    @Override
+    public void activityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
+            Bitmap bitmap;
+            Uri selectedImage = data.getData();
+            InputStream imageStream;
+            try {
+                imageStream = fragment.getContext().getContentResolver().openInputStream(selectedImage);
+                bitmap = BitmapFactory.decodeStream(imageStream);
+                bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() / 2, bitmap.getHeight() / 2, false);
+                final String name = MyPage.getInstance().getEmail() + System.currentTimeMillis() + Strings.JPG;
+                Backendless.Files.Android.upload(bitmap, Bitmap.CompressFormat.JPEG, 50,
+                        name, Strings.USERIMAGES, new AsyncCallback<BackendlessFile>() {
+                            @Override
+                            public void handleResponse(BackendlessFile response) {
+                                addImage(name);
+                            }
+
+                            @Override
+                            public void handleFault(BackendlessFault fault) {
+                                Toast.makeText(fragment.getContext(), R.string.uploaderror, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            } catch (Exception e) {
+                Toast.makeText(fragment.getContext(), R.string.wrongfiletype, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    /**
      * Removes the bonus. User can execute it when he got a service in order to be able to win new bonus
+     *
      * @param view binded element in layout
      */
     public void used(View view) {
@@ -116,8 +154,8 @@ public class MyPageHandler implements BaseFragmentHandler {
         dialog.setPositiveButton(R.string.deleteslon, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                    MyPage.getInstance().slon.set(Strings.NO);
-                    fragment.binding.gotSlon.setVisibility(View.GONE);
+                MyPage.getInstance().slon.set(Strings.NO);
+                fragment.binding.gotSlon.setVisibility(View.GONE);
             }
         });
         dialog.setCancelable(true);
@@ -126,26 +164,28 @@ public class MyPageHandler implements BaseFragmentHandler {
 
     /**
      * opens field for changing username
+     *
      * @param view binded element in layout
      */
-    public void rename (View view){
+    public void rename(View view) {
         view.setVisibility(View.INVISIBLE);
         fragment.binding.changing.setVisibility(View.VISIBLE);
     }
 
     /**
      * sets new username to MyPage if it matches regex
-     * @see MyPage
+     *
      * @param view binded element in layout
+     * @see MyPage
      */
-    public void accept (View view){
-        String input=fragment.binding.rename.getText().toString();
-        if (!input.isEmpty() && input.matches(Strings.NAME_REGEX)){
+    public void accept(View view) {
+        String input = fragment.binding.rename.getText().toString();
+        if (!input.isEmpty() && input.matches(Strings.NAME_REGEX)) {
             MyPage.getInstance().username.set(input);
             fragment.binding.changing.setVisibility(View.GONE);
             fragment.binding.profileName.setVisibility(View.VISIBLE);
             Toast.makeText(view.getContext(), R.string.renamed, Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             fragment.binding.changing.setVisibility(View.GONE);
             fragment.binding.profileName.setVisibility(View.VISIBLE);
             Toast.makeText(view.getContext(), R.string.forbiddenformat, Toast.LENGTH_SHORT).show();
@@ -154,6 +194,7 @@ public class MyPageHandler implements BaseFragmentHandler {
 
     /**
      * sets chosen photo s main
+     *
      * @param view binded element in layout
      */
     public void mainPhoto(View view) {
@@ -163,6 +204,7 @@ public class MyPageHandler implements BaseFragmentHandler {
 
     /**
      * opens android gallery
+     *
      * @param view binded element in layout
      */
     public void addPhoto(View view) {
@@ -172,8 +214,9 @@ public class MyPageHandler implements BaseFragmentHandler {
 
     /**
      * adds new link of the image assosiated with user email to database
-     * @see AddImageUseCase
+     *
      * @param link link that should bew assotiated with user image in databes
+     * @see AddImageUseCase
      */
     private void addImage(String link) {
         UserImage image = new UserImage();
@@ -202,6 +245,7 @@ public class MyPageHandler implements BaseFragmentHandler {
 
     /**
      * Removes the chosen link assotiated with user email from database
+     *
      * @param view binded element in layout
      */
     public void removePhoto(View view) {
@@ -250,7 +294,7 @@ public class MyPageHandler implements BaseFragmentHandler {
         updated.setPassword(MyPage.getInstance().getPassword());
         updated.setTrainer(MyPage.getInstance().isTrainer.get());
         updated.setAdmin(MyPage.getInstance().isAdmin.get());
-        if (mainImg!=null) {
+        if (mainImg != null) {
             updated.setUserpic(mainImg);
         } else {
             updated.setUserpic(MyPage.getInstance().userpic.get());

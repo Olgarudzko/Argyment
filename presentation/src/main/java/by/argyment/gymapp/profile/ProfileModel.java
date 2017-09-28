@@ -88,10 +88,12 @@ public class ProfileModel implements BaseViewModel {
                 MyPage.getInstance().slon.set(userProfile.getSlon());
                 MyPage.getInstance().setObjectId(userProfile.getObjectId());
                 MyPage.getInstance().setTimeCheckin(userProfile.getTimeCheckin());
+                Log.d("!!!User loaded", MyPage.getInstance().username.get());
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
+                Log.e("!!!Error loading user", e.toString());
                 activity.goTo(new Intent(activity, GreetActivity.class));
                 Toast.makeText(activity.getApplicationContext(), R.string.errorloading, Toast.LENGTH_LONG).show();
             }

@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import by.argyment.gymapp.data.entity.NewsData;
 import by.argyment.gymapp.data.net.RestService;
 import by.argyment.gymapp.domain.entity.News;
+import by.argyment.gymapp.domain.extra.Strings;
 import by.argyment.gymapp.domain.interactions.base.UseCase;
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
@@ -27,7 +28,7 @@ public class AddNewsUseCase extends UseCase<News, News> {
     protected Observable<News> buildUseCase(News param) {
         NewsData data=new NewsData();
         data.setTitle(param.getTitle());
-        data.setPicture(param.getPicture());
+        data.setPicture(Strings.BASE_URL+Strings.NEWSIMAGES+param.getPicture());
         data.setText(param.getText());
         data.setTime(System.currentTimeMillis());
         return rest.addNews(data).map(new Function<NewsData, News>() {

@@ -39,6 +39,8 @@
     <string name="forbiddenformat">Недопустимое значение</string>
     <string name="renamed">Имя изменено</string>
     <string name="errorloading">Страница недоступна</string>
+    <string name="wrongfiletype">Недопустимый формат файла</string>
+    <string name="uploaderror">Ошибка загрузки</string>
 
     <!-- Contacts -->
     <string name="address">пр-т Дзержинского,\n 104 (ТРЦ Титан)</string>

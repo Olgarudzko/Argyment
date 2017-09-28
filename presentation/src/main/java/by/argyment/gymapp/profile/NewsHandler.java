@@ -4,13 +4,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.backendless.files.BackendlessFile;
+
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -368,31 +377,52 @@ public class NewsHandler implements BaseFragmentHandler {
     @Override
     public void activityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == CHOOSE_IMAGE) {
-            File file = new File(data.getData().getPath());
-            newsToAdd.setPicture(MyPage.getInstance().userpic.get());
-            addNewsUseCase.makeRequest(newsToAdd, new DisposableObserver<News>() {
-                @Override
-                public void onNext(@NonNull News news) {
-                    Collections.reverse(list);
-                    list.add(news);
-                    Collections.reverse(list);
-                    adapter.setItems(list);
-                    Toast.makeText(fragment.getContext(), R.string.newsadded, Toast.LENGTH_SHORT).show();
-                }
+            Bitmap bitmap;
+            Uri selectedImage = data.getData();
+            InputStream imageStream;
+            try {
+                imageStream = fragment.getContext().getContentResolver().openInputStream(selectedImage);
+                bitmap = BitmapFactory.decodeStream(imageStream);
+                bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() / 5, bitmap.getHeight() / 5, false);
+                final String name = System.currentTimeMillis() + Strings.JPG;
+                Backendless.Files.Android.upload(bitmap, Bitmap.CompressFormat.JPEG, 50,
+                        name, Strings.NEWSIMAGES, new AsyncCallback<BackendlessFile>() {
+                            @Override
+                            public void handleResponse(BackendlessFile response) {
+                                newsToAdd.setPicture(name);
+                                addNewsUseCase.makeRequest(newsToAdd, new DisposableObserver<News>() {
+                                    @Override
+                                    public void onNext(@NonNull News news) {
+                                        Collections.reverse(list);
+                                        list.add(news);
+                                        Collections.reverse(list);
+                                        adapter.setItems(list);
+                                        Toast.makeText(fragment.getContext(), R.string.newsadded, Toast.LENGTH_SHORT).show();
+                                    }
 
-                @Override
-                public void onError(@NonNull Throwable e) {
-                    Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
-                }
+                                    @Override
+                                    public void onError(@NonNull Throwable e) {
+                                        Toast.makeText(fragment.getContext(), R.string.unavailable, Toast.LENGTH_LONG).show();
+                                    }
 
-                @Override
-                public void onComplete() {
+                                    @Override
+                                    public void onComplete() {
 
-                }
-            });
-            fragment.binding.newsContent.setText(Strings.EMPTY);
-            fragment.binding.newsTitle.setText(Strings.EMPTY);
-            isAdding.set(false);
+                                    }
+                                });
+                                fragment.binding.newsContent.setText(Strings.EMPTY);
+                                fragment.binding.newsTitle.setText(Strings.EMPTY);
+                                isAdding.set(false);
+                            }
+
+                            @Override
+                            public void handleFault(BackendlessFault fault) {
+                                Toast.makeText(fragment.getContext(), R.string.uploaderror, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            } catch (Exception e) {
+                Toast.makeText(fragment.getContext(), R.string.wrongfiletype, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

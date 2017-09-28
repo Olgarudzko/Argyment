@@ -6,8 +6,12 @@ package by.argyment.gymapp.extra;
 
 public interface Strings {
 
+    //Helpers
     String EMPTY = "";
     String DATE = "dd/MM/yyyy HH:mm";
+    String USERIMAGES = "userimages/";
+    String NEWSIMAGES="newsimages/";
+    String JPG = ".jpg";
 
     //URLs
     String VK = "https://vk.com/argyment_gym";
@@ -39,4 +43,5 @@ public interface Strings {
     String TITLE_REGEX = "[\\wа-яёЁА-Я0-9 ()«»\"?-]{5,50}";
     String YOUTU_BE = "http[s]?:\\/\\/youtu\\.be\\/[\\w?=&-]{5,}";
     String YOUTUBE_COM = "http[s]?:\\/\\/www\\.youtube\\.com\\/[\\w?=&-]{5,}";
+
 }
